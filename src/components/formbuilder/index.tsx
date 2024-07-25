@@ -2,53 +2,16 @@
 
 import { useState } from "react";
 import { Button } from "../ui/button";
-import { z } from "zod";
-
-const Inputs = ["text", "number", "date"] as const;
-
-const baseSchema = z.object({
-  label: z.string(),
-  type: z.enum(Inputs),
-  required: z.boolean(),
-});
-
-const MAX_LENGTH = 300;
-export const textSchema = baseSchema.extend({
-  type: z.literal("text"),
-  minLength: z.coerce.number().min(0).max(MAX_LENGTH).optional(),
-  maxLength: z.coerce.number().min(0).max(MAX_LENGTH).optional(),
-});
-
-export const numberSchema = baseSchema.extend({
-  type: z.literal("number"),
-  min: z.coerce.number().optional(),
-  max: z.coerce.number().optional(),
-});
-
-export const dateSchema = baseSchema.extend({
-  type: z.literal("date"),
-  minDate: z.string().optional(),
-  maxDate: z.string().optional(),
-});
-
-const formSchema = z
-  .array(z.discriminatedUnion("type", [textSchema, numberSchema, dateSchema]))
-  .refine(
-    (data) => {
-      const labels = data.map((item) => item.label);
-      const uniqueLabels = new Set(labels);
-      return uniqueLabels.size === labels.length;
-    },
-    {
-      message: "Labels must be unique",
-      path: [],
-    },
-  );
-
-export type FormSchema = z.infer<typeof formSchema>;
-type InputType = (typeof Inputs)[number];
+import { saveForm } from "@/server/actions/form";
+import {
+  formSchema,
+  FormSchema,
+  InputType,
+  MAX_LENGTH,
+} from "@/lib/schemas/form-schema";
 
 function FormBuilder() {
+  const [title, setTitle] = useState("");
   const [fields, setFields] = useState<FormSchema>([]);
 
   function addField(type: InputType) {
@@ -91,15 +54,38 @@ function FormBuilder() {
     );
   }
 
+  async function handleSaveForm() {
+    if (!title.trim()) return;
+    if (fields.length === 0) return;
+    const { success, data } = formSchema.safeParse(fields);
+
+    if (success) {
+      const res = await saveForm({ title, form: data });
+      console.log(res);
+    }
+  }
+
   return (
-    <div className="py-8">
+    <div className="space-y-4 py-8">
       <div className="flex gap-2">
         <Button onClick={() => addField("text")}>Add Text Field</Button>
         <Button onClick={() => addField("number")}>Add Number Field</Button>
         <Button onClick={() => addField("date")}>Add Date Field</Button>
       </div>
 
-      <div className="mt-4 grid gap-6">
+      <label htmlFor="title" className="grid gap-0.5 text-sm font-semibold">
+        Title
+        <input
+          type="text"
+          id="title"
+          className="rounded border px-2 py-1.5 font-normal"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </label>
+      <Button onClick={handleSaveForm}>Save Form</Button>
+
+      <div className="grid gap-6">
         {fields.map((field, i) => (
           <div className="space-y-4 rounded border p-6" key={i}>
             <p className="mb-4 text-lg font-bold">

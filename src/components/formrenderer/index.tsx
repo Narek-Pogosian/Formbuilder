@@ -1,32 +1,15 @@
+"use client";
+
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createValidationSchema } from "../utils";
-import { FormSchema } from "../formbuilder";
+import { FormSchema } from "@/lib/schemas/form-schema";
+import { Button } from "../ui/button";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
 
-const formList: FormSchema = [
-  {
-    type: "text",
-    label: "Label",
-    required: true,
-    minLength: 5,
-  },
-  {
-    type: "text",
-    label: "Label2",
-    required: true,
-    minLength: 5,
-    maxLength: 10,
-  },
-  {
-    type: "number",
-    label: "Number",
-    required: true,
-    min: 10,
-  },
-];
-
-function FormRenderer() {
-  const schema = createValidationSchema(formList);
+function FormRenderer({ form }: { form: FormSchema }) {
+  const schema = createValidationSchema(form);
   const {
     handleSubmit,
     register,
@@ -40,14 +23,15 @@ function FormRenderer() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {formList.map((field) => {
+    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+      {form.map((field) => {
         const label = field.label as keyof typeof schema;
 
         return (
           <div key={label}>
-            <label>{label}</label>
-            <input
+            <Label htmlFor={label}>{label}</Label>
+            <Input
+              id={label}
               type={field.type === "number" ? "number" : "text"}
               {...register(label)}
             />
@@ -55,7 +39,7 @@ function FormRenderer() {
           </div>
         );
       })}
-      <button type="submit">Submit</button>
+      <Button type="submit">Submit</Button>
     </form>
   );
 }
