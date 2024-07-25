@@ -1,5 +1,5 @@
 import "@/styles/globals.css";
-
+import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
 
@@ -14,7 +14,9 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
