@@ -20,6 +20,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { register } from "@/server/actions/register";
 
 function RegisterForm() {
   const router = useRouter();
@@ -36,11 +37,27 @@ function RegisterForm() {
     },
   });
 
-  function onSubmit(values: RegisterSchemaType) {
+  async function onSubmit(values: RegisterSchemaType) {
     if (isSigningIn) return;
 
-    // TODO: REGISTER
-    console.log(values);
+    setIsSigningIn(true);
+    try {
+      const data = await register(values);
+      const res = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      if (res?.ok) {
+        router.push("/");
+        router.refresh();
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSigningIn(false);
+    }
   }
 
   return (
