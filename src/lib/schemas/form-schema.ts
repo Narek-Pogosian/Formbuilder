@@ -1,11 +1,12 @@
 import { z } from "zod";
 
-const Inputs = ["text", "number", "date"] as const;
+const Inputs = ["text", "number"] as const;
 
 const baseSchema = z.object({
   label: z.string(),
   type: z.enum(Inputs),
   required: z.boolean(),
+  id: z.string(),
 });
 
 export const MAX_LENGTH = 300;
@@ -21,14 +22,8 @@ export const numberSchema = baseSchema.extend({
   max: z.coerce.number().optional(),
 });
 
-export const dateSchema = baseSchema.extend({
-  type: z.literal("date"),
-  minDate: z.string().optional(),
-  maxDate: z.string().optional(),
-});
-
 export const formSchema = z
-  .array(z.discriminatedUnion("type", [textSchema, numberSchema, dateSchema]))
+  .array(z.discriminatedUnion("type", [textSchema, numberSchema]))
   .refine(
     (data) => {
       const labels = data.map((item) => item.label);
@@ -41,5 +36,7 @@ export const formSchema = z
     },
   );
 
-export type FormSchema = z.infer<typeof formSchema>;
 export type InputType = (typeof Inputs)[number];
+export type FormSchema = z.infer<typeof formSchema>;
+export type TextSchemaType = z.infer<typeof textSchema>;
+export type NumberSchemaType = z.infer<typeof numberSchema>;

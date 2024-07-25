@@ -1,5 +1,5 @@
+import { FormSchema } from "@/lib/schemas/form-schema";
 import { z, ZodTypeAny } from "zod";
-import { FormSchema } from "./formbuilder";
 
 export function createValidationSchema(form: FormSchema) {
   const shape: { [key: string]: ZodTypeAny } = {};
@@ -10,12 +10,12 @@ export function createValidationSchema(form: FormSchema) {
     switch (field.type) {
       case "text":
         fieldSchema = z.string();
-        if (field.minLength !== undefined) {
+        if (field.minLength && field.required) {
           fieldSchema = fieldSchema.min(field.minLength, {
             message: `Must be at least ${field.minLength} characters`,
           });
         }
-        if (field.maxLength !== undefined) {
+        if (field.maxLength) {
           fieldSchema = fieldSchema.max(field.maxLength, {
             message: `Must be at most ${field.maxLength} characters`,
           });
@@ -24,7 +24,8 @@ export function createValidationSchema(form: FormSchema) {
 
       case "number":
         fieldSchema = z.coerce.number();
-        if (field.min !== undefined) {
+        if (!field.required) break;
+        if (field.min) {
           fieldSchema = fieldSchema.min(field.min, {
             message: `Must be at least ${field.min}`,
           });
@@ -33,24 +34,6 @@ export function createValidationSchema(form: FormSchema) {
           fieldSchema = fieldSchema.max(field.max, {
             message: `Must be at most ${field.max}`,
           });
-        }
-        break;
-
-      case "date":
-        fieldSchema = z.string().refine((val) => !isNaN(Date.parse(val)), {
-          message: "Invalid date",
-        });
-        if (field.minDate !== undefined) {
-          fieldSchema = fieldSchema.refine(
-            (val) => new Date(val) >= new Date(field.minDate ?? ""),
-            { message: `Must be after ${field.minDate}` },
-          );
-        }
-        if (field.maxDate !== undefined) {
-          fieldSchema = fieldSchema.refine(
-            (val) => new Date(val) <= new Date(field.maxDate ?? ""),
-            { message: `Must be before ${field.maxDate}` },
-          );
         }
         break;
 

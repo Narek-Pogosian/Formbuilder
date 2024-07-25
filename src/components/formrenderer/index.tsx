@@ -1,9 +1,9 @@
 "use client";
 
-import { useForm } from "react-hook-form";
+import { createValidationSchema } from "@/lib/utils/create-validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createValidationSchema } from "../utils";
 import { FormSchema } from "@/lib/schemas/form-schema";
+import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
@@ -29,12 +29,10 @@ function FormRenderer({ form }: { form: FormSchema }) {
 
         return (
           <div key={label}>
-            <Label htmlFor={label}>{label}</Label>
-            <Input
-              id={label}
-              type={field.type === "number" ? "number" : "text"}
-              {...register(label)}
-            />
+            <Label htmlFor={label} className="capitalize">
+              {label}
+            </Label>
+            <Input id={label} type={field.type} {...register(label)} />
             {errors[label] && <span>{errors[label]?.message?.toString()}</span>}
           </div>
         );
