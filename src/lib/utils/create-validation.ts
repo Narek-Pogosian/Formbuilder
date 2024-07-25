@@ -1,8 +1,10 @@
-import { FormSchema } from "@/lib/schemas/form-schema";
-import { z, ZodTypeAny } from "zod";
+import { type FormSchema } from "@/lib/schemas/form-schema";
+import { z, type ZodTypeAny } from "zod";
+
+type Shape = Record<string, ZodTypeAny>;
 
 export function createValidationSchema(form: FormSchema) {
-  const shape: { [key: string]: ZodTypeAny } = {};
+  const shape: Shape = {};
 
   form.forEach((field) => {
     let fieldSchema;

@@ -1,6 +1,6 @@
 "use server";
 
-import { RegisterSchemaType } from "@/lib/schemas/auth-schemas";
+import { type RegisterSchemaType } from "@/lib/schemas/auth-schemas";
 import { db } from "../db";
 import bcrypt from "bcrypt";
 

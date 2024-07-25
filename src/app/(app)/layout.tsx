@@ -1,3 +1,4 @@
+import ThemeToggle from "@/components/theme-toggle";
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
 
@@ -7,6 +8,7 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
 
   return (
     <>
+      <ThemeToggle />
       <main className="grow p-4">{children}</main>
     </>
   );

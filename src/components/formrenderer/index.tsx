@@ -2,7 +2,7 @@
 
 import { createValidationSchema } from "@/lib/utils/create-validation";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormSchema } from "@/lib/schemas/form-schema";
+import { type FormSchema } from "@/lib/schemas/form-schema";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Label } from "../ui/label";

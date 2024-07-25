@@ -1,7 +1,9 @@
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   MAX_LENGTH,
-  FormSchema,
-  TextSchemaType,
+  type FormSchema,
+  type TextSchemaType,
 } from "@/lib/schemas/form-schema";
 
 interface TextBlockProps {
@@ -49,27 +51,27 @@ function TextBlock({ field, setFields }: TextBlockProps) {
   return (
     <div className="space-y-4 rounded border p-6">
       <p className="text-lg font-bold">Text input</p>
-      <label className="grid gap-0.5 text-sm font-semibold">
+      <Label className="grid gap-0.5 text-sm font-semibold">
         Label
-        <input
+        <Input
           type="text"
           className="rounded border px-2 py-1.5 font-normal"
           value={field.label}
           onChange={(e) => handleLabelChange(e.target.value)}
         />
-      </label>
-      <label className="flex items-center gap-1 text-sm font-semibold">
+      </Label>
+      <Label className="flex items-center gap-1 text-sm font-semibold">
         Required
-        <input
+        <Input
           type="checkbox"
           checked={field.required}
           onChange={(e) => handleRequiredChange(e.target.checked)}
         />
-      </label>
+      </Label>
       <div className="flex gap-2">
-        <label className="grid gap-0.5 text-sm font-semibold">
+        <Label className="grid gap-0.5 text-sm font-semibold">
           Min length
-          <input
+          <Input
             type="number"
             min={0}
             max={MAX_LENGTH}
@@ -77,10 +79,10 @@ function TextBlock({ field, setFields }: TextBlockProps) {
             onChange={(e) => handleMinLengthChange(e.target.value)}
             className="rounded border px-2 py-1.5 font-normal"
           />
-        </label>
-        <label className="grid gap-0.5 text-sm font-semibold">
+        </Label>
+        <Label className="grid gap-0.5 text-sm font-semibold">
           Max length
-          <input
+          <Input
             type="number"
             min={0}
             max={MAX_LENGTH}
@@ -88,7 +90,7 @@ function TextBlock({ field, setFields }: TextBlockProps) {
             onChange={(e) => handleMaxLengthChange(e.target.value)}
             className="rounded border px-2 py-1.5 font-normal"
           />
-        </label>
+        </Label>
       </div>
     </div>
   );

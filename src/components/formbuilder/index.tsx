@@ -3,7 +3,11 @@
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { saveForm } from "@/server/actions/form";
-import { formSchema, FormSchema, MAX_LENGTH } from "@/lib/schemas/form-schema";
+import {
+  formSchema,
+  type FormSchema,
+  MAX_LENGTH,
+} from "@/lib/schemas/form-schema";
 import TextBlock from "./blocks/text-block";
 import NumberBlock from "./blocks/number-block";
 
