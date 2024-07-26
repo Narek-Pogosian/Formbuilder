@@ -61,6 +61,7 @@ function NumberBlock({ field, setFields }: NumberBlockProps) {
           type="checkbox"
           checked={field.required}
           onChange={(e) => handleRequiredChange(e.target.checked)}
+          className="w-fit"
         />
       </Label>
       <div className="flex gap-2">

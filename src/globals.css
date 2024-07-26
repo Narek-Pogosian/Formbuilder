@@ -7,7 +7,7 @@
     --clr-primary: 180 40% 80%;
     --clr-primary-foreground: 0 0% 8%;
 
-    --clr-background: 0 0% 97%;
+    --clr-background: 0 0% 98%;
     --clr-foreground: 0 0% 5%;
     --clr-foreground-muted: 0 0% 38%;
 
@@ -20,12 +20,12 @@
   }
 
   .dark {
-    --clr-background: 240 6% 8%;
+    --clr-background: 240 6% 7%;
     --clr-foreground: 240 3% 98%;
     --clr-foreground-muted: 240 3% 72%;
 
-    --clr-popover: 240 6% 14%;
-    --clr-accent: 240, 6%, 100%, 0.1;
+    --clr-popover: 240 6% 5%;
+    --clr-accent: 240, 6%, 100%, 0.15;
     --clr-scrollbar: 240 6% 23%;
     --clr-border: 240 6% 15%;
   }
@@ -37,7 +37,7 @@
   }
 
   html {
-    @apply scrollbar scrollbar-track-transparent scrollbar-thumb-scrollbar h-full;
+    @apply h-full scrollbar scrollbar-track-transparent scrollbar-thumb-scrollbar;
   }
 
   body {

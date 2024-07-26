@@ -14,7 +14,7 @@ async function page({ params }: { params: { id: string } }) {
   if (!data) notFound();
 
   return (
-    <div className="mx-auto max-w-3xl py-4">
+    <div className="mx-auto max-w-3xl">
       <h1 className="mb-8 text-xl font-bold">{form?.title}</h1>
 
       <FormRenderer form={data} />

@@ -1,4 +1,4 @@
-import "@/styles/globals.css";
+import "@/globals.css";
 import { Providers } from "@/components/providers";
 import { GeistSans } from "geist/font/sans";
 import { type Metadata } from "next";
