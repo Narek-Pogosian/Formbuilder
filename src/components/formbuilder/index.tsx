@@ -10,6 +10,8 @@ import {
 } from "@/lib/schemas/form-schema";
 import TextBlock from "./blocks/text-block";
 import NumberBlock from "./blocks/number-block";
+import { Label } from "../ui/label";
+import { Input, InputControl } from "../ui/input";
 
 function FormBuilder() {
   const [title, setTitle] = useState("");
@@ -58,23 +60,26 @@ function FormBuilder() {
   }
 
   return (
-    <div className="space-y-4 py-8">
-      <div className="flex gap-2">
+    <>
+      <div className="mb-8 flex gap-2">
         <Button onClick={addTextField}>Add Text Field</Button>
         <Button onClick={addNumberField}>Add Number Field</Button>
       </div>
 
-      <label htmlFor="title" className="grid gap-0.5 text-sm font-semibold">
-        Title
-        <input
-          type="text"
-          id="title"
-          className="rounded border px-2 py-1.5 font-normal"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </label>
-      <Button onClick={handleSaveForm}>Save Form</Button>
+      <div className="mb-8 flex items-end gap-4">
+        <InputControl className="grow">
+          <Label htmlFor="title">Title</Label>
+          <Input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+        </InputControl>
+        <Button onClick={handleSaveForm} className="h-fit">
+          Save Form
+        </Button>
+      </div>
 
       <div className="grid gap-6">
         {fields.map((field) => {
@@ -82,14 +87,13 @@ function FormBuilder() {
             return (
               <TextBlock field={field} setFields={setFields} key={field.id} />
             );
-
           if (field.type === "number")
             return (
               <NumberBlock field={field} setFields={setFields} key={field.id} />
             );
         })}
       </div>
-    </div>
+    </>
   );
 }
 

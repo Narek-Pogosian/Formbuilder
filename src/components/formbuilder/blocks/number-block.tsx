@@ -44,7 +44,7 @@ function NumberBlock({ field, setFields }: NumberBlockProps) {
   }
 
   return (
-    <div className="space-y-4 rounded border p-6">
+    <div className="space-y-4 border-b pb-6">
       <p className="text-lg font-bold">Number input</p>
       <Label className="grid gap-0.5 text-sm font-semibold">
         Label

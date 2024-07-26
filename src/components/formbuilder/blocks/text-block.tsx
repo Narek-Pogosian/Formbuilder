@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input";
+import { Input, InputControl } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   MAX_LENGTH,
@@ -49,17 +49,19 @@ function TextBlock({ field, setFields }: TextBlockProps) {
   }
 
   return (
-    <div className="space-y-4 rounded border p-6">
-      <p className="text-lg font-bold">Text input</p>
-      <Label className="grid gap-0.5 text-sm font-semibold">
-        Label
+    <div className="space-y-4 border-b pb-6">
+      <h3 className="text-lg font-bold">Text input</h3>
+
+      <InputControl>
+        <Label htmlFor={field.id + "label"}>Label</Label>
         <Input
           type="text"
-          className="rounded border px-2 py-1.5 font-normal"
+          id={field.id + "label"}
           value={field.label}
           onChange={(e) => handleLabelChange(e.target.value)}
         />
-      </Label>
+      </InputControl>
+
       <Label className="flex items-center gap-1 text-sm font-semibold">
         Required
         <Input
