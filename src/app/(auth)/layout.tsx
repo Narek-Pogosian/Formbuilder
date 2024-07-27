@@ -12,7 +12,7 @@ async function layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-full lg:grid lg:grid-cols-5">
       <div className="relative flex flex-col items-center justify-center max-lg:pt-20 lg:col-span-3">
         <Button
-          variant="secondary"
+          variant="outline"
           className="absolute left-4 top-4 text-xs sm:left-8 lg:top-8"
           size="sm"
           asChild

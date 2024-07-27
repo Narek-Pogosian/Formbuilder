@@ -10,7 +10,7 @@ export function createValidationSchema(form: FormSchema) {
     switch (field.type) {
       case "text":
         fieldSchema = z.string();
-        if (field.minLength && field.required) {
+        if (field.minLength) {
           fieldSchema = fieldSchema.min(field.minLength, {
             message: `Must be at least ${field.minLength} characters`,
           });
@@ -24,7 +24,6 @@ export function createValidationSchema(form: FormSchema) {
 
       case "number":
         fieldSchema = z.coerce.number();
-        if (!field.required) break;
         if (field.min) {
           fieldSchema = fieldSchema.min(field.min, {
             message: `Must be at least ${field.min}`,

@@ -81,7 +81,7 @@ function FormBuilder() {
         </Button>
       </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-10">
         {fields.map((field) => {
           if (field.type === "text")
             return (

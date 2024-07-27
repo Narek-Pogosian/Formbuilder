@@ -44,14 +44,13 @@ function NumberBlock({ field, setFields }: NumberBlockProps) {
   }
 
   return (
-    <div className="space-y-4 border-b pb-6">
+    <div className="space-y-4 rounded bg-element p-6">
       <p className="text-lg font-bold">Number input</p>
       <InputControl>
         <Label htmlFor={field.id + "label"}>Label</Label>
         <Input
           type="text"
           id={field.id + "label"}
-          className="rounded border px-2 py-1.5 font-normal"
           value={field.label}
           onChange={(e) => handleLabelChange(e.target.value)}
         />

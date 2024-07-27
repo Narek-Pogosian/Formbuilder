@@ -3,7 +3,7 @@ import { z } from "zod";
 const Inputs = ["text", "number"] as const;
 
 const baseSchema = z.object({
-  label: z.string(),
+  label: z.string().min(1),
   type: z.enum(Inputs),
   required: z.boolean(),
   id: z.string(),

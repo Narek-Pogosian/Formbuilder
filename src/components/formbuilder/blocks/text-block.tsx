@@ -49,7 +49,7 @@ function TextBlock({ field, setFields }: TextBlockProps) {
   }
 
   return (
-    <div className="space-y-4 border-b pb-6">
+    <div className="space-y-4 rounded bg-element p-6">
       <h3 className="text-lg font-bold">Text input</h3>
 
       <InputControl>

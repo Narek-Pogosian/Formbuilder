@@ -23,7 +23,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid gap-8">
       {form.map((field) => {
         const label = field.label as keyof typeof schema;
 
