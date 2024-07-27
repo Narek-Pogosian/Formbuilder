@@ -51,6 +51,7 @@ const config = {
           muted: "hsl(var(--clr-foreground-muted))",
         },
         background: "hsl(var(--clr-background))",
+        element: "hsl(var(--clr-element))",
         popover: "hsl(var(--clr-popover))",
         scrollbar: "hsl(var(--clr-scrollbar))",
         accent: "hsla(var(--clr-accent))",

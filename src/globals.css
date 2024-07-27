@@ -11,6 +11,7 @@
     --clr-foreground: 0 0% 5%;
     --clr-foreground-muted: 0 0% 38%;
 
+    --clr-element: 0 0% 100%;
     --clr-popover: 0 0% 100%;
     --clr-accent: 0, 0%, 0%, 0.07;
     --clr-scrollbar: 0 0% 80%;
@@ -27,8 +28,9 @@
     --clr-foreground: 240 3% 98%;
     --clr-foreground-muted: 240 3% 72%;
 
+    --clr-element: 240 6% 4%;
     --clr-popover: 240 6% 5%;
-    --clr-accent: 240, 6%, 100%, 0.15;
+    --clr-accent: 240, 6%, 100%, 0.1;
     --clr-scrollbar: 240 6% 23%;
     --clr-border: 240 6% 15%;
   }

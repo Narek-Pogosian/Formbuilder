@@ -8,15 +8,15 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
   if (!session) throw redirect("/landing");
 
   return (
-    <div className="flex">
-      <div className="sticky top-0 z-50 hidden h-screen w-64 shrink-0 bg-white pr-2 dark:bg-black lg:block">
+    <div className="flex min-h-full">
+      <div className="bg-element sticky top-0 z-50 hidden h-screen w-64 shrink-0 pr-2 lg:block">
         <SidebarNavigation />
       </div>
       <div className="flex w-full flex-col">
         <div className="p-4 lg:hidden">
           <MobileSidebar />
         </div>
-        <main className="grow p-4">{children}</main>
+        <main className="relative grow p-4">{children}</main>
       </div>
     </div>
   );
