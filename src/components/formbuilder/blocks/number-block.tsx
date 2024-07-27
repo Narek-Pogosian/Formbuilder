@@ -1,4 +1,4 @@
-import { Input } from "@/components/ui/input";
+import { Input, InputControl } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   type FormSchema,
@@ -46,15 +46,17 @@ function NumberBlock({ field, setFields }: NumberBlockProps) {
   return (
     <div className="space-y-4 border-b pb-6">
       <p className="text-lg font-bold">Number input</p>
-      <Label className="grid gap-0.5 text-sm font-semibold">
-        Label
+      <InputControl>
+        <Label htmlFor={field.id + "label"}>Label</Label>
         <Input
           type="text"
+          id={field.id + "label"}
           className="rounded border px-2 py-1.5 font-normal"
           value={field.label}
           onChange={(e) => handleLabelChange(e.target.value)}
         />
-      </Label>
+      </InputControl>
+
       <Label className="flex items-center gap-1 text-sm font-semibold">
         Required
         <Input
@@ -64,6 +66,7 @@ function NumberBlock({ field, setFields }: NumberBlockProps) {
           className="w-fit"
         />
       </Label>
+
       <div className="flex gap-2">
         <Label className="grid gap-0.5 text-sm font-semibold">
           Min value
@@ -71,7 +74,6 @@ function NumberBlock({ field, setFields }: NumberBlockProps) {
             type="number"
             value={field.min?.toString() ?? 0}
             onChange={(e) => handleMinChange(e.target.value)}
-            className="rounded border px-2 py-1.5 font-normal"
           />
         </Label>
         <Label className="grid gap-0.5 text-sm font-semibold">
@@ -80,7 +82,6 @@ function NumberBlock({ field, setFields }: NumberBlockProps) {
             type="number"
             value={field.max?.toString() ?? 100}
             onChange={(e) => handleMaxChange(e.target.value)}
-            className="rounded border px-2 py-1.5 font-normal"
           />
         </Label>
       </div>

@@ -6,14 +6,9 @@ import { signOut } from "next-auth/react";
 
 function Signout() {
   return (
-    <Button
-      variant="secondary"
-      size="icon"
-      onClick={() => signOut()}
-      className="rounded-full"
-    >
-      <span className="sr-only">Signout</span>
-      <LogOut className="size-5" />
+    <Button variant="ghost" size="sm" onClick={() => signOut()}>
+      <LogOut className="mr-2 size-5" />
+      Signout
     </Button>
   );
 }

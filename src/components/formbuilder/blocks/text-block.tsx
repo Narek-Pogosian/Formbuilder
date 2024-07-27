@@ -71,6 +71,7 @@ function TextBlock({ field, setFields }: TextBlockProps) {
           className="w-fit"
         />
       </Label>
+
       <div className="flex gap-2">
         <Label className="grid gap-0.5 text-sm font-semibold">
           Min length
@@ -80,7 +81,6 @@ function TextBlock({ field, setFields }: TextBlockProps) {
             max={MAX_LENGTH}
             value={field.minLength?.toString() ?? 1}
             onChange={(e) => handleMinLengthChange(e.target.value)}
-            className="rounded border px-2 py-1.5 font-normal"
           />
         </Label>
         <Label className="grid gap-0.5 text-sm font-semibold">
@@ -91,7 +91,6 @@ function TextBlock({ field, setFields }: TextBlockProps) {
             max={MAX_LENGTH}
             value={field.maxLength?.toString() ?? MAX_LENGTH}
             onChange={(e) => handleMaxLengthChange(e.target.value)}
-            className="rounded border px-2 py-1.5 font-normal"
           />
         </Label>
       </div>

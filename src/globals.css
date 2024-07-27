@@ -4,8 +4,8 @@
 
 @layer base {
   :root {
-    --clr-primary: 180 40% 80%;
-    --clr-primary-foreground: 0 0% 8%;
+    --clr-primary: 0 0% 10%;
+    --clr-primary-foreground: 0 0% 98%;
 
     --clr-background: 0 0% 98%;
     --clr-foreground: 0 0% 5%;
@@ -20,7 +20,10 @@
   }
 
   .dark {
-    --clr-background: 240 6% 7%;
+    --clr-primary: 0 0% 95%;
+    --clr-primary-foreground: 0 0% 8%;
+
+    --clr-background: 240 6% 8%;
     --clr-foreground: 240 3% 98%;
     --clr-foreground-muted: 240 3% 72%;
 
