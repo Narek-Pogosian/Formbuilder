@@ -1,15 +1,9 @@
 "use server";
 
 import { protectedActionClient } from ".";
-import { formSchema } from "@/lib/schemas/form-schema";
+import { createFormScema } from "@/lib/schemas/form-schema";
 import { db } from "../db";
-import { z } from "zod";
 import { revalidatePath } from "next/cache";
-
-const createFormScema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
-  form: formSchema,
-});
 
 export const saveForm = protectedActionClient
   .schema(createFormScema)

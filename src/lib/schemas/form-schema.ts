@@ -36,7 +36,13 @@ export const formSchema = z
     },
   );
 
+export const createFormScema = z.object({
+  title: z.string().min(1, { message: "Title is required" }),
+  form: formSchema,
+});
+
 export type InputType = (typeof Inputs)[number];
 export type FormSchema = z.infer<typeof formSchema>;
+export type CreateFormSchema = z.infer<typeof createFormScema>;
 export type TextSchemaType = z.infer<typeof textSchema>;
 export type NumberSchemaType = z.infer<typeof numberSchema>;

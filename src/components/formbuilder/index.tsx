@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { saveForm } from "@/server/actions/form";
 import {
@@ -8,13 +8,14 @@ import {
   type FormSchema,
   MAX_LENGTH,
 } from "@/lib/schemas/form-schema";
-import TextBlock from "./blocks/text-block";
-import NumberBlock from "./blocks/number-block";
-import { Label } from "../ui/label";
 import { Input, InputControl } from "../ui/input";
+import { Label } from "../ui/label";
+import NumberBlock from "./blocks/number-block";
+import TextBlock from "./blocks/text-block";
 
+// TODO: Maybe use react-hook-form with useFieldArray or add better error messaging for fields.
 function FormBuilder() {
-  const [title, setTitle] = useState("");
+  const titleRef = useRef<HTMLInputElement>(null);
   const [fields, setFields] = useState<FormSchema>([]);
 
   function addTextField() {
@@ -46,16 +47,19 @@ function FormBuilder() {
   }
 
   async function handleSaveForm() {
-    if (!title.trim()) return;
+    if (!titleRef.current) return;
+
+    const title = titleRef.current.value.trim();
+    if (!title) return titleRef.current.focus();
     if (fields.length === 0) return;
 
-    const { success, data } = formSchema.safeParse(fields);
+    const { data, success } = formSchema.safeParse(fields);
     if (!success) return;
 
     try {
       await saveForm({ title, form: data });
       setFields([]);
-      setTitle("");
+      titleRef.current.value = "";
     } catch (error) {}
   }
 
@@ -66,17 +70,16 @@ function FormBuilder() {
         <Button onClick={addNumberField}>Add Number Field</Button>
       </div>
 
-      <div className="mb-8 flex items-end gap-4">
+      <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end">
         <InputControl className="grow">
           <Label htmlFor="title">Title</Label>
-          <Input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
+          <Input ref={titleRef} type="text" id="title" />
         </InputControl>
-        <Button onClick={handleSaveForm} className="h-fit">
+        <Button
+          onClick={handleSaveForm}
+          className="h-fit"
+          disabled={fields.length === 0}
+        >
           Save Form
         </Button>
       </div>

@@ -9,7 +9,7 @@ export function createValidationSchema(form: FormSchema) {
 
     switch (field.type) {
       case "text":
-        fieldSchema = z.string();
+        fieldSchema = z.string().trim();
         if (field.minLength) {
           fieldSchema = fieldSchema.min(field.minLength, {
             message: `Must be at least ${field.minLength} characters`,
@@ -19,6 +19,9 @@ export function createValidationSchema(form: FormSchema) {
           fieldSchema = fieldSchema.max(field.maxLength, {
             message: `Must be at most ${field.maxLength} characters`,
           });
+        }
+        if (!field.required) {
+          fieldSchema = fieldSchema.optional().or(z.literal(""));
         }
         break;
 
@@ -34,17 +37,19 @@ export function createValidationSchema(form: FormSchema) {
             message: `Must be at most ${field.max}`,
           });
         }
+        if (!field.required) {
+          fieldSchema = z
+            .literal("")
+            .transform(() => undefined)
+            .or(fieldSchema.optional());
+        }
         break;
 
       default:
         throw new Error(`Unsupported field type`);
     }
 
-    if (field.required) {
-      shape[field.label] = fieldSchema;
-    } else {
-      shape[field.label] = fieldSchema.optional();
-    }
+    shape[field.label] = fieldSchema;
   });
 
   return z.object(shape);
