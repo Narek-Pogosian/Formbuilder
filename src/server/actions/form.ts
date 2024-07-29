@@ -1,20 +1,26 @@
 "use server";
 
-import { type FormSchema } from "@/lib/schemas/form-schema";
+import { protectedActionClient } from ".";
+import { formSchema } from "@/lib/schemas/form-schema";
 import { db } from "../db";
-import { getServerAuthSession } from "../auth";
+import { z } from "zod";
+import { revalidatePath } from "next/cache";
 
-export async function saveForm({
-  form,
-  title,
-}: {
-  form: FormSchema;
-  title: string;
-}) {
-  const session = await getServerAuthSession();
-  if (!session) return;
+const createFormScema = z.object({
+  title: z.string().min(1, { message: "Title is required" }),
+  form: formSchema,
+});
 
-  return db.form.create({
-    data: { title, content: JSON.stringify(form), userId: session.user.id },
+export const saveForm = protectedActionClient
+  .schema(createFormScema)
+  .action(async ({ ctx, parsedInput }) => {
+    const form = await db.form.create({
+      data: {
+        title: parsedInput.title,
+        content: JSON.stringify(parsedInput.form),
+        userId: ctx.userId,
+      },
+    });
+
+    if (form) revalidatePath("/form");
   });
-}

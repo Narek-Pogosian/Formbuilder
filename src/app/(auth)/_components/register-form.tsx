@@ -19,12 +19,15 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { signIn } from "next-auth/react";
-import Link from "next/link";
 import { register } from "@/server/actions/register";
+import { useAction } from "next-safe-action/hooks";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import Link from "next/link";
 
 function RegisterForm() {
   const router = useRouter();
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const [error, setError] = useState("");
 
   const form = useForm<RegisterSchemaType>({
     resolver: zodResolver(registerSchema),
@@ -37,15 +40,11 @@ function RegisterForm() {
     },
   });
 
-  async function onSubmit(values: RegisterSchemaType) {
-    if (isSigningIn) return;
-
-    setIsSigningIn(true);
-    try {
-      const data = await register(values);
+  const { executeAsync } = useAction(register, {
+    onSuccess: async ({ data }) => {
       const res = await signIn("credentials", {
-        email: data.email,
-        password: data.password,
+        email: data?.email,
+        password: data?.password,
         redirect: false,
       });
 
@@ -53,24 +52,38 @@ function RegisterForm() {
         router.push("/");
         router.refresh();
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
+    },
+    onError: ({ error }) => {
+      if (error.validationErrors) {
+        setError("Please fill in all fields.");
+      } else {
+        setError("Something went wrong");
+      }
+    },
+    onSettled: () => {
       setIsSigningIn(false);
-    }
+    },
+  });
+
+  async function onSubmit(values: RegisterSchemaType) {
+    if (isSigningIn) return;
+
+    setError("");
+    setIsSigningIn(true);
+    await executeAsync(values);
   }
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="@container grid w-full grid-cols-2 gap-4"
+        className="grid w-full gap-4"
       >
         <FormField
           control={form.control}
           name="firstName"
           render={({ field }) => (
-            <FormItem className="@md:col-span-1 col-span-2">
+            <FormItem>
               <FormLabel>First name</FormLabel>
               <FormControl>
                 <Input
@@ -87,7 +100,7 @@ function RegisterForm() {
           control={form.control}
           name="lastName"
           render={({ field }) => (
-            <FormItem className="@md:col-span-1 col-span-2">
+            <FormItem>
               <FormLabel>Last name</FormLabel>
               <FormControl>
                 <Input
@@ -104,7 +117,7 @@ function RegisterForm() {
           control={form.control}
           name="email"
           render={({ field }) => (
-            <FormItem className="col-span-2">
+            <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input placeholder="Email" {...field} autoComplete="email" />
@@ -117,7 +130,7 @@ function RegisterForm() {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem className="@md:col-span-1 col-span-2">
+            <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input placeholder="******" {...field} type="password" />
@@ -130,7 +143,7 @@ function RegisterForm() {
           control={form.control}
           name="confirmPassword"
           render={({ field }) => (
-            <FormItem className="@md:col-span-1 col-span-2">
+            <FormItem>
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
                 <Input placeholder="******" {...field} type="password" />
@@ -139,14 +152,18 @@ function RegisterForm() {
             </FormItem>
           )}
         />
-        <Button
-          type="submit"
-          className="col-span-2 mt-2"
-          aria-disabled={isSigningIn}
-        >
+
+        {error && (
+          <Alert>
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+
+        <Button type="submit" className="mt-2" aria-disabled={isSigningIn}>
           {isSigningIn ? "Loading..." : "Register"}
         </Button>
-        <div className="col-span-2 text-center text-sm font-semibold">
+
+        <div className="text-center text-sm font-semibold">
           Already have an account?{" "}
           <Link href="/sign-in" className="underline">
             Sign in here

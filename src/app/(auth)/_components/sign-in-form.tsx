@@ -19,11 +19,13 @@ import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import Link from "next/link";
 
 function SignInForm() {
   const router = useRouter();
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   const form = useForm<SignInSchemaType>({
     resolver: zodResolver(signInSchema),
@@ -37,6 +39,7 @@ function SignInForm() {
     if (isSigningIn) return;
 
     setIsSigningIn(true);
+    setIsError(false);
     const res = await signIn("credentials", {
       email: form.getValues().email,
       password: form.getValues().password,
@@ -47,6 +50,8 @@ function SignInForm() {
     if (res?.ok) {
       router.push("/");
       router.refresh();
+    } else {
+      setIsError(true);
     }
   }
 
@@ -83,9 +88,16 @@ function SignInForm() {
           )}
         />
 
+        {isError && (
+          <Alert>
+            <AlertDescription>Something went wrong.</AlertDescription>
+          </Alert>
+        )}
+
         <Button type="submit" className="mt-2" aria-disabled={isSigningIn}>
           {isSigningIn ? "Loading..." : "Sign in"}
         </Button>
+
         <div className="text-center text-sm font-semibold">
           Don&apos;t have an account?{" "}
           <Link href="/register" className="underline">

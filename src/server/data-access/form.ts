@@ -1,9 +1,20 @@
+import { redirect } from "next/navigation";
+import { getServerAuthSession } from "../auth";
 import { db } from "../db";
 
 export async function getForms() {
-  return db.form.findMany();
+  const session = await getServerAuthSession();
+  if (!session) throw redirect("/sign-in");
+
+  return db.form.findMany({ where: { userId: session.user.id } });
 }
 
 export async function getFormById(id: string) {
-  return db.form.findFirst({ where: { id } });
+  const session = await getServerAuthSession();
+  if (!session) throw redirect("/sign-in");
+
+  const form = await db.form.findFirst({ where: { id } });
+  if (form?.userId !== session.user.id) return;
+
+  return form;
 }

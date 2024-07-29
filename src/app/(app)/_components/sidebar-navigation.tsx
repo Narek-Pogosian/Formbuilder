@@ -3,8 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { usePathname } from "next/navigation";
 import { getMenuList } from "@/config/sidebar-navigation";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import Signout from "@/components/signout";
 import ThemeToggle from "@/components/theme-toggle";
 
@@ -41,7 +41,7 @@ function SidebarNavigation() {
         ))}
       </ul>
 
-      <div className="lg:bg-element sticky bottom-0 mt-auto flex justify-between border-t bg-background py-2">
+      <div className="sticky bottom-0 mt-auto flex justify-between border-t bg-background py-2 lg:bg-element">
         <Signout />
         <ThemeToggle />
       </div>
