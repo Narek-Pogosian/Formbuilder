@@ -71,7 +71,7 @@ function NumberBlock({ field, setFields }: NumberBlockProps) {
           Min value
           <Input
             type="number"
-            value={field.min?.toString() ?? 0}
+            value={field.min?.toString() ?? ""}
             onChange={(e) => handleMinChange(e.target.value)}
           />
         </Label>
@@ -79,7 +79,7 @@ function NumberBlock({ field, setFields }: NumberBlockProps) {
           Max value
           <Input
             type="number"
-            value={field.max?.toString() ?? 100}
+            value={field.max?.toString() ?? ""}
             onChange={(e) => handleMaxChange(e.target.value)}
           />
         </Label>

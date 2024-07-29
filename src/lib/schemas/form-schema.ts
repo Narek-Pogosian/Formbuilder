@@ -18,8 +18,8 @@ export const textSchema = baseSchema.extend({
 
 export const numberSchema = baseSchema.extend({
   type: z.literal("number"),
-  min: z.coerce.number().optional(),
-  max: z.coerce.number().optional(),
+  min: z.coerce.number().optional().or(z.literal("")),
+  max: z.coerce.number().optional().or(z.literal("")),
 });
 
 export const formSchema = z

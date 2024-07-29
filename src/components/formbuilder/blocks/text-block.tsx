@@ -79,7 +79,7 @@ function TextBlock({ field, setFields }: TextBlockProps) {
             type="number"
             min={0}
             max={MAX_LENGTH}
-            value={field.minLength?.toString() ?? 1}
+            value={field.minLength?.toString()}
             onChange={(e) => handleMinLengthChange(e.target.value)}
           />
         </Label>
@@ -89,7 +89,7 @@ function TextBlock({ field, setFields }: TextBlockProps) {
             type="number"
             min={0}
             max={MAX_LENGTH}
-            value={field.maxLength?.toString() ?? MAX_LENGTH}
+            value={field.maxLength?.toString()}
             onChange={(e) => handleMaxLengthChange(e.target.value)}
           />
         </Label>

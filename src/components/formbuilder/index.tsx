@@ -40,12 +40,12 @@ function FormBuilder() {
         type: "number",
         label: "",
         required: false,
-        min: undefined,
-        max: undefined,
+        min: "",
+        max: "",
       },
     ]);
   }
-
+  console.log(fields);
   async function handleSaveForm() {
     if (!titleRef.current) return;
 

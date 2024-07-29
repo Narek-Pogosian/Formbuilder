@@ -21,7 +21,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
   function onSubmit(data: typeof schema) {
     console.log(data);
   }
-
+  console.log(form);
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="grid gap-8">
       {form.map((field) => {

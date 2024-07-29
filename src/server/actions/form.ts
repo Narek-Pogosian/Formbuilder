@@ -4,6 +4,7 @@ import { protectedActionClient } from ".";
 import { createFormScema } from "@/lib/schemas/form-schema";
 import { db } from "../db";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
 export const saveForm = protectedActionClient
   .schema(createFormScema)
@@ -17,4 +18,15 @@ export const saveForm = protectedActionClient
     });
 
     if (form) revalidatePath("/form");
+  });
+
+export const deleteFormById = protectedActionClient
+  .schema(z.string())
+  .action(async ({ ctx, parsedInput }) => {
+    const form = await db.form.findFirst({ where: { id: parsedInput } });
+
+    if (!form || form.userId !== ctx.userId) return;
+
+    await db.form.delete({ where: { id: parsedInput } });
+    revalidatePath("/forms");
   });

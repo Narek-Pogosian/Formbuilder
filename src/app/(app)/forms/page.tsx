@@ -1,5 +1,6 @@
 import { getForms } from "@/server/data-access/form";
 import Link from "next/link";
+import DeleteFormDialog from "./_components/delete-form-dialog";
 
 async function FormsPage() {
   const forms = await getForms();
@@ -19,6 +20,7 @@ async function FormsPage() {
             <p className="text-sm font-medium text-foreground-muted">
               {new Date(form.createdAt).toLocaleDateString()}
             </p>
+            <DeleteFormDialog id={form.id} />
           </li>
         ))}
       </ul>

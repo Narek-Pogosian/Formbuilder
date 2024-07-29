@@ -32,7 +32,7 @@ export function createValidationSchema(form: FormSchema) {
             message: `Must be at least ${field.min}`,
           });
         }
-        if (field.max !== undefined) {
+        if (field.max) {
           fieldSchema = fieldSchema.max(field.max, {
             message: `Must be at most ${field.max}`,
           });
