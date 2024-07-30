@@ -1,88 +1,90 @@
-import { Input, InputControl } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
-  type FormSchema,
-  type NumberSchemaType,
-} from "@/lib/schemas/form-schema";
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { type CreateFormSchema } from "@/lib/schemas/form-schema";
+import { type Control } from "react-hook-form";
 
 interface NumberBlockProps {
-  field: NumberSchemaType;
-  setFields: React.Dispatch<React.SetStateAction<FormSchema>>;
+  control: Control<CreateFormSchema>;
+  index: number;
 }
 
-function NumberBlock({ field, setFields }: NumberBlockProps) {
-  function handleLabelChange(label: string) {
-    setFields((prevFields) =>
-      prevFields.map((f) => (f.id !== field.id ? f : { ...field, label })),
-    );
-  }
-
-  function handleRequiredChange(checked: boolean) {
-    setFields((prevFields) =>
-      prevFields.map((f) =>
-        f.id !== field.id ? f : { ...field, required: checked },
-      ),
-    );
-  }
-
-  function handleMinChange(val: string) {
-    const num = parseInt(val);
-    setFields((prevFields) =>
-      prevFields.map((f) =>
-        f.id !== field.id ? f : { ...field, min: isNaN(num) ? undefined : num },
-      ),
-    );
-  }
-
-  function handleMaxChange(val: string) {
-    const num = parseInt(val);
-    setFields((prevFields) =>
-      prevFields.map((f) =>
-        f.id !== field.id ? f : { ...field, max: isNaN(num) ? undefined : num },
-      ),
-    );
-  }
-
+function NumberBlock({ control, index }: NumberBlockProps) {
   return (
     <div className="space-y-4 rounded bg-element p-6">
       <p className="text-lg font-bold">Number input</p>
-      <InputControl>
-        <Label htmlFor={field.id + "label"}>Label</Label>
-        <Input
-          type="text"
-          id={field.id + "label"}
-          value={field.label}
-          onChange={(e) => handleLabelChange(e.target.value)}
-        />
-      </InputControl>
 
-      <Label className="flex items-center gap-1 text-sm font-semibold">
-        Required
-        <Input
-          type="checkbox"
-          checked={field.required}
-          onChange={(e) => handleRequiredChange(e.target.checked)}
-          className="w-fit"
-        />
-      </Label>
+      <FormField
+        control={control}
+        name={`form.${index}.label`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Label</FormLabel>
+            <FormControl>
+              <Input placeholder="" {...field} />
+            </FormControl>
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={control}
+        name={`form.${index}.required`}
+        render={({ field }) => (
+          <FormItem className="flex items-center gap-1 space-y-0">
+            <FormLabel className="mb-0">Required</FormLabel>
+            <FormControl>
+              <Input
+                type="checkbox"
+                className="w-fit"
+                checked={field.value}
+                onChange={field.onChange}
+              />
+            </FormControl>
+          </FormItem>
+        )}
+      />
 
       <div className="flex gap-2">
-        <Label className="grid gap-0.5 text-sm font-semibold">
-          Min value
-          <Input
-            type="number"
-            value={field.min?.toString() ?? ""}
-            onChange={(e) => handleMinChange(e.target.value)}
-          />
-        </Label>
-        <Label className="grid gap-0.5 text-sm font-semibold">
-          Max value
-          <Input
-            type="number"
-            value={field.max?.toString() ?? ""}
-            onChange={(e) => handleMaxChange(e.target.value)}
-          />
-        </Label>
+        <FormField
+          control={control}
+          name={`form.${index}.min`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Minimum value</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder=""
+                  {...field}
+                  value={field.value?.toString() ?? ""}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={control}
+          name={`form.${index}.max`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Maximum value</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder=""
+                  {...field}
+                  value={field.value?.toString() ?? ""}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
       </div>
     </div>
   );

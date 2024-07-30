@@ -1,98 +1,94 @@
-import { Input, InputControl } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
-  MAX_LENGTH,
-  type FormSchema,
-  type TextSchemaType,
-} from "@/lib/schemas/form-schema";
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { type CreateFormSchema, MAX_LENGTH } from "@/lib/schemas/form-schema";
+import { type Control } from "react-hook-form";
 
 interface TextBlockProps {
-  field: TextSchemaType;
-  setFields: React.Dispatch<React.SetStateAction<FormSchema>>;
+  control: Control<CreateFormSchema>;
+  index: number;
 }
 
-function TextBlock({ field, setFields }: TextBlockProps) {
-  function handleLabelChange(label: string) {
-    setFields((prevFields) =>
-      prevFields.map((f) => (f.id !== field.id ? f : { ...field, label })),
-    );
-  }
-
-  function handleRequiredChange(checked: boolean) {
-    setFields((prevFields) =>
-      prevFields.map((f) =>
-        f.id !== field.id ? f : { ...field, required: checked },
-      ),
-    );
-  }
-
-  function handleMinLengthChange(val: string) {
-    const num = parseInt(val);
-    setFields((prevFields) =>
-      prevFields.map((f) =>
-        f.id !== field.id
-          ? f
-          : { ...field, minLength: isNaN(num) ? undefined : num },
-      ),
-    );
-  }
-
-  function handleMaxLengthChange(val: string) {
-    const num = parseInt(val);
-    setFields((prevFields) =>
-      prevFields.map((f) =>
-        f.id !== field.id
-          ? f
-          : { ...field, maxLength: isNaN(num) ? undefined : num },
-      ),
-    );
-  }
-
+function TextBlock({ control, index }: TextBlockProps) {
   return (
     <div className="space-y-4 rounded bg-element p-6">
       <h3 className="text-lg font-bold">Text input</h3>
 
-      <InputControl>
-        <Label htmlFor={field.id + "label"}>Label</Label>
-        <Input
-          type="text"
-          id={field.id + "label"}
-          value={field.label}
-          onChange={(e) => handleLabelChange(e.target.value)}
-        />
-      </InputControl>
+      <FormField
+        control={control}
+        name={`form.${index}.label`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Label</FormLabel>
+            <FormControl>
+              <Input placeholder="" {...field} />
+            </FormControl>
+          </FormItem>
+        )}
+      />
 
-      <Label className="flex items-center gap-1 text-sm font-semibold">
-        Required
-        <Input
-          type="checkbox"
-          checked={field.required}
-          onChange={(e) => handleRequiredChange(e.target.checked)}
-          className="w-fit"
-        />
-      </Label>
+      <FormField
+        control={control}
+        name={`form.${index}.required`}
+        render={({ field }) => (
+          <FormItem className="flex items-center gap-1 space-y-0">
+            <FormLabel className="mb-0">Required</FormLabel>
+            <FormControl>
+              <Input
+                type="checkbox"
+                className="w-fit"
+                checked={field.value}
+                onChange={field.onChange}
+              />
+            </FormControl>
+          </FormItem>
+        )}
+      />
 
       <div className="flex gap-2">
-        <Label className="grid gap-0.5 text-sm font-semibold">
-          Min length
-          <Input
-            type="number"
-            min={0}
-            max={MAX_LENGTH}
-            value={field.minLength?.toString()}
-            onChange={(e) => handleMinLengthChange(e.target.value)}
-          />
-        </Label>
-        <Label className="grid gap-0.5 text-sm font-semibold">
-          Max length
-          <Input
-            type="number"
-            min={0}
-            max={MAX_LENGTH}
-            value={field.maxLength?.toString()}
-            onChange={(e) => handleMaxLengthChange(e.target.value)}
-          />
-        </Label>
+        <FormField
+          control={control}
+          name={`form.${index}.minLength`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Minimum length</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder=""
+                  {...field}
+                  min={0}
+                  max={MAX_LENGTH}
+                  value={field.value?.toString()}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={control}
+          name={`form.${index}.maxLength`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Max length</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder=""
+                  {...field}
+                  min={0}
+                  max={MAX_LENGTH}
+                  value={field.value?.toString()}
+                />
+              </FormControl>
+            </FormItem>
+          )}
+        />
       </div>
     </div>
   );

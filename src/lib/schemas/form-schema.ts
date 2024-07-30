@@ -3,10 +3,10 @@ import { z } from "zod";
 const Inputs = ["text", "number"] as const;
 
 const baseSchema = z.object({
-  label: z.string().min(1),
-  type: z.enum(Inputs),
-  required: z.boolean(),
   id: z.string(),
+  type: z.enum(Inputs),
+  label: z.string().min(1),
+  required: z.boolean(),
 });
 
 export const MAX_LENGTH = 300;
@@ -18,8 +18,8 @@ export const textSchema = baseSchema.extend({
 
 export const numberSchema = baseSchema.extend({
   type: z.literal("number"),
-  min: z.coerce.number().optional().or(z.literal("")),
-  max: z.coerce.number().optional().or(z.literal("")),
+  min: z.literal("").or(z.coerce.number().optional()),
+  max: z.literal("").or(z.coerce.number().optional()),
 });
 
 export const formSchema = z

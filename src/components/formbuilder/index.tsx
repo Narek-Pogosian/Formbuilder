@@ -1,65 +1,61 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { Button } from "../ui/button";
 import { saveForm } from "@/server/actions/form";
 import {
-  formSchema,
-  type FormSchema,
+  type CreateFormSchema,
+  createFormScema,
   MAX_LENGTH,
 } from "@/lib/schemas/form-schema";
-import { Input, InputControl } from "../ui/input";
-import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { useForm, useFieldArray } from "react-hook-form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import NumberBlock from "./blocks/number-block";
 import TextBlock from "./blocks/text-block";
 
-// TODO: Maybe use react-hook-form with useFieldArray or add better error messaging for fields.
 function FormBuilder() {
-  const titleRef = useRef<HTMLInputElement>(null);
-  const [fields, setFields] = useState<FormSchema>([]);
+  const form = useForm<CreateFormSchema>({
+    resolver: zodResolver(createFormScema),
+    defaultValues: {
+      title: "",
+      form: [],
+    },
+  });
+
+  const { fields, append } = useFieldArray({
+    control: form.control,
+    name: "form",
+  });
 
   function addTextField() {
-    setFields([
-      ...fields,
-      {
-        id: crypto.randomUUID(),
-        type: "text",
-        label: "",
-        required: false,
-        minLength: 1,
-        maxLength: MAX_LENGTH,
-      },
-    ]);
+    append({
+      id: crypto.randomUUID(),
+      type: "text",
+      label: "",
+      required: false,
+      minLength: 1,
+      maxLength: MAX_LENGTH,
+    });
   }
 
   function addNumberField() {
-    setFields([
-      ...fields,
-      {
-        id: crypto.randomUUID(),
-        type: "number",
-        label: "",
-        required: false,
-        min: "",
-        max: "",
-      },
-    ]);
+    append({
+      id: crypto.randomUUID(),
+      type: "number",
+      label: "",
+      required: false,
+      min: "",
+      max: "",
+    });
   }
-  console.log(fields);
-  async function handleSaveForm() {
-    if (!titleRef.current) return;
 
-    const title = titleRef.current.value.trim();
-    if (!title) return titleRef.current.focus();
+  async function handleSaveForm(values: CreateFormSchema) {
     if (fields.length === 0) return;
 
-    const { data, success } = formSchema.safeParse(fields);
-    if (!success) return;
-
     try {
-      await saveForm({ title, form: data });
-      setFields([]);
-      titleRef.current.value = "";
+      await saveForm(values);
+      form.reset();
     } catch (error) {}
   }
 
@@ -70,32 +66,43 @@ function FormBuilder() {
         <Button onClick={addNumberField}>Add Number Field</Button>
       </div>
 
-      <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end">
-        <InputControl className="grow">
-          <Label htmlFor="title">Title</Label>
-          <Input ref={titleRef} type="text" id="title" />
-        </InputControl>
-        <Button
-          onClick={handleSaveForm}
-          className="h-fit"
-          disabled={fields.length === 0}
-        >
-          Save Form
-        </Button>
-      </div>
-
-      <div className="grid gap-10">
-        {fields.map((field) => {
-          if (field.type === "text")
-            return (
-              <TextBlock field={field} setFields={setFields} key={field.id} />
-            );
-          if (field.type === "number")
-            return (
-              <NumberBlock field={field} setFields={setFields} key={field.id} />
-            );
-        })}
-      </div>
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(handleSaveForm)}>
+          <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end">
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem className="grow">
+                  <FormLabel>Title</FormLabel>
+                  <FormControl>
+                    <Input placeholder="" {...field} />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <Button className="h-fit" type="submit">
+              Save Form
+            </Button>
+          </div>
+          <div className="grid gap-10">
+            {fields.map((field, i) => {
+              if (field.type === "text")
+                return (
+                  <TextBlock control={form.control} index={i} key={field.id} />
+                );
+              if (field.type === "number")
+                return (
+                  <NumberBlock
+                    control={form.control}
+                    index={i}
+                    key={field.id}
+                  />
+                );
+            })}
+          </div>
+        </form>
+      </Form>
     </>
   );
 }
