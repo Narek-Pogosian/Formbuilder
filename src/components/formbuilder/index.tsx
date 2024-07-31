@@ -5,14 +5,15 @@ import { saveForm } from "@/server/actions/form";
 import {
   type CreateFormSchema,
   createFormScema,
-  MAX_LENGTH,
 } from "@/lib/schemas/form-schema";
 import { Input } from "../ui/input";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import FieldAdder from "./field-adder";
 import NumberBlock from "./blocks/number-block";
 import TextBlock from "./blocks/text-block";
+import BaseBlock from "./blocks/base-block";
 
 function FormBuilder() {
   const form = useForm<CreateFormSchema>({
@@ -23,32 +24,10 @@ function FormBuilder() {
     },
   });
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove, swap } = useFieldArray({
     control: form.control,
     name: "form",
   });
-
-  function addTextField() {
-    append({
-      id: crypto.randomUUID(),
-      type: "text",
-      label: "",
-      required: false,
-      minLength: 1,
-      maxLength: MAX_LENGTH,
-    });
-  }
-
-  function addNumberField() {
-    append({
-      id: crypto.randomUUID(),
-      type: "number",
-      label: "",
-      required: false,
-      min: "",
-      max: "",
-    });
-  }
 
   async function handleSaveForm(values: CreateFormSchema) {
     if (fields.length === 0) return;
@@ -60,15 +39,10 @@ function FormBuilder() {
   }
 
   return (
-    <>
-      <div className="mb-8 flex gap-2">
-        <Button onClick={addTextField}>Add Text Field</Button>
-        <Button onClick={addNumberField}>Add Number Field</Button>
-      </div>
-
+    <div className="flex h-full gap-8">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSaveForm)}>
-          <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end">
+        <form onSubmit={form.handleSubmit(handleSaveForm)} className="w-full">
+          <div className="mb-8 flex flex-col gap-2 rounded border bg-element p-4 sm:flex-row sm:items-end">
             <FormField
               control={form.control}
               name="title"
@@ -89,21 +63,47 @@ function FormBuilder() {
             {fields.map((field, i) => {
               if (field.type === "text")
                 return (
-                  <TextBlock control={form.control} index={i} key={field.id} />
+                  <BaseBlock
+                    key={field.id}
+                    control={form.control}
+                    remove={remove}
+                    swap={swap}
+                    isLast={i === fields.length - 1}
+                    index={i}
+                    type="text"
+                  >
+                    <TextBlock
+                      key={field.id}
+                      control={form.control}
+                      index={i}
+                    />
+                  </BaseBlock>
                 );
               if (field.type === "number")
                 return (
-                  <NumberBlock
-                    control={form.control}
-                    index={i}
+                  <BaseBlock
                     key={field.id}
-                  />
+                    control={form.control}
+                    remove={remove}
+                    swap={swap}
+                    isLast={i === fields.length - 1}
+                    index={i}
+                    type="number"
+                  >
+                    <NumberBlock
+                      control={form.control}
+                      index={i}
+                      key={field.id}
+                    />
+                  </BaseBlock>
                 );
             })}
           </div>
         </form>
       </Form>
-    </>
+
+      <FieldAdder append={append} />
+    </div>
   );
 }
 
