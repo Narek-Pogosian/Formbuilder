@@ -6,7 +6,7 @@ async function FormsPage() {
   const forms = await getForms();
 
   return (
-    <>
+    <div className="p-4">
       <h1 className="mb-8 text-xl font-bold">Forms</h1>
       <ul className="grid grid-cols-3 gap-8">
         {forms.map((form) => (
@@ -24,7 +24,7 @@ async function FormsPage() {
           </li>
         ))}
       </ul>
-    </>
+    </div>
   );
 }
 

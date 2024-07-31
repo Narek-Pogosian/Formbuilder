@@ -39,10 +39,13 @@ function FormBuilder() {
   }
 
   return (
-    <div className="flex h-full gap-8">
+    <div className="flex h-full flex-col-reverse gap-12 max-lg:p-4 lg:flex-row lg:pl-12">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSaveForm)} className="w-full">
-          <div className="mb-8 flex flex-col gap-2 rounded border bg-element p-4 sm:flex-row sm:items-end">
+        <form
+          onSubmit={form.handleSubmit(handleSaveForm)}
+          className="w-full py-8"
+        >
+          <div className="mb-8 flex flex-col gap-2 rounded bg-element p-4 sm:flex-row sm:items-end">
             <FormField
               control={form.control}
               name="title"
