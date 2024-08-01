@@ -28,7 +28,10 @@ function FormRenderer({ form }: { form: FormSchema }) {
 
   return (
     <Form {...f}>
-      <form onSubmit={f.handleSubmit(onSubmit)} className="grid gap-8">
+      <form
+        onSubmit={f.handleSubmit(onSubmit)}
+        className="mx-auto grid max-w-3xl gap-8 py-4"
+      >
         {form.map((formField) => {
           const label = formField.label as keyof typeof schema;
 
@@ -97,6 +100,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
                       <Textarea
                         placeholder=""
                         {...field}
+                        rows={4}
                         value={field.value as string}
                       />
                     </FormControl>
