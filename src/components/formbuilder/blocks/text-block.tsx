@@ -3,6 +3,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { type CreateFormSchema, MAX_LENGTH } from "@/lib/schemas/form-schema";
@@ -32,6 +33,7 @@ function TextBlock({ control, index }: TextBlockProps) {
                 value={field.value?.toString()}
               />
             </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />
@@ -52,6 +54,7 @@ function TextBlock({ control, index }: TextBlockProps) {
                 value={field.value?.toString()}
               />
             </FormControl>
+            <FormMessage />
           </FormItem>
         )}
       />

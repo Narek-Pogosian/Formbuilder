@@ -4,6 +4,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -83,6 +84,7 @@ function BaseBlock({
               <FormControl>
                 <Input placeholder="" {...field} />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -101,6 +103,7 @@ function BaseBlock({
                   onChange={field.onChange}
                 />
               </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

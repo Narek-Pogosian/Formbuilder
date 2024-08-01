@@ -8,12 +8,20 @@ import {
 } from "@/lib/schemas/form-schema";
 import { Input } from "../ui/input";
 import { useForm, useFieldArray } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FieldAdder from "./field-adder";
+import BaseBlock from "./blocks/base-block";
 import NumberBlock from "./blocks/number-block";
 import TextBlock from "./blocks/text-block";
-import BaseBlock from "./blocks/base-block";
+import TextAreaBlock from "./blocks/textarea-block";
 
 function FormBuilder() {
   const form = useForm<CreateFormSchema>({
@@ -35,7 +43,9 @@ function FormBuilder() {
     try {
       await saveForm(values);
       form.reset();
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -45,7 +55,7 @@ function FormBuilder() {
           onSubmit={form.handleSubmit(handleSaveForm)}
           className="w-full py-8"
         >
-          <div className="mb-8 flex flex-col gap-2 rounded bg-element p-4 sm:flex-row sm:items-end">
+          <div className="mb-8 flex flex-col gap-2 rounded bg-element p-4 sm:flex-row sm:gap-4">
             <FormField
               control={form.control}
               name="title"
@@ -55,10 +65,11 @@ function FormBuilder() {
                   <FormControl>
                     <Input placeholder="" {...field} />
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
-            <Button className="h-fit" type="submit">
+            <Button className="h-fit sm:mt-5" type="submit">
               Save Form
             </Button>
           </div>
@@ -97,6 +108,24 @@ function FormBuilder() {
                       control={form.control}
                       index={i}
                       key={field.id}
+                    />
+                  </BaseBlock>
+                );
+              if (field.type === "textarea")
+                return (
+                  <BaseBlock
+                    key={field.id}
+                    control={form.control}
+                    remove={remove}
+                    swap={swap}
+                    isLast={i === fields.length - 1}
+                    index={i}
+                    type="textarea"
+                  >
+                    <TextAreaBlock
+                      key={field.id}
+                      control={form.control}
+                      index={i}
                     />
                   </BaseBlock>
                 );

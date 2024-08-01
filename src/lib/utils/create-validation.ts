@@ -26,7 +26,7 @@ export function createValidationSchema(form: FormSchema) {
         break;
 
       case "number":
-        fieldSchema = z.coerce.number();
+        fieldSchema = z.coerce.number({ message: "Must be a number" });
         if (field.min) {
           fieldSchema = fieldSchema.min(field.min, {
             message: `Must be at least ${field.min}`,
@@ -42,6 +42,23 @@ export function createValidationSchema(form: FormSchema) {
             .literal("")
             .transform(() => undefined)
             .or(fieldSchema.optional());
+        }
+        break;
+
+      case "textarea":
+        fieldSchema = z.string().trim();
+        if (field.minLength) {
+          fieldSchema = fieldSchema.min(field.minLength, {
+            message: `Must be at least ${field.minLength} characters`,
+          });
+        }
+        if (field.maxLength) {
+          fieldSchema = fieldSchema.max(field.maxLength, {
+            message: `Must be at most ${field.maxLength} characters`,
+          });
+        }
+        if (!field.required) {
+          fieldSchema = fieldSchema.optional().or(z.literal(""));
         }
         break;
 

@@ -6,7 +6,15 @@ import { type FormSchema } from "@/lib/schemas/form-schema";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "../ui/form";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../ui/form";
+import { Textarea } from "../ui/textarea";
 
 function FormRenderer({ form }: { form: FormSchema }) {
   const schema = createValidationSchema(form);
@@ -45,6 +53,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
                         value={field.value as string}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -69,6 +78,29 @@ function FormRenderer({ form }: { form: FormSchema }) {
                         value={field.value as number | string}
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            );
+
+          if (formField.type === "textarea")
+            return (
+              <FormField
+                key={label}
+                control={f.control}
+                name={label}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{label}</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder=""
+                        {...field}
+                        value={field.value as string}
+                      />
+                    </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />

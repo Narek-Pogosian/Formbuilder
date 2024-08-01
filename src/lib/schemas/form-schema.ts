@@ -1,11 +1,11 @@
 import { z } from "zod";
 
-const Inputs = ["text", "number"] as const;
+const Inputs = ["text", "number", "textarea"] as const;
 
 const baseSchema = z.object({
   id: z.string(),
   type: z.enum(Inputs),
-  label: z.string().min(1),
+  label: z.string().min(1, { message: "A label is required for every field" }),
   required: z.boolean(),
 });
 
@@ -22,8 +22,17 @@ export const numberSchema = baseSchema.extend({
   max: z.literal("").or(z.coerce.number().optional()),
 });
 
+export const MAX_LENGTH_TEXTAREA = 600;
+export const textAreaSchema = baseSchema.extend({
+  type: z.literal("textarea"),
+  minLength: z.coerce.number().min(0).max(MAX_LENGTH_TEXTAREA).optional(),
+  maxLength: z.coerce.number().min(0).max(MAX_LENGTH_TEXTAREA).optional(),
+});
+
 export const formSchema = z
-  .array(z.discriminatedUnion("type", [textSchema, numberSchema]))
+  .array(
+    z.discriminatedUnion("type", [textSchema, numberSchema, textAreaSchema]),
+  )
   .refine(
     (data) => {
       const labels = data.map((item) => item.label);

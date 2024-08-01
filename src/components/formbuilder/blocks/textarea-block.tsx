@@ -6,29 +6,34 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { type CreateFormSchema } from "@/lib/schemas/form-schema";
+import {
+  type CreateFormSchema,
+  MAX_LENGTH_TEXTAREA,
+} from "@/lib/schemas/form-schema";
 import { type Control } from "react-hook-form";
 
-interface NumberBlockProps {
+interface TextBlockProps {
   control: Control<CreateFormSchema>;
   index: number;
 }
 
-function NumberBlock({ control, index }: NumberBlockProps) {
+function TextAreaBlock({ control, index }: TextBlockProps) {
   return (
     <div className="flex gap-2">
       <FormField
         control={control}
-        name={`form.${index}.min`}
+        name={`form.${index}.minLength`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Minimum value</FormLabel>
+            <FormLabel>Minimum length</FormLabel>
             <FormControl>
               <Input
                 type="number"
                 placeholder=""
                 {...field}
-                value={field.value?.toString() ?? ""}
+                min={0}
+                max={MAX_LENGTH_TEXTAREA}
+                value={field.value?.toString()}
               />
             </FormControl>
             <FormMessage />
@@ -38,16 +43,18 @@ function NumberBlock({ control, index }: NumberBlockProps) {
 
       <FormField
         control={control}
-        name={`form.${index}.max`}
+        name={`form.${index}.maxLength`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Maximum value</FormLabel>
+            <FormLabel>Max length</FormLabel>
             <FormControl>
               <Input
                 type="number"
                 placeholder=""
                 {...field}
-                value={field.value?.toString() ?? ""}
+                min={0}
+                max={MAX_LENGTH_TEXTAREA}
+                value={field.value?.toString()}
               />
             </FormControl>
             <FormMessage />
@@ -58,4 +65,4 @@ function NumberBlock({ control, index }: NumberBlockProps) {
   );
 }
 
-export default NumberBlock;
+export default TextAreaBlock;
