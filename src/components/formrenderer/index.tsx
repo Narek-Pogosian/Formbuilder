@@ -1,6 +1,6 @@
 "use client";
 
-import { createValidationSchema } from "@/lib/utils/create-validation";
+import { createValidationSchema } from "./create-validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type FormSchema } from "@/lib/schemas/form-schema";
 import { useForm } from "react-hook-form";
@@ -51,7 +51,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
                     <FormLabel>{label}</FormLabel>
                     <FormControl>
                       <Input
-                        placeholder=""
+                        placeholder={formField.placeholder}
                         {...field}
                         value={field.value as string}
                       />
@@ -98,7 +98,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
                     <FormLabel>{label}</FormLabel>
                     <FormControl>
                       <Textarea
-                        placeholder=""
+                        placeholder={formField.placeholder}
                         {...field}
                         rows={4}
                         value={field.value as string}

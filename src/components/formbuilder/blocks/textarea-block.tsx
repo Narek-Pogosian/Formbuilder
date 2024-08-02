@@ -8,6 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   type CreateFormSchema,
+  MAX_LENGTH,
   MAX_LENGTH_TEXTAREA,
 } from "@/lib/schemas/form-schema";
 import { type Control } from "react-hook-form";
@@ -19,20 +20,20 @@ interface TextBlockProps {
 
 function TextAreaBlock({ control, index }: TextBlockProps) {
   return (
-    <div className="flex gap-2">
+    <>
       <FormField
         control={control}
-        name={`form.${index}.minLength`}
+        name={`form.${index}.placeholder`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Minimum length</FormLabel>
+            <FormLabel>Placeholder</FormLabel>
             <FormControl>
               <Input
-                type="number"
+                type="text"
                 placeholder=""
                 {...field}
                 min={0}
-                max={MAX_LENGTH_TEXTAREA}
+                max={MAX_LENGTH}
                 value={field.value?.toString()}
               />
             </FormControl>
@@ -40,28 +41,50 @@ function TextAreaBlock({ control, index }: TextBlockProps) {
           </FormItem>
         )}
       />
+      <div className="flex gap-2">
+        <FormField
+          control={control}
+          name={`form.${index}.minLength`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Minimum length</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder=""
+                  {...field}
+                  min={0}
+                  max={MAX_LENGTH_TEXTAREA}
+                  value={field.value?.toString()}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-      <FormField
-        control={control}
-        name={`form.${index}.maxLength`}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Max length</FormLabel>
-            <FormControl>
-              <Input
-                type="number"
-                placeholder=""
-                {...field}
-                min={0}
-                max={MAX_LENGTH_TEXTAREA}
-                value={field.value?.toString()}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
+        <FormField
+          control={control}
+          name={`form.${index}.maxLength`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Max length</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder=""
+                  {...field}
+                  min={0}
+                  max={MAX_LENGTH_TEXTAREA}
+                  value={field.value?.toString()}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+    </>
   );
 }
 

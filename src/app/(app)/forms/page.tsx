@@ -10,17 +10,21 @@ async function FormsPage() {
       <h1 className="mb-8 text-xl font-bold">Forms</h1>
       <ul className="grid grid-cols-3 gap-8">
         {forms.map((form) => (
-          <li key={form.id} className="relative rounded bg-element p-4">
-            <Link
-              href={`/forms/${form.id}`}
-              className="mb-4 block font-semibold after:absolute after:inset-0"
-            >
-              {form.title}
-            </Link>
-            <p className="text-sm font-medium text-foreground-muted">
-              {new Date(form.createdAt).toLocaleDateString()}
-            </p>
-            <DeleteFormDialog id={form.id} />
+          <li key={form.id} className="relative flex rounded bg-element p-6">
+            <div className="grow">
+              <Link
+                href={`/forms/${form.id}`}
+                className="mb-2 block font-semibold after:absolute after:inset-0"
+              >
+                {form.title}
+              </Link>
+              <p className="text-sm font-medium text-foreground-muted">
+                {new Date(form.createdAt).toLocaleDateString()}
+              </p>
+            </div>
+            <div>
+              <DeleteFormDialog id={form.id} />
+            </div>
           </li>
         ))}
       </ul>

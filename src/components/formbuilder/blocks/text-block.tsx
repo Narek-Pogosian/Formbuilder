@@ -16,16 +16,16 @@ interface TextBlockProps {
 
 function TextBlock({ control, index }: TextBlockProps) {
   return (
-    <div className="flex gap-2">
+    <>
       <FormField
         control={control}
-        name={`form.${index}.minLength`}
+        name={`form.${index}.placeholder`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Minimum length</FormLabel>
+            <FormLabel>Placeholder</FormLabel>
             <FormControl>
               <Input
-                type="number"
+                type="text"
                 placeholder=""
                 {...field}
                 min={0}
@@ -38,27 +38,50 @@ function TextBlock({ control, index }: TextBlockProps) {
         )}
       />
 
-      <FormField
-        control={control}
-        name={`form.${index}.maxLength`}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Max length</FormLabel>
-            <FormControl>
-              <Input
-                type="number"
-                placeholder=""
-                {...field}
-                min={0}
-                max={MAX_LENGTH}
-                value={field.value?.toString()}
-              />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </div>
+      <div className="flex gap-2">
+        <FormField
+          control={control}
+          name={`form.${index}.minLength`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Minimum length</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder=""
+                  {...field}
+                  min={0}
+                  max={MAX_LENGTH}
+                  value={field.value?.toString()}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={control}
+          name={`form.${index}.maxLength`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Max length</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder=""
+                  {...field}
+                  min={0}
+                  max={MAX_LENGTH}
+                  value={field.value?.toString()}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+    </>
   );
 }
 

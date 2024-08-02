@@ -49,7 +49,7 @@ function FormBuilder() {
   }
 
   return (
-    <div className="flex h-full flex-col-reverse gap-12 max-lg:p-4 lg:flex-row lg:pl-12">
+    <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(handleSaveForm)}

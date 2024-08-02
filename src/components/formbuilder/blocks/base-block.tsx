@@ -77,20 +77,6 @@ function BaseBlock({
 
         <FormField
           control={control}
-          name={`form.${index}.label`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Label</FormLabel>
-              <FormControl>
-                <Input placeholder="" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={control}
           name={`form.${index}.required`}
           render={({ field }) => (
             <FormItem className="flex items-center gap-1 space-y-0">
@@ -107,6 +93,21 @@ function BaseBlock({
             </FormItem>
           )}
         />
+
+        <FormField
+          control={control}
+          name={`form.${index}.label`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Label</FormLabel>
+              <FormControl>
+                <Input placeholder="" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
         {children}
       </div>
     </div>

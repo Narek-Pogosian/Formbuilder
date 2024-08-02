@@ -12,6 +12,7 @@ const baseSchema = z.object({
 export const MAX_LENGTH = 300;
 export const textSchema = baseSchema.extend({
   type: z.literal("text"),
+  placeholder: z.string().min(1, { message: "A placeholder is required" }),
   minLength: z.coerce.number().min(0).max(MAX_LENGTH).optional(),
   maxLength: z.coerce.number().min(0).max(MAX_LENGTH).optional(),
 });
@@ -25,6 +26,7 @@ export const numberSchema = baseSchema.extend({
 export const MAX_LENGTH_TEXTAREA = 600;
 export const textAreaSchema = baseSchema.extend({
   type: z.literal("textarea"),
+  placeholder: z.string().min(1, { message: "A placeholder is required" }),
   minLength: z.coerce.number().min(0).max(MAX_LENGTH_TEXTAREA).optional(),
   maxLength: z.coerce.number().min(0).max(MAX_LENGTH_TEXTAREA).optional(),
 });
