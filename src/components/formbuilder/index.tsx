@@ -61,9 +61,9 @@ function FormBuilder() {
               name="title"
               render={({ field }) => (
                 <FormItem className="grow">
-                  <FormLabel>Title</FormLabel>
+                  <FormLabel>Title of your survey</FormLabel>
                   <FormControl>
-                    <Input placeholder="" {...field} />
+                    <Input placeholder="Your Story Survey" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -79,7 +79,6 @@ function FormBuilder() {
                 return (
                   <BaseBlock
                     key={field.id}
-                    control={form.control}
                     remove={remove}
                     swap={swap}
                     isLast={i === fields.length - 1}
@@ -97,7 +96,6 @@ function FormBuilder() {
                 return (
                   <BaseBlock
                     key={field.id}
-                    control={form.control}
                     remove={remove}
                     swap={swap}
                     isLast={i === fields.length - 1}
@@ -115,7 +113,6 @@ function FormBuilder() {
                 return (
                   <BaseBlock
                     key={field.id}
-                    control={form.control}
                     remove={remove}
                     swap={swap}
                     isLast={i === fields.length - 1}

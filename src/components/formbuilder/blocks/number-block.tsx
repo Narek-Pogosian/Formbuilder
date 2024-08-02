@@ -16,20 +16,15 @@ interface NumberBlockProps {
 
 function NumberBlock({ control, index }: NumberBlockProps) {
   return (
-    <div className="flex gap-2">
+    <>
       <FormField
         control={control}
-        name={`form.${index}.min`}
+        name={`form.${index}.label`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Minimum value</FormLabel>
+            <FormLabel>Label</FormLabel>
             <FormControl>
-              <Input
-                type="number"
-                placeholder=""
-                {...field}
-                value={field.value?.toString() ?? ""}
-              />
+              <Input placeholder="Your age" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -38,23 +33,63 @@ function NumberBlock({ control, index }: NumberBlockProps) {
 
       <FormField
         control={control}
-        name={`form.${index}.max`}
+        name={`form.${index}.required`}
         render={({ field }) => (
-          <FormItem>
-            <FormLabel>Maximum value</FormLabel>
+          <FormItem className="flex items-center gap-2 space-y-0">
             <FormControl>
               <Input
-                type="number"
-                placeholder=""
-                {...field}
-                value={field.value?.toString() ?? ""}
+                type="checkbox"
+                className="w-fit"
+                checked={field.value}
+                onChange={field.onChange}
               />
             </FormControl>
+            <FormLabel className="mb-0">Required</FormLabel>
             <FormMessage />
           </FormItem>
         )}
       />
-    </div>
+
+      <div className="flex gap-2">
+        <FormField
+          control={control}
+          name={`form.${index}.min`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Minimum value</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder="0"
+                  {...field}
+                  value={field.value?.toString() ?? ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={control}
+          name={`form.${index}.max`}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Maximum value</FormLabel>
+              <FormControl>
+                <Input
+                  type="number"
+                  placeholder="100"
+                  {...field}
+                  value={field.value?.toString() ?? ""}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+    </>
   );
 }
 

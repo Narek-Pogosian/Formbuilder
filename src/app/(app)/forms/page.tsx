@@ -8,7 +8,7 @@ async function FormsPage() {
   return (
     <div className="p-8">
       <h1 className="mb-8 text-xl font-bold">Forms</h1>
-      <ul className="grid grid-cols-3 gap-8">
+      <ul className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
         {forms.map((form) => (
           <li key={form.id} className="relative flex rounded bg-element p-6">
             <div className="grow">

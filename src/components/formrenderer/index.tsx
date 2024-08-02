@@ -20,6 +20,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
   const schema = createValidationSchema(form);
   const f = useForm<typeof schema>({
     resolver: zodResolver(schema),
+    reValidateMode: "onSubmit",
   });
 
   function onSubmit(data: typeof schema) {
@@ -76,7 +77,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
                         type="number"
                         min={formField.min}
                         max={formField.max}
-                        placeholder=""
+                        placeholder={formField.min?.toString() ?? ""}
                         {...field}
                         value={field.value as number | string}
                       />

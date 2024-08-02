@@ -16,6 +16,7 @@ function FieldAdder({ append }: FieldAdderProps) {
     append({
       id: crypto.randomUUID(),
       type: "text",
+      placeholder: "",
       label: "",
       required: false,
       minLength: 1,
@@ -38,6 +39,7 @@ function FieldAdder({ append }: FieldAdderProps) {
     append({
       id: crypto.randomUUID(),
       type: "textarea",
+      placeholder: "",
       label: "",
       required: false,
       minLength: 1,
