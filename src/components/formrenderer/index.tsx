@@ -36,11 +36,6 @@ function FormRenderer({ form }: { form: FormSchema }) {
         {form.map((formField) => {
           const label = formField.label as keyof typeof schema;
 
-          // OLD
-          // <div key={label}>
-          //   <Input id={label} type={formField.type} {...f.register(label)} />
-          // </div>;
-
           if (formField.type === "text")
             return (
               <FormField
@@ -111,6 +106,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
               />
             );
         })}
+
         <Button type="submit">Submit</Button>
       </form>
     </Form>
