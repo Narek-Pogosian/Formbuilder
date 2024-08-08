@@ -4,37 +4,37 @@
 
 @layer base {
   :root {
-    --clr-primary: 0 0% 10%;
-    --clr-primary-foreground: 0 0% 98%;
+    --primary: 0 0% 10%;
+    --primary-foreground: 0 0% 98%;
 
-    --clr-background: 0 0% 95.5%;
-    --clr-foreground: 0 0% 5%;
-    --clr-foreground-muted: 0 0% 55%;
+    --foreground: 0 0% 5%;
+    --foreground-muted: 0 0% 55%;
 
-    --clr-input: 0 0% 100%;
+    --background: 0 0% 97%;
+    --background-card: 0 0% 98.5%;
+    --background-input: 0 0% 100%;
+    --background-popover: 0 0% 99%;
 
-    --clr-element: 0 0% 99%;
-    --clr-accent: 0, 0%, 0%, 0.05;
-    --clr-scrollbar: 0 0% 80%;
-    --clr-border: 0 0% 92%;
+    --accent: 0, 0%, 0%, 0.05;
+    --border: 0 0% 92%;
 
     --radius: 0.35rem;
   }
 
   .dark {
-    --clr-primary: 0 0% 95%;
-    --clr-primary-foreground: 0 0% 8%;
+    --primary: 0 0% 95%;
+    --primary-foreground: 0 0% 8%;
 
-    --clr-background: 240 6% 8%;
-    --clr-foreground: 240 3% 98%;
-    --clr-foreground-muted: 240 3% 55%;
+    --foreground: 240 3% 98%;
+    --foreground-muted: 240 3% 55%;
 
-    --clr-input: 240 6% 13%;
+    --background: 240 6% 7%;
+    --background-card: 240 6% 10%;
+    --background-input: 240 6% 13%;
+    --background-popover: 240 6% 10%;
 
-    --clr-element: 240 6% 10%;
-    --clr-accent: 240, 6%, 100%, 0.1;
-    --clr-scrollbar: 240 6% 23%;
-    --clr-border: 240 6% 18%;
+    --accent: 240, 6%, 100%, 0.1;
+    --border: 240 6% 18%;
   }
 }
 
@@ -44,7 +44,7 @@
   }
 
   html {
-    @apply h-full scrollbar scrollbar-track-transparent scrollbar-thumb-scrollbar;
+    @apply h-full scrollbar scrollbar-track-transparent scrollbar-thumb-neutral-400;
   }
 
   body {

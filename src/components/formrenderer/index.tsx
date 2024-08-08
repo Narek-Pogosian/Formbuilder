@@ -31,7 +31,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
     <Form {...f}>
       <form
         onSubmit={f.handleSubmit(onSubmit)}
-        className="mx-auto grid max-w-3xl gap-8 py-4"
+        className="mx-auto grid max-w-3xl gap-10 py-4"
       >
         {form.map((formField) => {
           const label = formField.label as keyof typeof schema;

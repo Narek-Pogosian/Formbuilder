@@ -10,7 +10,7 @@ async function page({ params }: { params: { id: string } }) {
   const { data, error } = formSchema.safeParse(
     JSON.parse(form?.content?.toString() ?? ""),
   );
-  console.log(error);
+
   if (!data) notFound();
 
   return (

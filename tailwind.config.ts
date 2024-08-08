@@ -31,7 +31,6 @@ const config = {
       current: colors.current,
       black: colors.black,
       white: colors.white,
-
       neutral: colors.neutral,
       danger: colors.red,
       warning: colors.amber,
@@ -43,38 +42,21 @@ const config = {
       },
       colors: {
         primary: {
-          DEFAULT: "hsl(var(--clr-primary))",
-          foreground: "hsl(var(--clr-primary-foreground))",
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         foreground: {
-          DEFAULT: "hsl(var(--clr-foreground))",
-          muted: "hsl(var(--clr-foreground-muted))",
+          DEFAULT: "hsl(var(--foreground))",
+          muted: "hsl(var(--foreground-muted))",
         },
-        background: "hsl(var(--clr-background))",
-        element: "hsl(var(--clr-element))",
-        input: "hsl(var(--clr-input))",
-        scrollbar: "hsl(var(--clr-scrollbar))",
-        accent: "hsla(var(--clr-accent))",
-        border: "hsl(var(--clr-border))",
-      },
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-      },
-      keyframes: {
-        "accordion-down": {
-          from: { height: "0" },
-          to: { height: "var(--radix-accordion-content-height)" },
+        background: {
+          DEFAULT: "hsl(var(--background))",
+          popover: "hsl(var(--background-popover))",
+          input: "hsl(var(--background-input))",
+          card: "hsl(var(--background-card))",
         },
-        "accordion-up": {
-          from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
-        },
-      },
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+        accent: "hsla(var(--accent))",
+        border: "hsl(var(--border))",
       },
     },
   },

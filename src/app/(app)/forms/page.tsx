@@ -10,7 +10,10 @@ async function FormsPage() {
       <h1 className="mb-8 text-xl font-bold">Forms</h1>
       <ul className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
         {forms.map((form) => (
-          <li key={form.id} className="relative flex rounded bg-element p-6">
+          <li
+            key={form.id}
+            className="bg-background-card relative flex rounded p-6"
+          >
             <div className="grow">
               <Link
                 href={`/forms/${form.id}`}

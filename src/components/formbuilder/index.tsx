@@ -55,7 +55,7 @@ function FormBuilder() {
           onSubmit={form.handleSubmit(handleSaveForm)}
           className="w-full py-8"
         >
-          <div className="mb-8 flex flex-col gap-2 rounded bg-element p-4 sm:flex-row sm:gap-4">
+          <div className="bg-background-card mb-8 flex flex-col gap-2 rounded px-8 py-6 sm:flex-row sm:gap-4">
             <FormField
               control={form.control}
               name="title"

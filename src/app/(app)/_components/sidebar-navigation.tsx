@@ -41,7 +41,7 @@ function SidebarNavigation() {
         ))}
       </ul>
 
-      <div className="sticky bottom-0 mt-auto flex justify-between border-t bg-background py-2 lg:bg-element">
+      <div className="lg:bg-background-card sticky bottom-0 mt-auto flex justify-between border-t bg-background py-2">
         <Signout />
         <ThemeToggle />
       </div>

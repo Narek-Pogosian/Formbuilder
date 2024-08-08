@@ -48,7 +48,7 @@ function FieldAdder({ append }: FieldAdderProps) {
   }
 
   return (
-    <div className="flex w-72 flex-col space-y-4 rounded bg-element p-8 lg:sticky lg:top-0 lg:h-screen">
+    <div className="bg-background-card flex w-72 flex-col space-y-4 rounded p-8 lg:sticky lg:top-0 lg:h-screen">
       <h3 className="text-center font-semibold">Add field</h3>
       <Button
         className="h-fit flex-col gap-2"

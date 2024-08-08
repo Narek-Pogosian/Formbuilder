@@ -24,7 +24,7 @@ function BaseBlock({
   isLast,
 }: BaseBlockProps) {
   return (
-    <div className="@container flex gap-4 rounded bg-element py-6 pl-4 pr-8">
+    <div className="bg-background-card flex gap-4 rounded py-6 pl-4 pr-8 @container">
       <div className="flex flex-col gap-1">
         <Button
           size="icon"
