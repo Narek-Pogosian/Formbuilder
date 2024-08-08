@@ -57,6 +57,7 @@ const config = {
         },
         accent: "hsla(var(--accent))",
         border: "hsl(var(--border))",
+        scrollbar: "hsl(var(--scrollbar))",
       },
     },
   },
