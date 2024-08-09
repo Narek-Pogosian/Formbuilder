@@ -18,6 +18,7 @@ function FormBuilder() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!title.trim()) return;
 
     const { error } = formSchema.safeParse(fields);
     console.log("error", error?.errors);
@@ -28,15 +29,17 @@ function FormBuilder() {
       <form className="grow space-y-4 py-8" onSubmit={handleSubmit}>
         <div className="mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 sm:flex-row sm:gap-4">
           <div className="grow">
-            <Label htmlFor="title">Title of survey</Label>
-            <Input
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="Title"
-            />
+            <Label>
+              Title of survey
+              <Input
+                required
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="My survey"
+              />
+            </Label>
           </div>
-          <Button className="h-fit sm:mt-5" type="submit">
+          <Button className="h-fit sm:mt-[22px]" type="submit">
             Save
           </Button>
         </div>

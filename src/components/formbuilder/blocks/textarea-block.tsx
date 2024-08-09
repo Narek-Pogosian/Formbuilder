@@ -22,7 +22,7 @@ function TextAreaBlock({ field, update }: TextBlockProps) {
         <Label>
           Label
           <Input
-            placeholder="Full name"
+            placeholder="Your bio"
             value={field.label}
             required
             onChange={(e) => update("label", e.target.value)}
@@ -33,7 +33,7 @@ function TextAreaBlock({ field, update }: TextBlockProps) {
           Placeholder
           <Input
             required
-            placeholder="John Smith"
+            placeholder="Tell us about yourself"
             value={field.placeholder}
             onChange={(e) => update("placeholder", e.target.value)}
             min={0}

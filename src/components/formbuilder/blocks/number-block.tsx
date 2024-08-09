@@ -16,7 +16,7 @@ function NumberBlock({ field, update }: NumberBlockProps) {
       <Label>
         Label
         <Input
-          placeholder="Full name"
+          placeholder="Age"
           value={field.label}
           required
           onChange={(e) => update("label", e.target.value)}
