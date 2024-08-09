@@ -4,21 +4,16 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
 
-interface BaseBlockProps {
+type BaseBlockProps = {
   id: string;
   type: InputType;
   children: React.ReactNode;
-  isDragging?: boolean;
   remove: () => void;
-}
+};
 
-function BaseBlock({
-  children,
-  type,
-  remove,
-  id,
-  isDragging = false,
-}: BaseBlockProps) {
+type Props = React.HtmlHTMLAttributes<HTMLDivElement> & BaseBlockProps;
+
+function BaseBlock({ children, className, type, remove, id }: Props) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id, data: { type } });
 
@@ -31,7 +26,7 @@ function BaseBlock({
     <div
       className={cn(
         "cursor-grab rounded bg-background-card px-8 py-6 @container",
-        { "shadow-2xl": isDragging },
+        className,
       )}
       ref={setNodeRef}
       style={style}

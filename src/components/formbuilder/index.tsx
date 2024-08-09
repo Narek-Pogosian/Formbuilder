@@ -6,27 +6,23 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import {
-  DndContext,
   type DragEndEvent,
-  DragOverlay,
   type DragStartEvent,
-  KeyboardSensor,
-  PointerSensor,
   type UniqueIdentifier,
+  DndContext,
+  DragOverlay,
+  PointerSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import {
-  arrayMove,
-  SortableContext,
-  sortableKeyboardCoordinates,
-} from "@dnd-kit/sortable";
+import { arrayMove, SortableContext } from "@dnd-kit/sortable";
 import FieldAdder from "./field-adder";
 import FieldsList from "./fields-list";
 import BaseBlock from "./blocks/base-block";
 import TextBlock from "./blocks/text-block";
 import TextAreaBlock from "./blocks/textarea-block";
 import NumberBlock from "./blocks/number-block";
+import { saveForm } from "@/server/actions/form";
 
 function FormBuilder() {
   const [fields, setFields] = useState<FormSchema>([]);
@@ -41,19 +37,20 @@ function FormBuilder() {
     setFields([...fields, field]);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim()) return;
 
-    const { error } = formSchema.safeParse(fields);
-    console.log("error", error?.errors);
+    const { data, success } = formSchema.safeParse(fields);
+    if (success) {
+      await saveForm({ title, form: data });
+      setTitle("");
+      setFields([]);
+    }
   }
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    }),
   );
 
   function handleDragStart(event: DragStartEvent) {
@@ -102,7 +99,11 @@ function FormBuilder() {
           onDragEnd={handleDragEnd}
         >
           <SortableContext items={fields}>
-            <FieldsList fields={fields} setFields={setFields} />
+            <FieldsList
+              fields={fields}
+              setFields={setFields}
+              activeId={activeId}
+            />
           </SortableContext>
 
           <DragOverlay>
@@ -110,7 +111,7 @@ function FormBuilder() {
               <BaseBlock
                 id="id"
                 type={activeType}
-                isDragging
+                className="shadow-2xl"
                 remove={() => {
                   undefined;
                 }}

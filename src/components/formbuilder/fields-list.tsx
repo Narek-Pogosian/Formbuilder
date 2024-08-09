@@ -1,3 +1,4 @@
+import { type UniqueIdentifier } from "@dnd-kit/core";
 import { type FormSchema } from "@/lib/schemas/form-schema";
 import { memo } from "react";
 import BaseBlock from "./blocks/base-block";
@@ -5,17 +6,18 @@ import TextBlock from "./blocks/text-block";
 import NumberBlock from "./blocks/number-block";
 import TextAreaBlock from "./blocks/textarea-block";
 
-interface FieldsListProps {
-  fields: FormSchema;
-  setFields: React.Dispatch<React.SetStateAction<FormSchema>>;
-}
-
 type UniqueKeys<T> = T extends T ? keyof T : never;
 export type UpdateKeys = UniqueKeys<FormSchema[number]>;
 export type UpdateValue = string | boolean | number;
 export type UpdateFunction = (property: UpdateKeys, value: UpdateValue) => void;
 
-function FieldsList({ fields, setFields }: FieldsListProps) {
+interface FieldsListProps {
+  fields: FormSchema;
+  setFields: React.Dispatch<React.SetStateAction<FormSchema>>;
+  activeId: UniqueIdentifier | null;
+}
+
+function FieldsList({ fields, setFields, activeId }: FieldsListProps) {
   function remove(id: string) {
     return () => setFields(fields.filter((f) => f.id != id));
   }
@@ -29,41 +31,25 @@ function FieldsList({ fields, setFields }: FieldsListProps) {
 
   return (
     <div className="grid gap-10">
-      {fields.map((field) => {
-        if (field.type === "text")
-          return (
-            <BaseBlock
-              key={field.id}
-              remove={remove(field.id)}
-              id={field.id}
-              type="text"
-            >
-              <TextBlock update={update(field.id, field)} field={field} />
-            </BaseBlock>
-          );
-        if (field.type === "number")
-          return (
-            <BaseBlock
-              key={field.id}
-              remove={remove(field.id)}
-              id={field.id}
-              type="number"
-            >
-              <NumberBlock update={update(field.id, field)} field={field} />
-            </BaseBlock>
-          );
-        if (field.type === "textarea")
-          return (
-            <BaseBlock
-              key={field.id}
-              remove={remove(field.id)}
-              id={field.id}
-              type="textarea"
-            >
-              <TextAreaBlock update={update(field.id, field)} field={field} />
-            </BaseBlock>
-          );
-      })}
+      {fields.map((field) => (
+        <BaseBlock
+          key={field.id}
+          id={field.id}
+          type={field.type}
+          remove={remove(field.id)}
+          className={activeId === field.id ? "opacity-55" : ""}
+        >
+          {field.type === "text" && (
+            <TextBlock update={update(field.id, field)} field={field} />
+          )}
+          {field.type === "textarea" && (
+            <TextAreaBlock update={update(field.id, field)} field={field} />
+          )}
+          {field.type === "number" && (
+            <NumberBlock update={update(field.id, field)} field={field} />
+          )}
+        </BaseBlock>
+      ))}
     </div>
   );
 }
