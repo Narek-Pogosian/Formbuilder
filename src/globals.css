@@ -50,7 +50,7 @@
   }
 
   body {
-    @apply h-full overflow-y-scroll bg-background text-foreground;
+    @apply h-full overflow-x-clip overflow-y-scroll bg-background text-foreground;
   }
 
   input {

@@ -42,7 +42,7 @@ function TextAreaBlock({ field, update }: TextBlockProps) {
         </Label>
       </div>
 
-      <Label className="flex items-center gap-2">
+      <Label className="flex w-fit items-center gap-2">
         <Input
           type="checkbox"
           className="!mt-0 w-fit"

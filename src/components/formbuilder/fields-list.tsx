@@ -32,19 +32,34 @@ function FieldsList({ fields, setFields }: FieldsListProps) {
       {fields.map((field) => {
         if (field.type === "text")
           return (
-            <BaseBlock key={field.id} remove={remove(field.id)} type="text">
+            <BaseBlock
+              key={field.id}
+              remove={remove(field.id)}
+              id={field.id}
+              type="text"
+            >
               <TextBlock update={update(field.id, field)} field={field} />
             </BaseBlock>
           );
         if (field.type === "number")
           return (
-            <BaseBlock key={field.id} remove={remove(field.id)} type="number">
+            <BaseBlock
+              key={field.id}
+              remove={remove(field.id)}
+              id={field.id}
+              type="number"
+            >
               <NumberBlock update={update(field.id, field)} field={field} />
             </BaseBlock>
           );
         if (field.type === "textarea")
           return (
-            <BaseBlock key={field.id} remove={remove(field.id)} type="textarea">
+            <BaseBlock
+              key={field.id}
+              remove={remove(field.id)}
+              id={field.id}
+              type="textarea"
+            >
               <TextAreaBlock update={update(field.id, field)} field={field} />
             </BaseBlock>
           );
