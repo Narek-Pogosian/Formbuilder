@@ -1,12 +1,12 @@
 "use client";
 
 import { type FormSchema } from "@/lib/schemas/form-schema";
-import { memo, useState } from "react";
+import { useState } from "react";
 import { Input } from "../ui/input";
-import FieldAdder from "./field-adder";
-import FieldsList from "./fields-list";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
+import FieldAdder from "./field-adder";
+import FieldsList from "./fields-list";
 
 function FormBuilder() {
   const [fields, setFields] = useState<FormSchema>([]);
@@ -33,11 +33,11 @@ function FormBuilder() {
             Save
           </Button>
         </div>
-        <FieldsList fields={fields} />
+        <FieldsList fields={fields} setFields={setFields} />
       </form>
       <FieldAdder append={append} />
     </div>
   );
 }
 
-export default memo(FormBuilder);
+export default FormBuilder;
