@@ -1,64 +1,47 @@
-import {
-  type UseFieldArrayRemove,
-  type UseFieldArraySwap,
-} from "react-hook-form";
 import { type InputType } from "@/lib/schemas/form-schema";
-import { ArrowDown, ArrowUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { cn } from "@/lib/utils";
 
 interface BaseBlockProps {
-  children: React.ReactNode;
-  remove: UseFieldArrayRemove;
-  swap: UseFieldArraySwap;
-  index: number;
+  id: string;
   type: InputType;
-  isLast: boolean;
+  children: React.ReactNode;
+  isDragging?: boolean;
+  remove: () => void;
 }
 
 function BaseBlock({
   children,
   type,
-  index,
   remove,
-  swap,
-  isLast,
+  id,
+  isDragging = false,
 }: BaseBlockProps) {
-  return (
-    <div className="bg-background-card flex gap-4 rounded py-6 pl-4 pr-8 @container">
-      <div className="flex flex-col gap-1">
-        <Button
-          size="icon"
-          variant="ghost"
-          type="button"
-          className="hover:bg-transparent"
-          onClick={() => swap(index, index - 1)}
-          disabled={index === 0}
-        >
-          <ArrowUp className="size-5" />
-          <span className="sr-only">Move up</span>
-        </Button>
-        <Button
-          size="icon"
-          variant="ghost"
-          type="button"
-          className="hover:bg-transparent"
-          onClick={() => swap(index, index + 1)}
-          disabled={isLast}
-        >
-          <ArrowDown className="size-5" />
-          <span className="sr-only">Move down</span>
-        </Button>
-      </div>
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id, data: { type } });
 
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div
+      className={cn(
+        "cursor-grab rounded bg-background-card px-8 py-6 @container",
+        { "shadow-2xl": isDragging },
+      )}
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
       <div className="grow space-y-8">
         <div className="flex items-center justify-between border-b pb-4">
-          <h3 className="text-2xl font-extrabold capitalize">{type}</h3>
-          <Button
-            variant="danger"
-            size="sm"
-            type="button"
-            onClick={() => remove(index)}
-          >
+          <h3 className="text-xl font-extrabold capitalize">{type}</h3>
+          <Button variant="danger" size="sm" type="button" onClick={remove}>
             Remove
           </Button>
         </div>

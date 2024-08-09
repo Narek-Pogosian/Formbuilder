@@ -1,123 +1,80 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
-  type CreateFormSchema,
+  type FormSchema,
   MAX_LENGTH,
   MAX_LENGTH_TEXTAREA,
 } from "@/lib/schemas/form-schema";
-import { type Control } from "react-hook-form";
+import { type UpdateFunction } from "../fields-list";
 
 interface TextBlockProps {
-  control: Control<CreateFormSchema>;
-  index: number;
+  field: FormSchema[number];
+  update: UpdateFunction;
 }
 
-function TextAreaBlock({ control, index }: TextBlockProps) {
+function TextAreaBlock({ field, update }: TextBlockProps) {
+  if (field.type !== "textarea")
+    throw Error("Need to pass in a textarea field");
+
   return (
     <>
-      <div className="@xl:grid-cols-2 grid gap-4">
-        <FormField
-          control={control}
-          name={`form.${index}.label`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Label</FormLabel>
-              <FormControl>
-                <Input placeholder="Your bio" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={control}
-          name={`form.${index}.placeholder`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Placeholder</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="Tell us about yourself"
-                  {...field}
-                  min={0}
-                  max={MAX_LENGTH}
-                  value={field.value?.toString()}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <div className="grid gap-4 @xl:grid-cols-2">
+        <Label>
+          Label
+          <Input
+            placeholder="Your bio"
+            value={field.label}
+            required
+            onChange={(e) => update("label", e.target.value)}
+          />
+        </Label>
+
+        <Label>
+          Placeholder
+          <Input
+            required
+            placeholder="Tell us about yourself"
+            value={field.placeholder}
+            onChange={(e) => update("placeholder", e.target.value)}
+            min={0}
+            max={MAX_LENGTH}
+          />
+        </Label>
       </div>
 
-      <FormField
-        control={control}
-        name={`form.${index}.required`}
-        render={({ field }) => (
-          <FormItem className="flex items-center gap-2 space-y-0">
-            <FormControl>
-              <Input
-                type="checkbox"
-                className="w-fit"
-                checked={field.value}
-                onChange={field.onChange}
-              />
-            </FormControl>
-            <FormLabel className="mb-0">Required</FormLabel>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <div className="flex gap-2">
-        <FormField
-          control={control}
-          name={`form.${index}.minLength`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Minimum length</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  placeholder=""
-                  {...field}
-                  min={0}
-                  max={MAX_LENGTH_TEXTAREA}
-                  value={field.value?.toString()}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+      <Label className="flex w-fit items-center gap-2">
+        <Input
+          type="checkbox"
+          className="!mt-0 w-fit"
+          checked={field.required}
+          onChange={(e) => update("required", e.target.checked)}
         />
+        Required
+      </Label>
 
-        <FormField
-          control={control}
-          name={`form.${index}.maxLength`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Max length</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  placeholder=""
-                  {...field}
-                  min={0}
-                  max={MAX_LENGTH_TEXTAREA}
-                  value={field.value?.toString()}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <div className="flex flex-wrap gap-4">
+        <Label className="w-fit">
+          Minimum length
+          <Input
+            type="number"
+            placeholder="0"
+            value={field.minLength}
+            onChange={(e) => update("minLength", e.target.value)}
+            min={0}
+            max={MAX_LENGTH_TEXTAREA}
+          />
+        </Label>
+        <Label className="w-fit">
+          Max length
+          <Input
+            type="number"
+            placeholder={MAX_LENGTH_TEXTAREA.toString()}
+            value={field.maxLength}
+            onChange={(e) => update("maxLength", e.target.value)}
+            min={0}
+            max={MAX_LENGTH_TEXTAREA}
+          />
+        </Label>
       </div>
     </>
   );

@@ -1,93 +1,57 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { type CreateFormSchema } from "@/lib/schemas/form-schema";
-import { type Control } from "react-hook-form";
+import { Label } from "@/components/ui/label";
+import { type FormSchema } from "@/lib/schemas/form-schema";
+import { type UpdateFunction } from "../fields-list";
 
 interface NumberBlockProps {
-  control: Control<CreateFormSchema>;
-  index: number;
+  field: FormSchema[number];
+  update: UpdateFunction;
 }
 
-function NumberBlock({ control, index }: NumberBlockProps) {
+function NumberBlock({ field, update }: NumberBlockProps) {
+  if (field.type !== "number") throw Error("Need to pass in a number field");
+
   return (
     <>
-      <FormField
-        control={control}
-        name={`form.${index}.label`}
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Label</FormLabel>
-            <FormControl>
-              <Input placeholder="Your age" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <FormField
-        control={control}
-        name={`form.${index}.required`}
-        render={({ field }) => (
-          <FormItem className="flex items-center gap-2 space-y-0">
-            <FormControl>
-              <Input
-                type="checkbox"
-                className="w-fit"
-                checked={field.value}
-                onChange={field.onChange}
-              />
-            </FormControl>
-            <FormLabel className="mb-0">Required</FormLabel>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-
-      <div className="flex gap-2">
-        <FormField
-          control={control}
-          name={`form.${index}.min`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Minimum value</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  placeholder="0"
-                  {...field}
-                  value={field.value?.toString() ?? ""}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+      <Label>
+        Label
+        <Input
+          placeholder="Age"
+          value={field.label}
+          required
+          onChange={(e) => update("label", e.target.value)}
         />
+      </Label>
 
-        <FormField
-          control={control}
-          name={`form.${index}.max`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Maximum value</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  placeholder="100"
-                  {...field}
-                  value={field.value?.toString() ?? ""}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
+      <Label className="flex w-fit items-center gap-2">
+        <Input
+          type="checkbox"
+          className="!mt-0 w-fit"
+          checked={field.required}
+          onChange={(e) => update("required", e.target.checked)}
         />
+        Required
+      </Label>
+
+      <div className="flex flex-wrap gap-4">
+        <Label className="w-fit">
+          Minimum value
+          <Input
+            type="number"
+            placeholder="0"
+            value={field.min}
+            onChange={(e) => update("min", e.target.value)}
+          />
+        </Label>
+        <Label className="w-fit">
+          Max value
+          <Input
+            type="number"
+            placeholder="100"
+            value={field.max}
+            onChange={(e) => update("max", e.target.value)}
+          />
+        </Label>
       </div>
     </>
   );

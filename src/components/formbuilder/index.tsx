@@ -1,136 +1,149 @@
 "use client";
 
-import { Button } from "../ui/button";
-import { saveForm } from "@/server/actions/form";
-import {
-  type CreateFormSchema,
-  createFormScema,
-} from "@/lib/schemas/form-schema";
+import { formSchema, type FormSchema } from "@/lib/schemas/form-schema";
+import { useState } from "react";
 import { Input } from "../ui/input";
-import { useForm, useFieldArray } from "react-hook-form";
+import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "../ui/form";
-import { zodResolver } from "@hookform/resolvers/zod";
+  DndContext,
+  type DragEndEvent,
+  DragOverlay,
+  type DragStartEvent,
+  KeyboardSensor,
+  PointerSensor,
+  type UniqueIdentifier,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+} from "@dnd-kit/sortable";
 import FieldAdder from "./field-adder";
+import FieldsList from "./fields-list";
 import BaseBlock from "./blocks/base-block";
-import NumberBlock from "./blocks/number-block";
 import TextBlock from "./blocks/text-block";
 import TextAreaBlock from "./blocks/textarea-block";
+import NumberBlock from "./blocks/number-block";
 
 function FormBuilder() {
-  const form = useForm<CreateFormSchema>({
-    resolver: zodResolver(createFormScema),
-    defaultValues: {
-      title: "",
-      form: [],
-    },
-  });
+  const [fields, setFields] = useState<FormSchema>([]);
+  const [title, setTitle] = useState("");
 
-  const { fields, append, remove, swap } = useFieldArray({
-    control: form.control,
-    name: "form",
-  });
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
+  const [activeType, setActiveType] = useState<
+    FormSchema[number]["type"] | null
+  >(null);
 
-  async function handleSaveForm(values: CreateFormSchema) {
-    if (fields.length === 0) return;
+  function append(field: FormSchema[number]) {
+    setFields([...fields, field]);
+  }
 
-    try {
-      await saveForm(values);
-      form.reset();
-    } catch (error) {
-      console.log(error);
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!title.trim()) return;
+
+    const { error } = formSchema.safeParse(fields);
+    console.log("error", error?.errors);
+  }
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
+
+  function handleDragStart(event: DragStartEvent) {
+    const { active } = event;
+    setActiveId(active.id);
+    setActiveType(active.data.current?.type as FormSchema[number]["type"]);
+  }
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event;
+
+    if (over?.id && active.id !== over.id) {
+      setFields((items) => {
+        const oldIndex = items.findIndex((o) => o.id === active.id);
+        const newIndex = items.findIndex((o) => o.id === over.id);
+        return arrayMove(fields, oldIndex, newIndex);
+      });
     }
+    setActiveType(null);
+    setActiveId(null);
   }
 
   return (
     <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleSaveForm)}
-          className="w-full py-8"
-        >
-          <div className="bg-background-card mb-8 flex flex-col gap-2 rounded px-8 py-6 sm:flex-row sm:gap-4">
-            <FormField
-              control={form.control}
-              name="title"
-              render={({ field }) => (
-                <FormItem className="grow">
-                  <FormLabel>Title of your survey</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Your Story Survey" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button className="h-fit sm:mt-5" type="submit">
-              Save Form
-            </Button>
+      <form className="grow space-y-4 py-8" onSubmit={handleSubmit}>
+        <div className="mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 sm:flex-row sm:gap-4">
+          <div className="grow">
+            <Label>
+              Title of survey
+              <Input
+                required
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="My survey"
+              />
+            </Label>
           </div>
-          <div className="grid gap-10">
-            {fields.map((field, i) => {
-              if (field.type === "text")
-                return (
-                  <BaseBlock
-                    key={field.id}
-                    remove={remove}
-                    swap={swap}
-                    isLast={i === fields.length - 1}
-                    index={i}
-                    type="text"
-                  >
-                    <TextBlock
-                      key={field.id}
-                      control={form.control}
-                      index={i}
-                    />
-                  </BaseBlock>
-                );
-              if (field.type === "number")
-                return (
-                  <BaseBlock
-                    key={field.id}
-                    remove={remove}
-                    swap={swap}
-                    isLast={i === fields.length - 1}
-                    index={i}
-                    type="number"
-                  >
-                    <NumberBlock
-                      control={form.control}
-                      index={i}
-                      key={field.id}
-                    />
-                  </BaseBlock>
-                );
-              if (field.type === "textarea")
-                return (
-                  <BaseBlock
-                    key={field.id}
-                    remove={remove}
-                    swap={swap}
-                    isLast={i === fields.length - 1}
-                    index={i}
-                    type="textarea"
-                  >
-                    <TextAreaBlock
-                      key={field.id}
-                      control={form.control}
-                      index={i}
-                    />
-                  </BaseBlock>
-                );
-            })}
-          </div>
-        </form>
-      </Form>
+          <Button className="h-fit sm:mt-[22px]" type="submit">
+            Save
+          </Button>
+        </div>
 
+        <DndContext
+          sensors={sensors}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={fields}>
+            <FieldsList fields={fields} setFields={setFields} />
+          </SortableContext>
+
+          <DragOverlay>
+            {activeType && activeId ? (
+              <BaseBlock
+                id="id"
+                type={activeType}
+                isDragging
+                remove={() => {
+                  undefined;
+                }}
+              >
+                {activeType === "text" && (
+                  <TextBlock
+                    field={fields.find((f) => f.id == activeId)!}
+                    update={() => {
+                      undefined;
+                    }}
+                  />
+                )}
+                {activeType === "textarea" && (
+                  <TextAreaBlock
+                    field={fields.find((f) => f.id == activeId)!}
+                    update={() => {
+                      undefined;
+                    }}
+                  />
+                )}
+                {activeType === "number" && (
+                  <NumberBlock
+                    field={fields.find((f) => f.id == activeId)!}
+                    update={() => {
+                      undefined;
+                    }}
+                  />
+                )}
+              </BaseBlock>
+            ) : null}
+          </DragOverlay>
+        </DndContext>
+      </form>
       <FieldAdder append={append} />
     </div>
   );

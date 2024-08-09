@@ -1,118 +1,75 @@
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { type CreateFormSchema, MAX_LENGTH } from "@/lib/schemas/form-schema";
-import { type Control } from "react-hook-form";
+import { Label } from "@/components/ui/label";
+import { type FormSchema, MAX_LENGTH } from "@/lib/schemas/form-schema";
+import { type UpdateFunction } from "../fields-list";
 
 interface TextBlockProps {
-  control: Control<CreateFormSchema>;
-  index: number;
+  field: FormSchema[number];
+  update: UpdateFunction;
 }
 
-function TextBlock({ control, index }: TextBlockProps) {
+function TextBlock({ update, field }: TextBlockProps) {
+  if (field.type !== "text") throw Error("Need to pass in a text field");
+
   return (
     <>
-      <div className="@xl:grid-cols-2 grid gap-4">
-        <FormField
-          control={control}
-          name={`form.${index}.label`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Label</FormLabel>
-              <FormControl>
-                <Input placeholder="Full name" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={control}
-          name={`form.${index}.placeholder`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Placeholder</FormLabel>
-              <FormControl>
-                <Input
-                  type="text"
-                  placeholder="John Smith"
-                  {...field}
-                  min={0}
-                  max={MAX_LENGTH}
-                  value={field.value?.toString()}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+      <div className="grid gap-4 @xl:grid-cols-2">
+        <Label>
+          Label
+          <Input
+            placeholder="Full name"
+            value={field.label}
+            required
+            onChange={(e) => update("label", e.target.value)}
+          />
+        </Label>
+
+        <Label>
+          Placeholder
+          <Input
+            required
+            placeholder="John Smith"
+            value={field.placeholder}
+            onChange={(e) => update("placeholder", e.target.value)}
+            min={0}
+            max={MAX_LENGTH}
+          />
+        </Label>
       </div>
 
-      <FormField
-        control={control}
-        name={`form.${index}.required`}
-        render={({ field }) => (
-          <FormItem className="flex items-center gap-2 space-y-0">
-            <FormControl>
-              <Input
-                type="checkbox"
-                className="w-fit"
-                checked={field.value}
-                onChange={field.onChange}
-              />
-            </FormControl>
-            <FormLabel className="mb-0">Required</FormLabel>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <Label className="flex w-fit items-center gap-2">
+        <Input
+          type="checkbox"
+          className="!mt-0 w-fit"
+          checked={field.required}
+          onChange={(e) => update("required", e.target.checked)}
+        />
+        Required
+      </Label>
 
       <div className="flex flex-wrap gap-4">
-        <FormField
-          control={control}
-          name={`form.${index}.minLength`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Minimum length</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  placeholder=""
-                  {...field}
-                  min={0}
-                  max={MAX_LENGTH}
-                  value={field.value?.toString()}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={control}
-          name={`form.${index}.maxLength`}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Max length</FormLabel>
-              <FormControl>
-                <Input
-                  type="number"
-                  placeholder=""
-                  {...field}
-                  min={0}
-                  max={MAX_LENGTH}
-                  value={field.value?.toString()}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <Label className="w-fit">
+          Minimum length
+          <Input
+            type="number"
+            placeholder="0"
+            value={field.minLength}
+            onChange={(e) => update("minLength", e.target.value)}
+            min={0}
+            max={MAX_LENGTH}
+          />
+        </Label>
+        <Label className="w-fit">
+          Max length
+          <Input
+            type="number"
+            placeholder={MAX_LENGTH.toString()}
+            value={field.maxLength}
+            onChange={(e) => update("maxLength", e.target.value)}
+            min={0}
+            max={MAX_LENGTH}
+          />
+        </Label>
       </div>
     </>
   );
