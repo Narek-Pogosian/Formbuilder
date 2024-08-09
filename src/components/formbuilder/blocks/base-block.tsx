@@ -2,15 +2,23 @@ import { type InputType } from "@/lib/schemas/form-schema";
 import { Button } from "@/components/ui/button";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { cn } from "@/lib/utils";
 
 interface BaseBlockProps {
-  children: React.ReactNode;
-  type: InputType;
   id: string;
+  type: InputType;
+  children: React.ReactNode;
+  isDragging?: boolean;
   remove: () => void;
 }
 
-function BaseBlock({ children, type, remove, id }: BaseBlockProps) {
+function BaseBlock({
+  children,
+  type,
+  remove,
+  id,
+  isDragging = false,
+}: BaseBlockProps) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id, data: { type } });
 
@@ -21,7 +29,10 @@ function BaseBlock({ children, type, remove, id }: BaseBlockProps) {
 
   return (
     <div
-      className="cursor-grab rounded bg-background-card px-8 py-6 @container"
+      className={cn(
+        "cursor-grab rounded bg-background-card px-8 py-6 @container",
+        { "shadow-2xl": isDragging },
+      )}
       ref={setNodeRef}
       style={style}
       {...attributes}

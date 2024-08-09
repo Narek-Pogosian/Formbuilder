@@ -12,6 +12,7 @@ import {
   type DragStartEvent,
   KeyboardSensor,
   PointerSensor,
+  type UniqueIdentifier,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
@@ -23,10 +24,15 @@ import {
 import FieldAdder from "./field-adder";
 import FieldsList from "./fields-list";
 import BaseBlock from "./blocks/base-block";
+import TextBlock from "./blocks/text-block";
+import TextAreaBlock from "./blocks/textarea-block";
+import NumberBlock from "./blocks/number-block";
 
 function FormBuilder() {
   const [fields, setFields] = useState<FormSchema>([]);
   const [title, setTitle] = useState("");
+
+  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
   const [activeType, setActiveType] = useState<
     FormSchema[number]["type"] | null
   >(null);
@@ -52,6 +58,7 @@ function FormBuilder() {
 
   function handleDragStart(event: DragStartEvent) {
     const { active } = event;
+    setActiveId(active.id);
     setActiveType(active.data.current?.type as FormSchema[number]["type"]);
   }
 
@@ -66,6 +73,7 @@ function FormBuilder() {
       });
     }
     setActiveType(null);
+    setActiveId(null);
   }
 
   return (
@@ -98,15 +106,39 @@ function FormBuilder() {
           </SortableContext>
 
           <DragOverlay>
-            {activeType ? (
+            {activeType && activeId ? (
               <BaseBlock
-                id="1"
+                id="id"
                 type={activeType}
+                isDragging
                 remove={() => {
                   undefined;
                 }}
               >
-                <div></div>
+                {activeType === "text" && (
+                  <TextBlock
+                    field={fields.find((f) => f.id == activeId)!}
+                    update={() => {
+                      undefined;
+                    }}
+                  />
+                )}
+                {activeType === "textarea" && (
+                  <TextAreaBlock
+                    field={fields.find((f) => f.id == activeId)!}
+                    update={() => {
+                      undefined;
+                    }}
+                  />
+                )}
+                {activeType === "number" && (
+                  <NumberBlock
+                    field={fields.find((f) => f.id == activeId)!}
+                    update={() => {
+                      undefined;
+                    }}
+                  />
+                )}
               </BaseBlock>
             ) : null}
           </DragOverlay>
