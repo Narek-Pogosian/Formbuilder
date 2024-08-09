@@ -11,7 +11,9 @@ interface FieldsListProps {
 }
 
 type UniqueKeys<T> = T extends T ? keyof T : never;
-export type AllKeys = UniqueKeys<FormSchema[number]>;
+export type UpdateKeys = UniqueKeys<FormSchema[number]>;
+export type UpdateValue = string | boolean | number;
+export type UpdateFunction = (property: UpdateKeys, value: UpdateValue) => void;
 
 function FieldsList({ fields, setFields }: FieldsListProps) {
   function remove(id: string) {
@@ -19,7 +21,7 @@ function FieldsList({ fields, setFields }: FieldsListProps) {
   }
 
   function update(id: string, field: FormSchema[number]) {
-    return (property: AllKeys, value: string) =>
+    return (property: UpdateKeys, value: UpdateValue) =>
       setFields(
         fields.map((f) => (f.id != id ? f : { ...field, [property]: value })),
       );
@@ -27,8 +29,7 @@ function FieldsList({ fields, setFields }: FieldsListProps) {
 
   return (
     <div className="grid gap-10">
-      {JSON.stringify(fields, null, 2)}
-      {fields.map((field, i) => {
+      {fields.map((field) => {
         if (field.type === "text")
           return (
             <BaseBlock key={field.id} remove={remove(field.id)} type="text">
@@ -38,13 +39,13 @@ function FieldsList({ fields, setFields }: FieldsListProps) {
         if (field.type === "number")
           return (
             <BaseBlock key={field.id} remove={remove(field.id)} type="number">
-              <NumberBlock index={i} />
+              <NumberBlock update={update(field.id, field)} field={field} />
             </BaseBlock>
           );
         if (field.type === "textarea")
           return (
             <BaseBlock key={field.id} remove={remove(field.id)} type="textarea">
-              <TextAreaBlock index={i} />
+              <TextAreaBlock update={update(field.id, field)} field={field} />
             </BaseBlock>
           );
       })}

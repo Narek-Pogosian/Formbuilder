@@ -1,6 +1,6 @@
 "use client";
 
-import { type FormSchema } from "@/lib/schemas/form-schema";
+import { formSchema, type FormSchema } from "@/lib/schemas/form-schema";
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -16,9 +16,16 @@ function FormBuilder() {
     setFields([...fields, field]);
   }
 
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+
+    const { error } = formSchema.safeParse(fields);
+    console.log("error", error?.errors);
+  }
+
   return (
     <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
-      <form className="grow space-y-4 py-8">
+      <form className="grow space-y-4 py-8" onSubmit={handleSubmit}>
         <div className="mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 sm:flex-row sm:gap-4">
           <div className="grow">
             <Label htmlFor="title">Title of survey</Label>

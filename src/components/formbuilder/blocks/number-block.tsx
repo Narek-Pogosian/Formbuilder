@@ -1,31 +1,57 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { type FormSchema } from "@/lib/schemas/form-schema";
+import { type UpdateFunction } from "../fields-list";
 
 interface NumberBlockProps {
-  index: number;
+  field: FormSchema[number];
+  update: UpdateFunction;
 }
 
-function NumberBlock({ index }: NumberBlockProps) {
+function NumberBlock({ field, update }: NumberBlockProps) {
+  if (field.type !== "number") throw Error("Need to pass in a number field");
+
   return (
     <>
-      <div>
-        <Label>Label</Label>
-        <Input placeholder="Your age" />
-      </div>
+      <Label>
+        Label
+        <Input
+          placeholder="Full name"
+          value={field.label}
+          required
+          onChange={(e) => update("label", e.target.value)}
+        />
+      </Label>
 
-      <div className="flex items-center gap-2 space-y-0">
-        <Input type="checkbox" className="w-fit" />
-        <Label className="mb-0">Required</Label>
-      </div>
+      <Label className="flex items-center gap-2">
+        <Input
+          type="checkbox"
+          className="!mt-0 w-fit"
+          checked={field.required}
+          onChange={(e) => update("required", e.target.checked)}
+        />
+        Required
+      </Label>
 
-      <div>
-        <Label>Minimum value</Label>
-        <Input type="number" placeholder="0" />
-      </div>
-
-      <div>
-        <Label>Maximum value</Label>
-        <Input type="number" placeholder="100" />
+      <div className="flex flex-wrap gap-4">
+        <Label className="w-fit">
+          Minimum value
+          <Input
+            type="number"
+            placeholder="0"
+            value={field.min}
+            onChange={(e) => update("min", e.target.value)}
+          />
+        </Label>
+        <Label className="w-fit">
+          Max value
+          <Input
+            type="number"
+            placeholder="100"
+            value={field.max}
+            onChange={(e) => update("max", e.target.value)}
+          />
+        </Label>
       </div>
     </>
   );

@@ -1,55 +1,80 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MAX_LENGTH, MAX_LENGTH_TEXTAREA } from "@/lib/schemas/form-schema";
+import {
+  type FormSchema,
+  MAX_LENGTH,
+  MAX_LENGTH_TEXTAREA,
+} from "@/lib/schemas/form-schema";
+import { type UpdateFunction } from "../fields-list";
 
 interface TextBlockProps {
-  index: number;
+  field: FormSchema[number];
+  update: UpdateFunction;
 }
 
-function TextAreaBlock({ index }: TextBlockProps) {
+function TextAreaBlock({ field, update }: TextBlockProps) {
+  if (field.type !== "textarea")
+    throw Error("Need to pass in a textarea field");
+
   return (
     <>
       <div className="grid gap-4 @xl:grid-cols-2">
-        <div>
-          <Label>Label</Label>
-          <Input placeholder="Your bio" />
-        </div>
-
-        <div>
-          <Label>Placeholder</Label>
+        <Label>
+          Label
           <Input
-            type="text"
-            placeholder="Tell us about yourself"
+            placeholder="Full name"
+            value={field.label}
+            required
+            onChange={(e) => update("label", e.target.value)}
+          />
+        </Label>
+
+        <Label>
+          Placeholder
+          <Input
+            required
+            placeholder="John Smith"
+            value={field.placeholder}
+            onChange={(e) => update("placeholder", e.target.value)}
             min={0}
             max={MAX_LENGTH}
           />
-        </div>
+        </Label>
       </div>
 
-      <div className="flex items-center gap-2 space-y-0">
-        <Input type="checkbox" className="w-fit" />
-        <Label className="mb-0">Required</Label>
-      </div>
+      <Label className="flex items-center gap-2">
+        <Input
+          type="checkbox"
+          className="!mt-0 w-fit"
+          checked={field.required}
+          onChange={(e) => update("required", e.target.checked)}
+        />
+        Required
+      </Label>
 
-      <div className="flex gap-2">
-        <div>
-          <Label>Minimum length</Label>
+      <div className="flex flex-wrap gap-4">
+        <Label className="w-fit">
+          Minimum length
           <Input
             type="number"
-            placeholder=""
+            placeholder="0"
+            value={field.minLength}
+            onChange={(e) => update("minLength", e.target.value)}
             min={0}
             max={MAX_LENGTH_TEXTAREA}
           />
-        </div>
-        <div>
-          <Label>Max length</Label>
+        </Label>
+        <Label className="w-fit">
+          Max length
           <Input
             type="number"
-            placeholder=""
+            placeholder={MAX_LENGTH_TEXTAREA.toString()}
+            value={field.maxLength}
+            onChange={(e) => update("maxLength", e.target.value)}
             min={0}
             max={MAX_LENGTH_TEXTAREA}
           />
-        </div>
+        </Label>
       </div>
     </>
   );
