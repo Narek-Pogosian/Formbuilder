@@ -19,7 +19,7 @@
     --border: 240 8% 92%;
     --scrollbar: 240 8% 85%;
 
-    --radius: 0.35rem;
+    --radius: 4px;
   }
 
   .dark {
