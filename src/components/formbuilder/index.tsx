@@ -16,6 +16,7 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import FormBuilderWrapper from "./formbuilder-wrapper";
 import FieldAdder from "./field-adder";
 import FieldsList from "./fields-list";
 import BaseBlock from "./blocks/base-block";
@@ -74,79 +75,79 @@ function FormBuilder() {
   }
 
   return (
-    <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
-      <form className="grow space-y-4 py-8" onSubmit={handleSubmit}>
-        <div className="mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 sm:flex-row sm:gap-4">
-          <div className="grow">
-            <Label>
-              Title of survey
-              <Input
-                required
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="My survey"
-              />
-            </Label>
+    <FormBuilderWrapper>
+      <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
+        <form className="grow space-y-4 py-8" onSubmit={handleSubmit}>
+          <div className="mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 sm:flex-row sm:gap-4">
+            <div className="grow">
+              <Label>
+                Title of survey
+                <Input
+                  required
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="My survey"
+                />
+              </Label>
+            </div>
+            <Button className="h-fit sm:mt-[22px]" type="submit">
+              Save
+            </Button>
           </div>
-          <Button className="h-fit sm:mt-[22px]" type="submit">
-            Save
-          </Button>
-        </div>
-
-        <DndContext
-          sensors={sensors}
-          onDragStart={handleDragStart}
-          onDragEnd={handleDragEnd}
-        >
-          <SortableContext items={fields}>
-            <FieldsList
-              fields={fields}
-              setFields={setFields}
-              activeId={activeId}
-            />
-          </SortableContext>
-
-          <DragOverlay>
-            {activeType && activeId ? (
-              <BaseBlock
-                id="id"
-                type={activeType}
-                className="shadow-2xl"
-                remove={() => {
-                  undefined;
-                }}
-              >
-                {activeType === "text" && (
-                  <TextBlock
-                    field={fields.find((f) => f.id == activeId)!}
-                    update={() => {
-                      undefined;
-                    }}
-                  />
-                )}
-                {activeType === "textarea" && (
-                  <TextAreaBlock
-                    field={fields.find((f) => f.id == activeId)!}
-                    update={() => {
-                      undefined;
-                    }}
-                  />
-                )}
-                {activeType === "number" && (
-                  <NumberBlock
-                    field={fields.find((f) => f.id == activeId)!}
-                    update={() => {
-                      undefined;
-                    }}
-                  />
-                )}
-              </BaseBlock>
-            ) : null}
-          </DragOverlay>
-        </DndContext>
-      </form>
-      <FieldAdder append={append} />
-    </div>
+          <DndContext
+            sensors={sensors}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+          >
+            <SortableContext items={fields}>
+              <FieldsList
+                fields={fields}
+                setFields={setFields}
+                activeId={activeId}
+              />
+            </SortableContext>
+            <DragOverlay>
+              {activeType && activeId ? (
+                <BaseBlock
+                  id="id"
+                  type={activeType}
+                  className="shadow-2xl"
+                  remove={() => {
+                    undefined;
+                  }}
+                >
+                  {activeType === "text" && (
+                    <TextBlock
+                      field={fields.find((f) => f.id == activeId)!}
+                      update={() => {
+                        undefined;
+                      }}
+                    />
+                  )}
+                  {activeType === "textarea" && (
+                    <TextAreaBlock
+                      field={fields.find((f) => f.id == activeId)!}
+                      update={() => {
+                        undefined;
+                      }}
+                    />
+                  )}
+                  {activeType === "number" && (
+                    <NumberBlock
+                      field={fields.find((f) => f.id == activeId)!}
+                      update={() => {
+                        undefined;
+                      }}
+                    />
+                  )}
+                </BaseBlock>
+              ) : null}
+            </DragOverlay>
+          </DndContext>
+        </form>
+        <FieldAdder append={append} />
+      </div>
+    </FormBuilderWrapper>
   );
 }
 
