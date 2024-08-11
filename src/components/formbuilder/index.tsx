@@ -6,16 +6,15 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import {
-  type DragEndEvent,
-  type DragStartEvent,
-  type UniqueIdentifier,
   DndContext,
   DragOverlay,
   PointerSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { arrayMove, SortableContext } from "@dnd-kit/sortable";
+import { SortableContext } from "@dnd-kit/sortable";
+import { useDragBuilder } from "./use-drag-builder";
+import { saveForm } from "@/server/actions/form";
 import FormBuilderWrapper from "./formbuilder-wrapper";
 import FieldAdder from "./field-adder";
 import FieldsList from "./fields-list";
@@ -23,20 +22,17 @@ import BaseBlock from "./blocks/base-block";
 import TextBlock from "./blocks/text-block";
 import TextAreaBlock from "./blocks/textarea-block";
 import NumberBlock from "./blocks/number-block";
-import { saveForm } from "@/server/actions/form";
 
 function FormBuilder() {
   const [fields, setFields] = useState<FormSchema>([]);
   const [title, setTitle] = useState("");
 
-  const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const [activeType, setActiveType] = useState<
-    FormSchema[number]["type"] | null
-  >(null);
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
+  );
 
-  function append(field: FormSchema[number]) {
-    setFields([...fields, field]);
-  }
+  const { activeId, activeType, handleDragEnd, handleDragStart } =
+    useDragBuilder({ fields, setFields });
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -48,30 +44,6 @@ function FormBuilder() {
       setTitle("");
       setFields([]);
     }
-  }
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
-  );
-
-  function handleDragStart(event: DragStartEvent) {
-    const { active } = event;
-    setActiveId(active.id);
-    setActiveType(active.data.current?.type as FormSchema[number]["type"]);
-  }
-
-  function handleDragEnd(event: DragEndEvent) {
-    const { active, over } = event;
-
-    if (over?.id && active.id !== over.id) {
-      setFields((items) => {
-        const oldIndex = items.findIndex((o) => o.id === active.id);
-        const newIndex = items.findIndex((o) => o.id === over.id);
-        return arrayMove(fields, oldIndex, newIndex);
-      });
-    }
-    setActiveType(null);
-    setActiveId(null);
   }
 
   return (
@@ -107,11 +79,11 @@ function FormBuilder() {
               />
             </SortableContext>
             <DragOverlay>
-              {activeType && activeId ? (
+              {activeType && activeId && (
                 <BaseBlock
                   id="id"
                   type={activeType}
-                  className="shadow-2xl"
+                  className="shadow-2xl dark:shadow-black"
                   remove={() => {
                     undefined;
                   }}
@@ -141,11 +113,11 @@ function FormBuilder() {
                     />
                   )}
                 </BaseBlock>
-              ) : null}
+              )}
             </DragOverlay>
           </DndContext>
         </form>
-        <FieldAdder append={append} />
+        <FieldAdder setFields={setFields} />
       </div>
     </FormBuilderWrapper>
   );

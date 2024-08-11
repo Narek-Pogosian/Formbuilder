@@ -7,10 +7,14 @@ import { Button } from "../ui/button";
 import { Sigma, Type, TypeOutline } from "lucide-react";
 
 interface FieldAdderProps {
-  append: (field: FormSchema[number]) => void;
+  setFields: React.Dispatch<React.SetStateAction<FormSchema>>;
 }
 
-function FieldAdder({ append }: FieldAdderProps) {
+function FieldAdder({ setFields }: FieldAdderProps) {
+  function append(field: FormSchema[number]) {
+    setFields((prevFields) => [...prevFields, field]);
+  }
+
   function addTextField() {
     append({
       id: crypto.randomUUID(),
