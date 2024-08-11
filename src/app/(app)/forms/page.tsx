@@ -12,7 +12,7 @@ async function FormsPage() {
         {forms.map((form) => (
           <li
             key={form.id}
-            className="bg-background-card relative flex rounded p-6"
+            className="relative flex rounded bg-background-card p-6 shadow"
           >
             <div className="grow">
               <Link

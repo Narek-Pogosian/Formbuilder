@@ -9,7 +9,7 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
 
   return (
     <div className="flex min-h-full">
-      <div className="bg-background-card sticky top-0 z-50 hidden h-screen w-64 shrink-0 pr-2 lg:block">
+      <div className="sticky top-0 z-50 hidden h-screen w-64 shrink-0 bg-background-card pr-2 shadow lg:block">
         <SidebarNavigation />
       </div>
       <div className="flex w-full flex-col">

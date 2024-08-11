@@ -37,7 +37,7 @@ function FieldsList({ fields, setFields, activeId }: FieldsListProps) {
           id={field.id}
           type={field.type}
           remove={remove(field.id)}
-          className={activeId === field.id ? "opacity-55" : ""}
+          className={activeId === field.id ? "opacity-35" : ""}
         >
           {field.type === "text" && (
             <TextBlock update={update(field.id, field)} field={field} />

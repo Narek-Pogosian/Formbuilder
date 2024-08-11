@@ -50,7 +50,7 @@ function FormBuilder() {
     <FormBuilderWrapper>
       <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
         <form className="grow space-y-4 py-8" onSubmit={handleSubmit}>
-          <div className="mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 sm:flex-row sm:gap-4">
+          <div className="mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 shadow sm:flex-row sm:gap-4">
             <div className="grow">
               <Label>
                 Title of survey

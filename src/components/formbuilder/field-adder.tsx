@@ -51,7 +51,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
   }
 
   return (
-    <div className="flex w-60 shrink-0 flex-col space-y-4 rounded bg-background-card p-8 lg:sticky lg:top-0 lg:h-screen">
+    <div className="flex w-60 shrink-0 flex-col space-y-4 rounded bg-background-card p-8 shadow lg:sticky lg:top-0 lg:h-screen">
       <h3 className="text-center font-semibold">Add field</h3>
       <Button
         className="h-fit flex-col gap-2"
