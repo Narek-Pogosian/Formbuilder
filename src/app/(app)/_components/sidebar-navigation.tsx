@@ -13,7 +13,7 @@ function SidebarNavigation() {
   const menuList = getMenuList(pathname);
 
   return (
-    <nav className="relative flex h-full flex-col overflow-y-auto px-2 pt-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-scrollbar">
+    <nav className="relative flex h-full flex-col overflow-y-auto pt-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-scrollbar lg:pl-4">
       <ul className="space-y-4">
         {menuList.map((item) => (
           <div key={item.groupLabel}>
@@ -41,7 +41,7 @@ function SidebarNavigation() {
         ))}
       </ul>
 
-      <div className="lg:bg-background-card sticky bottom-0 mt-auto flex justify-between border-t bg-background py-2">
+      <div className="sticky bottom-0 mt-auto flex justify-between border-t bg-background py-2 lg:bg-background-card">
         <Signout />
         <ThemeToggle />
       </div>

@@ -23,7 +23,7 @@ async function layout({ children }: { children: React.ReactNode }) {
         </Button>
         <div className="w-full max-w-xl px-4">{children}</div>
       </div>
-      <div className="hidden bg-primary lg:col-span-2 lg:block"></div>
+      <div className="hidden lg:col-span-2 lg:block">TODO: Image</div>
     </div>
   );
 }

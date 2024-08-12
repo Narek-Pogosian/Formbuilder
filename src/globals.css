@@ -15,7 +15,7 @@
     --background-input: 240 10% 100%;
     --background-popover: 240 10% 99%;
 
-    --accent: 240, 80%, 40%, 0.025;
+    --accent: 240, 50%, 40%, 0.04;
     --border: 240 8% 91%;
     --scrollbar: 240 8% 85%;
 
@@ -29,14 +29,14 @@
     --foreground: 240 6% 98%;
     --foreground-muted: 240 6% 55%;
 
-    --background: 240 6% 9%;
-    --background-card: 240 6% 12%;
-    --background-input: 240 6% 14.5%;
+    --background: 240 6% 8%;
+    --background-card: 240 6% 10.5%;
+    --background-input: 240 6% 13%;
     --background-popover: 240 6% 11%;
 
-    --accent: 240, 16%, 80%, 0.075;
+    --accent: 240, 16%, 80%, 0.085;
     --border: 240 6% 20%;
-    --scrollbar: 240 9% 20%;
+    --scrollbar: 240 6% 20%;
   }
 }
 
@@ -55,5 +55,12 @@
 
   input {
     @apply accent-primary;
+  }
+
+  .shadow {
+    @apply shadow-[0_2px_8px_#31315015] dark:shadow-[0_2px_8px_#0c0c0d];
+  }
+  .shadow-xl {
+    @apply shadow-[0_3px_24px_#31315015] dark:shadow-[0_4px_30px_#0c0c0d];
   }
 }

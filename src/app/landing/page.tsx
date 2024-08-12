@@ -13,25 +13,25 @@ async function LandingPage() {
         <div className="mx-auto max-w-[85rem] px-4 pb-10 pt-24 sm:px-6 lg:px-8">
           <div className="flex justify-center">
             <a
-              className="border-gray-200 text-gray-600 hover:border-gray-300 focus:border-gray-300 inline-flex items-center gap-x-2 rounded-full border bg-background-card p-2 px-3 text-xs transition focus:outline-none"
+              className="inline-flex items-center gap-x-2 rounded-full border bg-background-card p-2 px-3 text-xs transition focus:outline-none"
               href="#"
             >
               Explore the Capital Product
               <span className="flex items-center gap-x-1">
-                <span className="border-gray-200 text-blue-600 dark:text-blue-500 border-s ps-2 dark:border-neutral-700">
+                <span className="border-gray-200 dark:text-blue-500 border-s ps-2 dark:border-neutral-700">
                   Explore
                 </span>
                 <svg
-                  className="text-blue-600 size-4 shrink-0"
+                  className="size-4 shrink-0"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
                   <path d="m9 18 6-6-6-6" />
                 </svg>
@@ -40,13 +40,13 @@ async function LandingPage() {
           </div>
 
           <div className="mx-auto mt-5 max-w-xl text-center">
-            <h1 className="text-gray-800 block text-4xl font-bold dark:text-neutral-200 md:text-5xl lg:text-6xl">
+            <h1 className="block text-4xl font-bold md:text-5xl lg:text-6xl">
               Ask, Analyze, Act
             </h1>
           </div>
 
           <div className="mx-auto mt-5 max-w-3xl text-center">
-            <p className="text-gray-600 text-lg dark:text-neutral-400">
+            <p className="text-lg text-foreground-muted">
               Create powerful surveys that drive results. Collect feedback,
               uncover trends, and make data-driven decisions with ease.
             </p>
@@ -54,7 +54,7 @@ async function LandingPage() {
 
           <div className="mt-8 flex justify-center gap-3">
             <a
-              className="from-blue-600 to-violet-600 hover:from-violet-600 hover:to-blue-600 focus:from-violet-600 focus:to-blue-600 inline-flex items-center justify-center gap-x-3 rounded-full border border-transparent bg-gradient-to-tl px-4 py-3 text-center text-sm font-medium focus:outline-none"
+              className="inline-flex items-center justify-center gap-x-3 rounded-full border border-transparent bg-gradient-to-tl px-4 py-3 text-center text-sm font-medium focus:outline-none"
               href="#"
             >
               <svg
