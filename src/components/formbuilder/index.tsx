@@ -1,7 +1,6 @@
 "use client";
 
-import { formSchema, type FormSchema } from "@/lib/schemas/form-schema";
-import { useState } from "react";
+import { createElement, useState } from "react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
@@ -12,6 +11,11 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+import {
+  formSchema,
+  type InputType,
+  type FormSchema,
+} from "@/lib/schemas/form-schema";
 import {
   SortableContext,
   verticalListSortingStrategy,
@@ -27,6 +31,18 @@ import TextAreaBlock from "./blocks/textarea-block";
 import NumberBlock from "./blocks/number-block";
 import PreviewDialog from "../formrenderer/preview-dialog";
 import SelectBlock from "./blocks/select-block";
+
+interface BlockProps {
+  field: FormSchema[number];
+  update: () => void;
+}
+
+const availableBlocks: Record<InputType, React.ComponentType<BlockProps>> = {
+  text: TextBlock,
+  textarea: TextAreaBlock,
+  number: NumberBlock,
+  select: SelectBlock,
+};
 
 function FormBuilder() {
   const [fields, setFields] = useState<FormSchema>([]);
@@ -99,38 +115,11 @@ function FormBuilder() {
                       undefined;
                     }}
                   >
-                    {activeType === "text" && (
-                      <TextBlock
-                        field={fields.find((f) => f.id == activeId)!}
-                        update={() => {
-                          undefined;
-                        }}
-                      />
-                    )}
-                    {activeType === "textarea" && (
-                      <TextAreaBlock
-                        field={fields.find((f) => f.id == activeId)!}
-                        update={() => {
-                          undefined;
-                        }}
-                      />
-                    )}
-                    {activeType === "number" && (
-                      <NumberBlock
-                        field={fields.find((f) => f.id == activeId)!}
-                        update={() => {
-                          undefined;
-                        }}
-                      />
-                    )}
-                    {activeType === "select" && (
-                      <SelectBlock
-                        field={fields.find((f) => f.id == activeId)!}
-                        update={() => {
-                          undefined;
-                        }}
-                      />
-                    )}
+                    {availableBlocks[activeType] &&
+                      createElement(availableBlocks[activeType], {
+                        field: fields.find((f) => f.id == activeId)!,
+                        update: () => undefined,
+                      })}
                   </BaseBlock>
                 )}
               </DragOverlay>
