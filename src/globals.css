@@ -10,7 +10,7 @@
     --foreground: 240 8% 5%;
     --foreground-muted: 240 8% 55%;
 
-    --background: 240 28% 97.5%;
+    --background: 240 28% 97%;
     --background-card: 240 10% 98.5%;
     --background-input: 240 10% 100%;
     --background-popover: 240 10% 99%;
@@ -29,13 +29,13 @@
     --foreground: 240 6% 98%;
     --foreground-muted: 240 6% 55%;
 
-    --background: 240 6% 8%;
+    --background: 240 6% 7%;
     --background-card: 240 6% 10%;
     --background-input: 240 6% 12%;
     --background-popover: 240 6% 11%;
 
     --accent: 240, 16%, 80%, 0.085;
-    --border: 240 6% 16%;
+    --border: 240 6% 15%;
     --scrollbar: 240 6% 20%;
   }
 }
@@ -61,6 +61,6 @@
     @apply shadow-[0_2px_8px_#31315015] dark:shadow-[0_2px_8px_#0c0c0d];
   }
   .shadow-xl {
-    @apply shadow-[0_3px_24px_#31315015] dark:shadow-[0_4px_30px_#0c0c0d];
+    @apply shadow-[0_3px_24px_#31315015] dark:shadow-[0_4px_30px_#0c0c0d20];
   }
 }

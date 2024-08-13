@@ -16,7 +16,12 @@ import {
 } from "../ui/form";
 import { Textarea } from "../ui/textarea";
 
-function FormRenderer({ form }: { form: FormSchema }) {
+interface FormRendererProps {
+  form: FormSchema;
+  mode?: "answer" | "preview";
+}
+
+function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
   const schema = createValidationSchema(form);
   const f = useForm<typeof schema>({
     resolver: zodResolver(schema),
@@ -24,22 +29,27 @@ function FormRenderer({ form }: { form: FormSchema }) {
   });
 
   function onSubmit(data: typeof schema) {
-    console.log(data);
+    if (mode === "preview") {
+      alert("Preview survey submitted withour errors");
+      return;
+    }
+
+    console.log("data", data);
   }
 
   return (
     <Form {...f}>
       <form
         onSubmit={f.handleSubmit(onSubmit)}
-        className="mx-auto grid max-w-3xl gap-10 py-4"
+        className="mx-auto grid w-full max-w-3xl gap-10 py-4"
       >
-        {form.map((formField) => {
+        {form.map((formField, i) => {
           const label = formField.label as keyof typeof schema;
 
           if (formField.type === "text")
             return (
               <FormField
-                key={label}
+                key={label + i.toString()}
                 control={f.control}
                 name={label}
                 render={({ field }) => (
@@ -61,7 +71,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
           if (formField.type === "number")
             return (
               <FormField
-                key={label}
+                key={label + i.toString()}
                 control={f.control}
                 name={label}
                 render={({ field }) => (
@@ -86,7 +96,7 @@ function FormRenderer({ form }: { form: FormSchema }) {
           if (formField.type === "textarea")
             return (
               <FormField
-                key={label}
+                key={label + i.toString()}
                 control={f.control}
                 name={label}
                 render={({ field }) => (

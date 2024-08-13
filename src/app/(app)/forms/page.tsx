@@ -6,7 +6,7 @@ async function FormsPage() {
   const forms = await getForms();
 
   return (
-    <div className="p-8">
+    <div className="px-8 py-4">
       <h1 className="mb-8 text-xl font-bold">Forms</h1>
       <ul className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
         {forms.map((form) => (

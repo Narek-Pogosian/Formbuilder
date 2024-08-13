@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { type FormSchema, MAX_LENGTH } from "@/lib/schemas/form-schema";
-import { type UpdateFunction } from "../fields-list";
+import { type UpdateFunction } from "../field-list";
 
 interface TextBlockProps {
   field: FormSchema[number];

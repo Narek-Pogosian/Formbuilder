@@ -7,11 +7,11 @@ async function page({ params }: { params: { id: string } }) {
   const form = await getFormById(params.id);
   if (!form) notFound();
 
-  const { data, error } = formSchema.safeParse(
+  const { data, success } = formSchema.safeParse(
     JSON.parse(form?.content?.toString() ?? ""),
   );
 
-  if (!data) notFound();
+  if (!data || !success) notFound();
 
   return (
     <div className="p-8">

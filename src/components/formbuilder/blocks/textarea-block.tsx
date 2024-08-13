@@ -5,7 +5,7 @@ import {
   MAX_LENGTH,
   MAX_LENGTH_TEXTAREA,
 } from "@/lib/schemas/form-schema";
-import { type UpdateFunction } from "../fields-list";
+import { type UpdateFunction } from "../field-list";
 
 interface TextBlockProps {
   field: FormSchema[number];
