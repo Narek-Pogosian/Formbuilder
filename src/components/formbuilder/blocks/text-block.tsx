@@ -17,6 +17,7 @@ function TextBlock({ update, field }: TextBlockProps) {
         <Label>
           Label
           <Input
+            name="label"
             placeholder="Full name"
             value={field.label}
             required
@@ -27,6 +28,7 @@ function TextBlock({ update, field }: TextBlockProps) {
         <Label>
           Placeholder
           <Input
+            name="placeholder"
             required
             placeholder="John Smith"
             value={field.placeholder}
@@ -39,6 +41,7 @@ function TextBlock({ update, field }: TextBlockProps) {
 
       <Label className="flex w-fit items-center gap-2">
         <Input
+          name="required"
           type="checkbox"
           className="!mt-0 w-fit"
           checked={field.required}
@@ -51,6 +54,7 @@ function TextBlock({ update, field }: TextBlockProps) {
         <Label className="w-fit">
           Minimum length
           <Input
+            name="minLength"
             type="number"
             placeholder="0"
             value={field.minLength}
@@ -62,6 +66,7 @@ function TextBlock({ update, field }: TextBlockProps) {
         <Label className="w-fit">
           Max length
           <Input
+            name="maxLength"
             type="number"
             placeholder={MAX_LENGTH.toString()}
             value={field.maxLength}

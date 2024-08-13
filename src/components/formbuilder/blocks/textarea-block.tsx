@@ -22,6 +22,7 @@ function TextAreaBlock({ field, update }: TextBlockProps) {
         <Label>
           Label
           <Input
+            name="label"
             placeholder="Your bio"
             value={field.label}
             required
@@ -32,6 +33,7 @@ function TextAreaBlock({ field, update }: TextBlockProps) {
         <Label>
           Placeholder
           <Input
+            name="placeholder"
             required
             placeholder="Tell us about yourself"
             value={field.placeholder}
@@ -44,6 +46,7 @@ function TextAreaBlock({ field, update }: TextBlockProps) {
 
       <Label className="flex w-fit items-center gap-2">
         <Input
+          name="required"
           type="checkbox"
           className="!mt-0 w-fit"
           checked={field.required}
@@ -56,6 +59,7 @@ function TextAreaBlock({ field, update }: TextBlockProps) {
         <Label className="w-fit">
           Minimum length
           <Input
+            name="minLength"
             type="number"
             placeholder="0"
             value={field.minLength}
@@ -67,6 +71,7 @@ function TextAreaBlock({ field, update }: TextBlockProps) {
         <Label className="w-fit">
           Max length
           <Input
+            name="maxLength"
             type="number"
             placeholder={MAX_LENGTH_TEXTAREA.toString()}
             value={field.maxLength}

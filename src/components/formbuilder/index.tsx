@@ -55,6 +55,7 @@ function FormBuilder() {
               <Label>
                 Title of survey
                 <Input
+                  id="title"
                   required
                   value={title}
                   onChange={(e) => setTitle(e.target.value)}

@@ -16,6 +16,7 @@ function NumberBlock({ field, update }: NumberBlockProps) {
       <Label>
         Label
         <Input
+          name="age"
           placeholder="Age"
           value={field.label}
           required
@@ -25,6 +26,7 @@ function NumberBlock({ field, update }: NumberBlockProps) {
 
       <Label className="flex w-fit items-center gap-2">
         <Input
+          name="required"
           type="checkbox"
           className="!mt-0 w-fit"
           checked={field.required}
@@ -37,6 +39,7 @@ function NumberBlock({ field, update }: NumberBlockProps) {
         <Label className="w-fit">
           Minimum value
           <Input
+            name="minValue"
             type="number"
             placeholder="0"
             value={field.min}
@@ -46,6 +49,7 @@ function NumberBlock({ field, update }: NumberBlockProps) {
         <Label className="w-fit">
           Max value
           <Input
+            name="maxValue"
             type="number"
             placeholder="100"
             value={field.max}

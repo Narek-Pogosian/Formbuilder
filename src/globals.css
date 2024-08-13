@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --primary: 0 0% 10%;
+    --primary: 240 8% 10%;
     --primary-foreground: 0 0% 98%;
 
     --foreground: 240 8% 5%;
@@ -16,7 +16,7 @@
     --background-popover: 240 10% 99%;
 
     --accent: 240, 50%, 40%, 0.04;
-    --border: 240 8% 91%;
+    --border: 240 8% 94%;
     --scrollbar: 240 8% 85%;
 
     --radius: 4px;
@@ -30,12 +30,12 @@
     --foreground-muted: 240 6% 55%;
 
     --background: 240 6% 8%;
-    --background-card: 240 6% 10.5%;
-    --background-input: 240 6% 13%;
+    --background-card: 240 6% 10%;
+    --background-input: 240 6% 12%;
     --background-popover: 240 6% 11%;
 
     --accent: 240, 16%, 80%, 0.085;
-    --border: 240 6% 20%;
+    --border: 240 6% 16%;
     --scrollbar: 240 6% 20%;
   }
 }
