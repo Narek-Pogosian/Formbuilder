@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const Inputs = ["text", "number", "textarea"] as const;
+const Inputs = ["text", "number", "textarea", "select"] as const;
 
 const baseSchema = z.object({
   id: z.string(),
@@ -31,9 +31,20 @@ export const textAreaSchema = baseSchema.extend({
   maxLength: z.coerce.number().min(0).max(MAX_LENGTH_TEXTAREA).optional(),
 });
 
+export const selectSchema = baseSchema.extend({
+  type: z.literal("select"),
+  placeholder: z.string().min(1, { message: "A placeholder is required" }),
+  options: z.array(z.string()).min(1),
+});
+
 export const formSchema = z
   .array(
-    z.discriminatedUnion("type", [textSchema, numberSchema, textAreaSchema]),
+    z.discriminatedUnion("type", [
+      textSchema,
+      numberSchema,
+      textAreaSchema,
+      selectSchema,
+    ]),
   )
   .refine(
     (data) => {

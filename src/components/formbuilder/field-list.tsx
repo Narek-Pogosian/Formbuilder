@@ -5,6 +5,7 @@ import BaseBlock from "./blocks/base-block";
 import TextBlock from "./blocks/text-block";
 import NumberBlock from "./blocks/number-block";
 import TextAreaBlock from "./blocks/textarea-block";
+import SelectBlock from "./blocks/select-block";
 
 type UniqueKeys<T> = T extends T ? keyof T : never;
 export type UpdateKeys = UniqueKeys<FormSchema[number]>;
@@ -37,7 +38,7 @@ function FieldsList({ fields, setFields, activeId }: FieldsListProps) {
           id={field.id}
           type={field.type}
           remove={remove(field.id)}
-          className={activeId === field.id ? "opacity-35" : ""}
+          className={activeId === field.id ? "opacity-0" : ""}
         >
           {field.type === "text" && (
             <TextBlock update={update(field.id, field)} field={field} />
@@ -47,6 +48,9 @@ function FieldsList({ fields, setFields, activeId }: FieldsListProps) {
           )}
           {field.type === "number" && (
             <NumberBlock update={update(field.id, field)} field={field} />
+          )}
+          {field.type === "select" && (
+            <SelectBlock update={update(field.id, field)} field={field} />
           )}
         </BaseBlock>
       ))}

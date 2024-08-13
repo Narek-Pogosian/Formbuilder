@@ -12,7 +12,10 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { SortableContext } from "@dnd-kit/sortable";
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 import { useDragBuilder } from "./use-drag-builder";
 import { saveForm } from "@/server/actions/form";
 import FormBuilderWrapper from "./formbuilder-wrapper";
@@ -23,6 +26,7 @@ import TextBlock from "./blocks/text-block";
 import TextAreaBlock from "./blocks/textarea-block";
 import NumberBlock from "./blocks/number-block";
 import PreviewDialog from "../formrenderer/preview-dialog";
+import SelectBlock from "./blocks/select-block";
 
 function FormBuilder() {
   const [fields, setFields] = useState<FormSchema>([]);
@@ -50,10 +54,10 @@ function FormBuilder() {
   return (
     <FormBuilderWrapper>
       <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
-        <div className="grow py-4">
+        <div className="grow py-6">
           <PreviewDialog title={title} form={fields} />
           <form className="mt-4 space-y-4" onSubmit={handleSubmit}>
-            <div className="mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 shadow sm:flex-row sm:gap-4">
+            <div className="shadow mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 sm:flex-row sm:gap-4">
               <div className="grow">
                 <Label>
                   Title of survey
@@ -75,7 +79,10 @@ function FormBuilder() {
               onDragStart={handleDragStart}
               onDragEnd={handleDragEnd}
             >
-              <SortableContext items={fields}>
+              <SortableContext
+                items={fields}
+                strategy={verticalListSortingStrategy}
+              >
                 <FieldList
                   fields={fields}
                   setFields={setFields}
@@ -110,6 +117,14 @@ function FormBuilder() {
                     )}
                     {activeType === "number" && (
                       <NumberBlock
+                        field={fields.find((f) => f.id == activeId)!}
+                        update={() => {
+                          undefined;
+                        }}
+                      />
+                    )}
+                    {activeType === "select" && (
+                      <SelectBlock
                         field={fields.find((f) => f.id == activeId)!}
                         update={() => {
                           undefined;

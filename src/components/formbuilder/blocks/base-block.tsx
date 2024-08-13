@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { cn } from "@/lib/utils";
+import { Grip } from "lucide-react";
 
 type BaseBlockProps = {
   id: string;
@@ -25,7 +26,7 @@ function BaseBlock({ children, className, type, remove, id }: Props) {
   return (
     <div
       className={cn(
-        "cursor-grab rounded bg-background-card px-8 py-6 shadow @container",
+        "shadow cursor-grab rounded bg-background-card p-6 @container",
         className,
       )}
       ref={setNodeRef}
@@ -33,15 +34,17 @@ function BaseBlock({ children, className, type, remove, id }: Props) {
       {...attributes}
       {...listeners}
     >
-      <div className="grow space-y-5">
-        <div className="flex items-center justify-between">
-          <h3 className="text-xl font-extrabold capitalize">{type}</h3>
-          <Button variant="danger" size="sm" type="button" onClick={remove}>
-            Remove
-          </Button>
+      <div className="flex gap-4">
+        <Grip className="mt-1 size-5 text-foreground-muted" />
+        <div className="grow space-y-5">
+          <div className="flex items-center justify-between">
+            <h3 className="text-xl font-extrabold capitalize">{type}</h3>
+            <Button variant="danger" size="sm" type="button" onClick={remove}>
+              Remove
+            </Button>
+          </div>
+          {children}
         </div>
-
-        {children}
       </div>
     </div>
   );

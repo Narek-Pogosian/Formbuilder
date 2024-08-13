@@ -6,13 +6,13 @@ async function FormsPage() {
   const forms = await getForms();
 
   return (
-    <div className="px-8 py-4">
+    <div className="px-8 py-6">
       <h1 className="mb-8 text-xl font-bold">Forms</h1>
       <ul className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
         {forms.map((form) => (
           <li
             key={form.id}
-            className="relative flex rounded bg-background-card p-6 shadow"
+            className="shadow relative flex rounded bg-background-card p-6"
           >
             <div className="grow">
               <Link

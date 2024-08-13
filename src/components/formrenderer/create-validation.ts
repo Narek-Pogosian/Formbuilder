@@ -62,6 +62,10 @@ export function createValidationSchema(form: FormSchema) {
         }
         break;
 
+      case "select":
+        fieldSchema = z.string().trim();
+        break;
+
       default:
         throw new Error(`Unsupported field type`);
     }
