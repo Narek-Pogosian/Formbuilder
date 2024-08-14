@@ -65,6 +65,7 @@ function SelectBlock({ field, update }: BlockProps) {
           <Label className="w-auto">
             Add option
             <Input
+              id="option"
               placeholder="Label"
               value={option}
               onChange={(e) => setOption(e.target.value)}

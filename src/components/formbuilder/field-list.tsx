@@ -30,7 +30,7 @@ function FieldsList({ fields, setFields, activeId }: FieldsListProps) {
           id={field.id}
           type={field.type}
           remove={remove(field.id)}
-          className={activeId === field.id ? "opacity-0" : ""}
+          className={activeId === field.id ? "opacity-25" : ""}
         >
           {availableBlocks[field.type] &&
             createElement(availableBlocks[field.type], {

@@ -91,7 +91,7 @@ function FormBuilder() {
                   <BaseBlock
                     id="id"
                     type={activeType}
-                    className="shadow-xl dark:shadow-black"
+                    className="shadow-xl"
                     remove={() => {
                       undefined;
                     }}
