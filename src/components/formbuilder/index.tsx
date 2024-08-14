@@ -1,9 +1,5 @@
 "use client";
 
-import { createElement, useState } from "react";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
 import {
   DndContext,
   DragOverlay,
@@ -12,37 +8,22 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import {
-  formSchema,
-  type InputType,
-  type FormSchema,
-} from "@/lib/schemas/form-schema";
-import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
+import { formSchema, type FormSchema } from "@/lib/schemas/form-schema";
+import { createElement, useState } from "react";
 import { useDragBuilder } from "./use-drag-builder";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
+import { Button } from "../ui/button";
 import { saveForm } from "@/server/actions/form";
+import { availableBlocks } from "./blocks";
 import FormBuilderWrapper from "./formbuilder-wrapper";
+import PreviewDialog from "../formrenderer/preview-dialog";
 import FieldAdder from "./field-adder";
 import FieldList from "./field-list";
 import BaseBlock from "./blocks/base-block";
-import TextBlock from "./blocks/text-block";
-import TextAreaBlock from "./blocks/textarea-block";
-import NumberBlock from "./blocks/number-block";
-import PreviewDialog from "../formrenderer/preview-dialog";
-import SelectBlock from "./blocks/select-block";
-
-interface BlockProps {
-  field: FormSchema[number];
-  update: () => void;
-}
-
-const availableBlocks: Record<InputType, React.ComponentType<BlockProps>> = {
-  text: TextBlock,
-  textarea: TextAreaBlock,
-  number: NumberBlock,
-  select: SelectBlock,
-};
 
 function FormBuilder() {
   const [fields, setFields] = useState<FormSchema>([]);

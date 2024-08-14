@@ -1,14 +1,9 @@
-import { MAX_LENGTH, type FormSchema } from "@/lib/schemas/form-schema";
-import { type UpdateFunction } from "../field-list";
+import { MAX_LENGTH } from "@/lib/schemas/form-schema";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { type BlockProps } from ".";
 
-interface SelectBlockProps {
-  field: FormSchema[number];
-  update: UpdateFunction;
-}
-
-function SelectBlock({ field, update }: SelectBlockProps) {
+function SelectBlock({ field, update }: BlockProps) {
   if (field.type !== "select") throw Error("Need to pass in a select field");
 
   return (

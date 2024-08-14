@@ -1,16 +1,8 @@
+import { availableBlocks, type UpdateKeys, type UpdateValue } from "./blocks";
 import { type UniqueIdentifier } from "@dnd-kit/core";
 import { type FormSchema } from "@/lib/schemas/form-schema";
-import { memo } from "react";
+import { createElement, memo } from "react";
 import BaseBlock from "./blocks/base-block";
-import TextBlock from "./blocks/text-block";
-import NumberBlock from "./blocks/number-block";
-import TextAreaBlock from "./blocks/textarea-block";
-import SelectBlock from "./blocks/select-block";
-
-type UniqueKeys<T> = T extends T ? keyof T : never;
-export type UpdateKeys = UniqueKeys<FormSchema[number]>;
-export type UpdateValue = string | boolean | number;
-export type UpdateFunction = (property: UpdateKeys, value: UpdateValue) => void;
 
 interface FieldsListProps {
   fields: FormSchema;
@@ -31,7 +23,7 @@ function FieldsList({ fields, setFields, activeId }: FieldsListProps) {
   }
 
   return (
-    <div className="grid gap-10">
+    <div className="grid gap-5">
       {fields.map((field) => (
         <BaseBlock
           key={field.id}
@@ -40,18 +32,11 @@ function FieldsList({ fields, setFields, activeId }: FieldsListProps) {
           remove={remove(field.id)}
           className={activeId === field.id ? "opacity-0" : ""}
         >
-          {field.type === "text" && (
-            <TextBlock update={update(field.id, field)} field={field} />
-          )}
-          {field.type === "textarea" && (
-            <TextAreaBlock update={update(field.id, field)} field={field} />
-          )}
-          {field.type === "number" && (
-            <NumberBlock update={update(field.id, field)} field={field} />
-          )}
-          {field.type === "select" && (
-            <SelectBlock update={update(field.id, field)} field={field} />
-          )}
+          {availableBlocks[field.type] &&
+            createElement(availableBlocks[field.type], {
+              update: update(field.id, field),
+              field: field,
+            })}
         </BaseBlock>
       ))}
     </div>

@@ -1,14 +1,9 @@
+import { MAX_LENGTH } from "@/lib/schemas/form-schema";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { type FormSchema, MAX_LENGTH } from "@/lib/schemas/form-schema";
-import { type UpdateFunction } from "../field-list";
+import { type BlockProps } from ".";
 
-interface TextBlockProps {
-  field: FormSchema[number];
-  update: UpdateFunction;
-}
-
-function TextBlock({ update, field }: TextBlockProps) {
+function TextBlock({ update, field }: BlockProps) {
   if (field.type !== "text") throw Error("Need to pass in a text field");
 
   return (

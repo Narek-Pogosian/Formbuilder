@@ -14,6 +14,9 @@ type BaseBlockProps = {
 
 type Props = React.HtmlHTMLAttributes<HTMLDivElement> & BaseBlockProps;
 
+/**
+ * This is the base that needs to wrap every type of block, it provides the drag functionality and remove
+ */
 function BaseBlock({ children, className, type, remove, id }: Props) {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id, data: { type } });

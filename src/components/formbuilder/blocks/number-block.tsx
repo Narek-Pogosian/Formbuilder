@@ -1,14 +1,8 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { type FormSchema } from "@/lib/schemas/form-schema";
-import { type UpdateFunction } from "../field-list";
+import { type BlockProps } from ".";
 
-interface NumberBlockProps {
-  field: FormSchema[number];
-  update: UpdateFunction;
-}
-
-function NumberBlock({ field, update }: NumberBlockProps) {
+function NumberBlock({ field, update }: BlockProps) {
   if (field.type !== "number") throw Error("Need to pass in a number field");
 
   return (

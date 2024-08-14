@@ -1,18 +1,9 @@
+import { MAX_LENGTH, MAX_LENGTH_TEXTAREA } from "@/lib/schemas/form-schema";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  type FormSchema,
-  MAX_LENGTH,
-  MAX_LENGTH_TEXTAREA,
-} from "@/lib/schemas/form-schema";
-import { type UpdateFunction } from "../field-list";
+import { type BlockProps } from ".";
 
-interface TextBlockProps {
-  field: FormSchema[number];
-  update: UpdateFunction;
-}
-
-function TextAreaBlock({ field, update }: TextBlockProps) {
+function TextAreaBlock({ field, update }: BlockProps) {
   if (field.type !== "textarea")
     throw Error("Need to pass in a textarea field");
 
