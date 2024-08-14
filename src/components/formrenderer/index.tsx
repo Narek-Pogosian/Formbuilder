@@ -1,11 +1,9 @@
 "use client";
 
 import { createValidationSchema } from "./create-validation";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { type FormSchema } from "@/lib/schemas/form-schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import {
   Form,
   FormControl,
@@ -14,7 +12,16 @@ import {
   FormLabel,
   FormMessage,
 } from "../ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 interface FormRendererProps {
   form: FormSchema;
@@ -41,7 +48,7 @@ function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
     <Form {...f}>
       <form
         onSubmit={f.handleSubmit(onSubmit)}
-        className="mx-auto grid w-full max-w-3xl gap-10 py-4"
+        className="mx-auto grid w-full max-w-3xl gap-8 py-4"
       >
         {form.map((formField, i) => {
           const label = formField.label as keyof typeof schema;
@@ -110,6 +117,38 @@ function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
                         value={field.value as string}
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            );
+
+          if (formField.type === "select")
+            return (
+              <FormField
+                key={label + i.toString()}
+                control={f.control}
+                name={label}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{label}</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value as string}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder={formField.placeholder} />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {formField.options.map((option) => (
+                          <SelectItem value={option} key={option}>
+                            {option}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

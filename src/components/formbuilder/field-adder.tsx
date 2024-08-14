@@ -5,6 +5,7 @@ import {
 } from "@/lib/schemas/form-schema";
 import { Button } from "../ui/button";
 import { MousePointer, Sigma, Type, TypeOutline } from "lucide-react";
+import { memo } from "react";
 
 interface FieldAdderProps {
   setFields: React.Dispatch<React.SetStateAction<FormSchema>>;
@@ -100,4 +101,4 @@ function FieldAdder({ setFields }: FieldAdderProps) {
   );
 }
 
-export default FieldAdder;
+export default memo(FieldAdder);

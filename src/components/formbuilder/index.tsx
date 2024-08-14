@@ -54,7 +54,7 @@ function FormBuilder() {
         <div className="grow py-6">
           <PreviewDialog title={title} form={fields} />
           <form className="mt-4 space-y-4" onSubmit={handleSubmit}>
-            <div className="shadow mb-8 flex flex-col gap-2 rounded bg-background-card px-8 py-6 sm:flex-row sm:gap-4">
+            <div className="shadow mb-8 flex flex-col gap-2 rounded bg-background-card p-6 sm:flex-row sm:gap-4">
               <div className="grow">
                 <Label>
                   Title of survey
