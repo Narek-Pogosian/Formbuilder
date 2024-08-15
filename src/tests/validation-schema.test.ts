@@ -107,6 +107,94 @@ describe("createValidationSchema", () => {
     await expect(schema.parseAsync({ age: 50 })).resolves.not.toThrow();
   });
 
+  it("should create a schema for a checkbox that passes", async () => {
+    const form: FormSchema = [
+      {
+        id: "id",
+        type: "checkbox",
+        label: "consent",
+        required: false,
+      },
+    ];
+
+    const schema = createValidationSchema(form);
+
+    expect(schema.shape).toHaveProperty("consent");
+
+    await expect(schema.parseAsync({ consent: true })).resolves.not.toThrow();
+    await expect(schema.parseAsync({ consent: false })).resolves.not.toThrow();
+  });
+
+  it("should create a schema for 2 select where one is required and checks different inputs", async () => {
+    const form: FormSchema = [
+      {
+        id: "id",
+        type: "select",
+        placeholder: "text",
+        label: "select1",
+        required: false,
+        options: ["option1", "option2", "option3"],
+      },
+      {
+        id: "id",
+        type: "select",
+        placeholder: "text",
+        label: "select2",
+        required: true,
+        options: ["option1", "option2", "option3"],
+      },
+    ];
+
+    const schema = createValidationSchema(form);
+
+    expect(schema.shape).toHaveProperty("select1");
+    expect(schema.shape).toHaveProperty("select2");
+
+    await expect(
+      schema.parseAsync({ select1: undefined, select2: "option1" }),
+    ).resolves.not.toThrow();
+    await expect(
+      schema.parseAsync({ select1: "option1", select2: undefined }),
+    ).rejects.toThrow(/Required/);
+    await expect(
+      schema.parseAsync({ select1: "invalid option", select2: undefined }),
+    ).rejects.toThrow(/Invalid option/);
+  });
+
+  it("should create a schema for 2 radio groups where one is required and checks different inputs", async () => {
+    const form: FormSchema = [
+      {
+        id: "id",
+        type: "radio",
+        label: "radio1",
+        required: false,
+        options: ["option1", "option2", "option3"],
+      },
+      {
+        id: "id",
+        type: "radio",
+        label: "radio2",
+        required: true,
+        options: ["option1", "option2", "option3"],
+      },
+    ];
+
+    const schema = createValidationSchema(form);
+
+    expect(schema.shape).toHaveProperty("radio1");
+    expect(schema.shape).toHaveProperty("radio2");
+
+    await expect(
+      schema.parseAsync({ radio1: undefined, radio2: "option1" }),
+    ).resolves.not.toThrow();
+    await expect(
+      schema.parseAsync({ radio1: "option1", radio2: undefined }),
+    ).rejects.toThrow(/Required/);
+    await expect(
+      schema.parseAsync({ radio1: "invalid option", radio2: undefined }),
+    ).rejects.toThrow(/Invalid option/);
+  });
+
   it("should throw an error for unsupported field type", () => {
     const form = [
       {

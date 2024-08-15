@@ -64,7 +64,7 @@ export function createValidationSchema(form: FormSchema) {
 
       case "select":
         fieldSchema = z.string().refine((val) => field.options.includes(val), {
-          message: "Invalid string",
+          message: "Invalid option",
         });
         if (!field.required) {
           fieldSchema = fieldSchema.optional().or(z.literal(""));
@@ -76,7 +76,9 @@ export function createValidationSchema(form: FormSchema) {
         break;
 
       case "radio":
-        fieldSchema = z.string();
+        fieldSchema = z.string().refine((val) => field.options.includes(val), {
+          message: "Invalid option",
+        });
         if (!field.required) {
           fieldSchema = fieldSchema.optional();
         }

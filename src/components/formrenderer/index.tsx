@@ -34,12 +34,12 @@ function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
   const schema = createValidationSchema(form);
   const f = useForm<typeof schema>({
     resolver: zodResolver(schema),
-    reValidateMode: "onSubmit",
+    reValidateMode: "onBlur",
   });
 
   function onSubmit(data: typeof schema) {
     if (mode === "preview") {
-      alert("Preview survey submitted withour errors");
+      alert("Preview survey submitted without errors");
       return;
     }
 
@@ -68,7 +68,7 @@ function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
                       <Input
                         placeholder={formField.placeholder}
                         {...field}
-                        value={field.value as string}
+                        value={(field.value as string) ?? ""}
                       />
                     </FormControl>
                     <FormMessage />
@@ -93,7 +93,7 @@ function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
                         max={formField.max}
                         placeholder={formField.min?.toString() ?? ""}
                         {...field}
-                        value={field.value as number | string}
+                        value={(field.value as number | string) ?? ""}
                       />
                     </FormControl>
                     <FormMessage />
