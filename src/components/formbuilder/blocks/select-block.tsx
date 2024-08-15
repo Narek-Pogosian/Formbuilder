@@ -11,16 +11,18 @@ function SelectBlock({ field, update }: BlockProps) {
   const [option, setOption] = useState("");
 
   function addOption(o: string) {
-    if (!o.trim()) return;
+    /* eslint-disable */
     // @ts-expect-error we are type narrowing above but for some reason
-    // eslint-disable-next-line
+    if (!o.trim() || field.options.includes(o)) return;
+
+    // @ts-expect-error we are type narrowing above but for some reason
     update("options", [...field.options, o.trim()]);
     setOption("");
   }
 
   function removeOption(o: string) {
+    /* eslint-disable */
     // @ts-expect-error we are type narrowing above but for some reason
-    // eslint-disable-next-line
     update("options", [...field.options.filter((opt) => opt !== o)]);
   }
 
@@ -85,7 +87,7 @@ function SelectBlock({ field, update }: BlockProps) {
           {field.options.map((opt) => (
             <li
               key={opt}
-              className="rounded bg-primary px-3 py-1 text-sm font-semibold text-primary-foreground"
+              className="cursor-pointer rounded bg-primary px-3 py-1 text-sm font-semibold text-primary-foreground"
               onClick={() => removeOption(opt)}
             >
               {opt}
