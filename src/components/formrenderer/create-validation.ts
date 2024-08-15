@@ -77,6 +77,9 @@ export function createValidationSchema(form: FormSchema) {
 
       case "radio":
         fieldSchema = z.string();
+        if (!field.required) {
+          fieldSchema = fieldSchema.optional();
+        }
         break;
 
       default:

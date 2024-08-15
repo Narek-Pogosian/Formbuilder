@@ -2,6 +2,7 @@ import { MAX_LENGTH, MAX_LENGTH_TEXTAREA } from "@/lib/schemas/form-schema";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { type BlockProps } from ".";
+import { Checkbox } from "@/components/ui/checkbox";
 
 function TextAreaBlock({ field, update }: BlockProps) {
   if (field.type !== "textarea")
@@ -36,12 +37,10 @@ function TextAreaBlock({ field, update }: BlockProps) {
       </div>
 
       <Label className="flex w-fit items-center gap-2">
-        <Input
+        <Checkbox
           name="required"
-          type="checkbox"
-          className="!mt-0 w-fit"
           checked={field.required}
-          onChange={(e) => update("required", e.target.checked)}
+          onCheckedChange={(checked) => update("required", checked)}
         />
         Required
       </Label>

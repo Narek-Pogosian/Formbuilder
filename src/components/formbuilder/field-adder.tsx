@@ -137,7 +137,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
         onClick={addRadioButtons}
       >
         <Radio className="size-8" />
-        Radio Field
+        Radio Group
       </Button>
     </div>
   );

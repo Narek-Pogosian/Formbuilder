@@ -23,6 +23,7 @@ import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 interface FormRendererProps {
   form: FormSchema;
@@ -171,6 +172,42 @@ function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
                         ))}
                       </SelectContent>
                     </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            );
+
+          if (formField.type === "radio")
+            return (
+              <FormField
+                key={label + i.toString()}
+                control={f.control}
+                name={label}
+                render={({ field }) => (
+                  <FormItem className="space-y-3">
+                    <FormLabel>{label}</FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        onValueChange={field.onChange}
+                        defaultValue={field.value as string}
+                        className="flex flex-col space-y-1"
+                      >
+                        {formField.options.map((option) => (
+                          <FormItem
+                            key={option}
+                            className="flex items-center space-x-3 space-y-0"
+                          >
+                            <FormControl>
+                              <RadioGroupItem value={option} />
+                            </FormControl>
+                            <FormLabel className="font-normal">
+                              {option}
+                            </FormLabel>
+                          </FormItem>
+                        ))}
+                      </RadioGroup>
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}

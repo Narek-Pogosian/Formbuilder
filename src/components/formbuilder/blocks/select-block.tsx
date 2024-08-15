@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { type BlockProps } from ".";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 function SelectBlock({ field, update }: BlockProps) {
   if (field.type !== "select") throw Error("Need to pass in a select field");
@@ -53,12 +54,10 @@ function SelectBlock({ field, update }: BlockProps) {
         </Label>
       </div>
       <Label className="flex w-fit items-center gap-2">
-        <Input
+        <Checkbox
           name="required"
-          type="checkbox"
-          className="!mt-0 w-fit"
           checked={field.required}
-          onChange={(e) => update("required", e.target.checked)}
+          onCheckedChange={(checked) => update("required", checked)}
         />
         Required
       </Label>

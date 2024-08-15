@@ -50,12 +50,7 @@ export const checkboxSchema = baseSchema.extend({
 
 export const radioSchema = baseSchema.extend({
   type: z.literal("radio"),
-  options: z.array(
-    z.object({
-      label: z.string().min(1, { message: "Option label is required" }),
-      value: z.string().min(1, { message: "Option value is required" }),
-    }),
-  ),
+  options: z.array(z.string()).min(1),
 });
 
 export const formSchema = z

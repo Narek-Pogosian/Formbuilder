@@ -2,6 +2,7 @@ import { MAX_LENGTH } from "@/lib/schemas/form-schema";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { type BlockProps } from ".";
+import { Checkbox } from "@/components/ui/checkbox";
 
 function TextBlock({ update, field }: BlockProps) {
   if (field.type !== "text") throw Error("Need to pass in a text field");
@@ -35,12 +36,10 @@ function TextBlock({ update, field }: BlockProps) {
       </div>
 
       <Label className="flex w-fit items-center gap-2">
-        <Input
+        <Checkbox
           name="required"
-          type="checkbox"
-          className="!mt-0 w-fit"
           checked={field.required}
-          onChange={(e) => update("required", e.target.checked)}
+          onCheckedChange={(checked) => update("required", checked)}
         />
         Required
       </Label>
