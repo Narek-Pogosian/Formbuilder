@@ -1,6 +1,13 @@
 import { z } from "zod";
 
-const Inputs = ["text", "number", "textarea", "select"] as const;
+const Inputs = [
+  "text",
+  "number",
+  "textarea",
+  "select",
+  "checkbox",
+  "radio",
+] as const;
 
 const baseSchema = z.object({
   id: z.string(),
@@ -37,6 +44,20 @@ export const selectSchema = baseSchema.extend({
   options: z.array(z.string()).min(1),
 });
 
+export const checkboxSchema = baseSchema.extend({
+  type: z.literal("checkbox"),
+});
+
+export const radioSchema = baseSchema.extend({
+  type: z.literal("radio"),
+  options: z.array(
+    z.object({
+      label: z.string().min(1, { message: "Option label is required" }),
+      value: z.string().min(1, { message: "Option value is required" }),
+    }),
+  ),
+});
+
 export const formSchema = z
   .array(
     z.discriminatedUnion("type", [
@@ -44,6 +65,8 @@ export const formSchema = z
       numberSchema,
       textAreaSchema,
       selectSchema,
+      checkboxSchema,
+      radioSchema,
     ]),
   )
   .refine(

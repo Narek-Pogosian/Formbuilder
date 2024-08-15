@@ -22,6 +22,7 @@ import {
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { Checkbox } from "../ui/checkbox";
 
 interface FormRendererProps {
   form: FormSchema;
@@ -117,6 +118,27 @@ function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
                         value={field.value as string}
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            );
+
+          if (formField.type === "checkbox")
+            return (
+              <FormField
+                key={label + i.toString()}
+                control={f.control}
+                name={label}
+                render={({ field }) => (
+                  <FormItem className="flex items-center gap-2">
+                    <FormControl>
+                      <Checkbox
+                        checked={field.value as boolean | undefined}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormLabel>{label}</FormLabel>
                     <FormMessage />
                   </FormItem>
                 )}

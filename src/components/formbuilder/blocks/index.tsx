@@ -3,6 +3,8 @@ import TextBlock from "./text-block";
 import TextAreaBlock from "./textarea-block";
 import NumberBlock from "./number-block";
 import SelectBlock from "./select-block";
+import CheckBlock from "./check-block";
+import RadioBlock from "./radio-block";
 
 // UniqueKeys is needed to make sure updatekeys contains all possible keys and not just the shared one between the fields.
 type UniqueKeys<T> = T extends T ? keyof T : never;
@@ -24,4 +26,6 @@ export const availableBlocks: Record<
   textarea: TextAreaBlock,
   number: NumberBlock,
   select: SelectBlock,
+  checkbox: CheckBlock,
+  radio: RadioBlock,
 };

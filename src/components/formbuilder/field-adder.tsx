@@ -4,7 +4,14 @@ import {
   MAX_LENGTH_TEXTAREA,
 } from "@/lib/schemas/form-schema";
 import { Button } from "../ui/button";
-import { MousePointer, Sigma, Type, TypeOutline } from "lucide-react";
+import {
+  CircleCheckBig,
+  MousePointer,
+  Radio,
+  Sigma,
+  Type,
+  TypeOutline,
+} from "lucide-react";
 import { memo } from "react";
 
 interface FieldAdderProps {
@@ -62,6 +69,25 @@ function FieldAdder({ setFields }: FieldAdderProps) {
     });
   }
 
+  function addCheckbox() {
+    append({
+      id: crypto.randomUUID(),
+      type: "checkbox",
+      label: "",
+      required: false,
+    });
+  }
+
+  function addRadioButtons() {
+    append({
+      id: crypto.randomUUID(),
+      type: "radio",
+      required: false,
+      label: "",
+      options: [],
+    });
+  }
+
   return (
     <div className="shadow flex w-60 shrink-0 flex-col space-y-4 bg-background-card p-8 lg:sticky lg:top-0 lg:h-screen">
       <h3 className="text-center font-semibold">Add field</h3>
@@ -96,6 +122,22 @@ function FieldAdder({ setFields }: FieldAdderProps) {
       >
         <MousePointer className="size-8" />
         Select Field
+      </Button>
+      <Button
+        className="h-fit flex-col gap-2"
+        variant="outline"
+        onClick={addCheckbox}
+      >
+        <CircleCheckBig className="size-8" />
+        Checkbox Field
+      </Button>
+      <Button
+        className="h-fit flex-col gap-2"
+        variant="outline"
+        onClick={addRadioButtons}
+      >
+        <Radio className="size-8" />
+        Radio Field
       </Button>
     </div>
   );

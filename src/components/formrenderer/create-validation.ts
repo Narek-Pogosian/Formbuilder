@@ -71,6 +71,14 @@ export function createValidationSchema(form: FormSchema) {
         }
         break;
 
+      case "checkbox":
+        fieldSchema = z.boolean().default(false).optional();
+        break;
+
+      case "radio":
+        fieldSchema = z.string();
+        break;
+
       default:
         throw new Error(`Unsupported field type`);
     }
