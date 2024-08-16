@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const Inputs = [
+const FieldTypes = [
   "text",
   "number",
   "textarea",
@@ -11,7 +11,7 @@ const Inputs = [
 
 const baseSchema = z.object({
   id: z.string(),
-  type: z.enum(Inputs),
+  type: z.enum(FieldTypes),
   label: z.string().min(1, { message: "A label is required for every field" }),
   required: z.boolean(),
 });
@@ -81,8 +81,5 @@ export const createFormScema = z.object({
   form: formSchema,
 });
 
-export type InputType = (typeof Inputs)[number];
+export type FieldType = (typeof FieldTypes)[number];
 export type FormSchema = z.infer<typeof formSchema>;
-export type CreateFormSchema = z.infer<typeof createFormScema>;
-export type TextSchemaType = z.infer<typeof textSchema>;
-export type NumberSchemaType = z.infer<typeof numberSchema>;

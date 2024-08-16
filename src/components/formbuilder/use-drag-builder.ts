@@ -4,7 +4,7 @@ import {
   type DragStartEvent,
   type UniqueIdentifier,
 } from "@dnd-kit/core";
-import { type FormSchema } from "@/lib/schemas/form-schema";
+import { type FieldType, type FormSchema } from "@/lib/schemas/form-schema";
 import { useState } from "react";
 
 interface UseDragBuilderParams {
@@ -24,7 +24,7 @@ export function useDragBuilder({ fields, setFields }: UseDragBuilderParams) {
   function handleDragStart(event: DragStartEvent) {
     const { active } = event;
     setActiveId(active.id);
-    setActiveType(active.data.current?.type as FormSchema[number]["type"]);
+    setActiveType(active.data.current?.type as FieldType);
   }
 
   function handleDragEnd(event: DragEndEvent) {

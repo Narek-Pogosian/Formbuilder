@@ -25,9 +25,30 @@ import FieldAdder from "./field-adder";
 import FieldList from "./field-list";
 import BaseBlock from "./blocks/base-block";
 
-function FormBuilder() {
-  const [fields, setFields] = useState<FormSchema>([]);
-  const [title, setTitle] = useState("");
+interface FormBuilderProps {
+  mode: "create" | "edit";
+}
+
+interface FormBuilderCreateProps extends FormBuilderProps {
+  mode: "create";
+}
+
+interface FormBuilderUpdateProps extends FormBuilderProps {
+  mode: "edit";
+  id: string;
+  defaultFields: FormSchema;
+  defaultTitle: string;
+}
+
+type Props = FormBuilderCreateProps | FormBuilderUpdateProps;
+
+function FormBuilder(props: Props) {
+  const [fields, setFields] = useState<FormSchema>(
+    props.mode === "edit" ? props.defaultFields : [],
+  );
+  const [title, setTitle] = useState(
+    props.mode === "edit" ? props.defaultTitle : "",
+  );
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
@@ -42,6 +63,8 @@ function FormBuilder() {
 
     const { data, success } = formSchema.safeParse(fields);
     if (success) {
+      if (props.mode === "edit") return;
+
       await saveForm({ title, form: data });
       setTitle("");
       setFields([]);

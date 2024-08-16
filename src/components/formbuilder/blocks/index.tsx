@@ -1,4 +1,4 @@
-import { type FormSchema, type InputType } from "@/lib/schemas/form-schema";
+import { type FormSchema, type FieldType } from "@/lib/schemas/form-schema";
 import TextBlock from "./text-block";
 import TextAreaBlock from "./textarea-block";
 import NumberBlock from "./number-block";
@@ -19,7 +19,7 @@ export interface BlockProps {
 }
 
 export const availableBlocks: Record<
-  InputType,
+  FieldType,
   React.ComponentType<BlockProps>
 > = {
   text: TextBlock,

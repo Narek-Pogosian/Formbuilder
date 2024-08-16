@@ -1,4 +1,4 @@
-import { type InputType } from "@/lib/schemas/form-schema";
+import { type FieldType } from "@/lib/schemas/form-schema";
 import { Button } from "@/components/ui/button";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
@@ -7,7 +7,7 @@ import { Grip } from "lucide-react";
 
 type BaseBlockProps = {
   id: string;
-  type: InputType;
+  type: FieldType;
   children: React.ReactNode;
   remove: () => void;
 };

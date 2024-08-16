@@ -34,7 +34,7 @@ function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
   const schema = createValidationSchema(form);
   const f = useForm<typeof schema>({
     resolver: zodResolver(schema),
-    reValidateMode: "onBlur",
+    reValidateMode: "onChange",
   });
 
   function onSubmit(data: typeof schema) {
