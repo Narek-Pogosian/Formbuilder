@@ -57,8 +57,7 @@ function FormBuilder(props: Props) {
   const { activeId, activeType, handleDragEnd, handleDragStart } =
     useDragBuilder({ fields, setFields });
 
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
+  async function handleSave() {
     if (!title.trim()) return;
 
     const { data, success } = formSchema.safeParse(fields);
@@ -75,8 +74,7 @@ function FormBuilder(props: Props) {
     <FormBuilderWrapper>
       <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
         <div className="grow py-6">
-          <PreviewDialog title={title} form={fields} />
-          <form className="mt-4 space-y-4" onSubmit={handleSubmit}>
+          <div className="space-y-4">
             <div className="shadow mb-8 flex flex-col gap-2 rounded bg-background-card p-6 sm:flex-row sm:gap-4">
               <div className="grow">
                 <Label>
@@ -90,9 +88,10 @@ function FormBuilder(props: Props) {
                   />
                 </Label>
               </div>
-              <Button className="h-fit sm:mt-[22px]" type="submit">
+              <Button className="h-fit sm:mt-[22px]" onClick={handleSave}>
                 Save
               </Button>
+              <PreviewDialog title={title} form={fields} />
             </div>
             <DndContext
               sensors={sensors}
@@ -128,7 +127,7 @@ function FormBuilder(props: Props) {
                 )}
               </DragOverlay>
             </DndContext>
-          </form>
+          </div>
         </div>
         <FieldAdder setFields={setFields} />
       </div>

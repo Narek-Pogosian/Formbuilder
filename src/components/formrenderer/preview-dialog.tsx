@@ -21,7 +21,7 @@ function PreviewDialog({ form, title }: PreviewDialogProps) {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="shadow h-fit border-none"
+          className="h-fit sm:mt-[22px]"
           disabled={!form.length}
         >
           Preview

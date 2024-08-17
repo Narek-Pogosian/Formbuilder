@@ -5,19 +5,23 @@ import { type BlockProps } from ".";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { optionFormat } from "@/lib/utils";
+import { X } from "lucide-react";
 
 function SelectBlock({ field, update }: BlockProps) {
   if (field.type !== "select") throw Error("Need to pass in a select field");
 
   const [option, setOption] = useState("");
 
-  function addOption(o: string) {
+  function addOption(e: React.FormEvent) {
     /* eslint-disable */
-    // @ts-expect-error we are type narrowing above but for some reason
-    if (!o.trim() || field.options.includes(o)) return;
+    e.preventDefault();
 
     // @ts-expect-error we are type narrowing above but for some reason
-    update("options", [...field.options, o.trim()]);
+    if (!option.trim() || field.options.includes(option.trim())) return;
+
+    // @ts-expect-error we are type narrowing above but for some reason
+    update("options", [...field.options, option.trim()]);
     setOption("");
   }
 
@@ -62,7 +66,7 @@ function SelectBlock({ field, update }: BlockProps) {
         Required
       </Label>
       <div>
-        <div className="relative mb-4 flex gap-2">
+        <form className="relative mb-4 flex gap-2" onSubmit={addOption}>
           <Label className="w-auto">
             Add option
             <Input
@@ -74,22 +78,21 @@ function SelectBlock({ field, update }: BlockProps) {
               max={40}
             />
           </Label>
-          <Button
-            className="mt-[21px] h-fit"
-            type="button"
-            onClick={() => addOption(option)}
-          >
+          <Button className="mt-[21px] h-fit" type="submit">
             Add Option
           </Button>
-        </div>
+        </form>
         <ul className="flex flex-wrap gap-2">
           {field.options.map((opt) => (
             <li
               key={opt}
-              className="cursor-pointer rounded bg-primary px-3 py-1 text-sm font-semibold text-primary-foreground"
+              className="group flex cursor-pointer items-center gap-0.5 rounded border bg-background-input py-1 pl-5 text-sm font-semibold"
               onClick={() => removeOption(opt)}
             >
-              {opt}
+              {optionFormat(opt)}
+              <span className="pr-1 opacity-0 transition-opacity group-hover:opacity-100">
+                <X className="size-4" />
+              </span>
             </li>
           ))}
         </ul>
