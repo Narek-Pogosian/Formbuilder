@@ -89,14 +89,14 @@ function FieldAdder({ setFields }: FieldAdderProps) {
   }
 
   return (
-    <div className="shadow flex w-60 shrink-0 flex-col space-y-4 bg-background-card p-8 lg:sticky lg:top-0 lg:h-screen">
+    <div className="shadow flex w-60 shrink-0 flex-col gap-2 bg-background-card p-6 lg:sticky lg:top-0 lg:h-screen">
       <h3 className="text-center font-semibold">Add field</h3>
       <Button
         className="h-fit flex-col gap-2"
         variant="outline"
         onClick={addTextField}
       >
-        <Type className="size-8" />
+        <Type className="size-6" />
         Text Field
       </Button>
       <Button
@@ -104,7 +104,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
         variant="outline"
         onClick={addTextArea}
       >
-        <TypeOutline className="size-8" />
+        <TypeOutline className="size-6" />
         Text Area
       </Button>
       <Button
@@ -112,7 +112,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
         variant="outline"
         onClick={addNumberField}
       >
-        <Sigma className="size-8" />
+        <Sigma className="size-6" />
         Number Field
       </Button>
       <Button
@@ -120,7 +120,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
         variant="outline"
         onClick={addSelectField}
       >
-        <MousePointer className="size-8" />
+        <MousePointer className="size-6" />
         Select Field
       </Button>
       <Button
@@ -128,7 +128,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
         variant="outline"
         onClick={addCheckbox}
       >
-        <CircleCheckBig className="size-8" />
+        <CircleCheckBig className="size-6" />
         Checkbox Field
       </Button>
       <Button
@@ -136,7 +136,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
         variant="outline"
         onClick={addRadioButtons}
       >
-        <Radio className="size-8" />
+        <Radio className="size-6" />
         Radio Group
       </Button>
     </div>

@@ -50,7 +50,7 @@ function RadioBlock({ update, field }: BlockProps) {
         Required
       </Label>
       <div>
-        <form className="relative mb-4 flex gap-2" onSubmit={addOption}>
+        <form className="relative flex gap-2" onSubmit={addOption}>
           <Label className="w-auto">
             Add option
             <Input
@@ -66,20 +66,22 @@ function RadioBlock({ update, field }: BlockProps) {
             Add Option
           </Button>
         </form>
-        <ul className="flex flex-wrap gap-2">
-          {field.options.map((opt) => (
-            <li
-              key={opt}
-              className="group flex cursor-pointer items-center gap-0.5 rounded border bg-background-input py-1 pl-5 text-sm font-semibold"
-              onClick={() => removeOption(opt)}
-            >
-              {opt}
-              <span className="pr-1 opacity-0 transition-opacity group-hover:opacity-100">
-                <X className="size-4" />
-              </span>
-            </li>
-          ))}
-        </ul>
+        {field.options.length > 0 && (
+          <ul className="mt-2 flex flex-wrap gap-2">
+            {field.options.map((opt) => (
+              <li
+                key={opt}
+                className="group flex cursor-pointer items-center gap-0.5 rounded border bg-background-input py-1 pl-5 text-sm font-semibold"
+                onClick={() => removeOption(opt)}
+              >
+                {opt}
+                <span className="pr-1 opacity-0 transition-opacity group-hover:opacity-100">
+                  <X className="size-4" />
+                </span>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </>
   );

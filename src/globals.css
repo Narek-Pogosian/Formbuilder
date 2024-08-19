@@ -7,7 +7,7 @@
     --primary: 240 8% 10%;
     --primary-foreground: 0 0% 98%;
 
-    --background: 240 28% 97%;
+    --background: 240 28% 96.5%;
     --background-card: 240 10% 98.5%;
     --background-input: 240 10% 100%;
     --background-popover: 240 10% 99%;
@@ -16,7 +16,7 @@
     --foreground-muted: 240 8% 55%;
 
     --accent: 240, 50%, 40%, 0.04;
-    --border: 240 8% 92%;
+    --border: 240 8% 95%;
     --scrollbar: 240 8% 85%;
 
     --radius: 4px;
@@ -26,16 +26,16 @@
     --primary: 0 0% 95%;
     --primary-foreground: 0 0% 8%;
 
-    --background: 240 6% 7%;
-    --background-card: 240 6% 11%;
-    --background-input: 240 6% 13%;
-    --background-popover: 240 6% 11%;
+    --background: 240 4% 5%;
+    --background-card: 240 4% 10%;
+    --background-input: 240 4% 13%;
+    --background-popover: 240 4% 11%;
 
     --foreground: 240 6% 98%;
     --foreground-muted: 240 6% 55%;
 
     --accent: 240, 16%, 80%, 0.085;
-    --border: 240 6% 17%;
+    --border: 240 6% 16%;
     --scrollbar: 240 6% 20%;
   }
 }

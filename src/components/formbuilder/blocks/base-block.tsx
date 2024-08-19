@@ -39,9 +39,9 @@ function BaseBlock({ children, className, type, remove, id }: Props) {
     >
       <div className="flex gap-4">
         <Grip className="mt-1 size-5 text-foreground-muted" />
-        <div className="grow space-y-6">
+        <div className="grow space-y-5">
           <div className="flex items-center justify-between">
-            <h3 className="text-xl font-extrabold capitalize">{type}</h3>
+            <h3 className="text-lg font-extrabold capitalize">{type}</h3>
             <Button variant="danger" size="sm" type="button" onClick={remove}>
               Remove
             </Button>
