@@ -7,7 +7,7 @@ async function FormsPage() {
 
   return (
     <>
-      <h1 className="mb-8 text-xl font-bold">Forms</h1>
+      <h1 className="mb-8 text-xl font-bold">Surveys</h1>
       <ul className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
         {forms.map((form) => (
           <li
@@ -16,7 +16,7 @@ async function FormsPage() {
           >
             <div className="grow">
               <Link
-                href={`/forms/${form.id}`}
+                href={`/surveys/${form.id}`}
                 className="mb-2 block font-semibold after:absolute after:inset-0"
               >
                 {form.title}

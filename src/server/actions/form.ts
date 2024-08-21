@@ -13,7 +13,7 @@ export const saveForm = protectedActionClient
     const form = await db.form.create({
       data: {
         title: parsedInput.title,
-        content: parsedInput.form,
+        content: JSON.stringify(parsedInput.form),
         userId: ctx.userId,
       },
     });
@@ -31,7 +31,7 @@ export const updateForm = protectedActionClient
       where: { id: parsedInput.id },
       data: {
         title: parsedInput.form.title,
-        content: parsedInput.form.form,
+        content: JSON.stringify(parsedInput.form.form),
       },
     });
     if (updatedForm) revalidatePath("/form");

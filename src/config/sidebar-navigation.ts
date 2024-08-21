@@ -43,15 +43,15 @@ export function getMenuList(pathname: string): Group[] {
       groupLabel: "Contents",
       menus: [
         {
-          href: "/forms",
-          label: "Your Forms",
-          active: pathname.includes("/forms"),
+          href: "/surveys",
+          label: "Your Surveys",
+          active: pathname.includes("/surveys"),
           icon: Library,
           submenus: [],
         },
         {
           href: "/create",
-          label: "Create Form",
+          label: "Create Survey",
           active: pathname.includes("/create"),
           icon: SquarePen,
           submenus: [],
