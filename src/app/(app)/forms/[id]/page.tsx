@@ -14,10 +14,10 @@ async function page({ params }: { params: { id: string } }) {
   if (!data || !success) notFound();
 
   return (
-    <div className="p-8">
+    <>
       <h1 className="text-center text-3xl font-bold">{form?.title}</h1>
       <FormRenderer form={data} />
-    </div>
+    </>
   );
 }
 

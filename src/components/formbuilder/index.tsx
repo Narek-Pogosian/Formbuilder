@@ -70,67 +70,58 @@ function FormBuilder(props: Props) {
   }
 
   return (
-    <>
-      <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
-        <div className="grow py-6">
-          <div className="space-y-4">
-            <div className="shadow mb-8 flex flex-col gap-2 rounded bg-background-card p-6 sm:flex-row sm:gap-4">
-              <div className="grow">
-                <Label>
-                  Title of survey
-                  <Input
-                    id="title"
-                    required
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="My survey"
-                  />
-                </Label>
-              </div>
-              <Button className="h-fit sm:mt-[22px]" onClick={handleSave}>
-                Save
-              </Button>
-              <PreviewDialog title={title} form={fields} />
-            </div>
-            <DndContext
-              sensors={sensors}
-              onDragStart={handleDragStart}
-              onDragEnd={handleDragEnd}
-            >
-              <SortableContext
-                items={fields}
-                strategy={verticalListSortingStrategy}
-              >
-                <FieldList
-                  fields={fields}
-                  setFields={setFields}
-                  activeId={activeId}
-                />
-              </SortableContext>
-              <DragOverlay>
-                {activeType && activeId && (
-                  <BaseBlock
-                    id="id"
-                    type={activeType}
-                    className="shadow-xl"
-                    remove={() => {
-                      undefined;
-                    }}
-                  >
-                    {availableBlocks[activeType] &&
-                      createElement(availableBlocks[activeType], {
-                        field: fields.find((f) => f.id == activeId)!,
-                        update: () => undefined,
-                      })}
-                  </BaseBlock>
-                )}
-              </DragOverlay>
-            </DndContext>
-          </div>
+    <div className="space-y-4">
+      <div className="shadow mb-8 flex flex-col gap-2 rounded bg-background-card p-6 sm:flex-row sm:gap-4">
+        <div className="grow">
+          <Label>
+            Title of survey
+            <Input
+              id="title"
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="My survey"
+            />
+          </Label>
         </div>
-        <FieldAdder setFields={setFields} />
+        <Button className="h-fit sm:mt-[22px]" onClick={handleSave}>
+          Save
+        </Button>
+        <PreviewDialog title={title} form={fields} />
       </div>
-    </>
+      <DndContext
+        sensors={sensors}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext items={fields} strategy={verticalListSortingStrategy}>
+          <FieldList
+            fields={fields}
+            setFields={setFields}
+            activeId={activeId}
+          />
+        </SortableContext>
+        <DragOverlay>
+          {activeType && activeId && (
+            <BaseBlock
+              id="id"
+              type={activeType}
+              className="shadow-xl"
+              remove={() => {
+                undefined;
+              }}
+            >
+              {availableBlocks[activeType] &&
+                createElement(availableBlocks[activeType], {
+                  field: fields.find((f) => f.id == activeId)!,
+                  update: () => undefined,
+                })}
+            </BaseBlock>
+          )}
+        </DragOverlay>
+      </DndContext>
+      <FieldAdder setFields={setFields} />
+    </div>
   );
 }
 

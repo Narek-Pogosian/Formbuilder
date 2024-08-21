@@ -16,7 +16,9 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
         <div className="p-4 lg:hidden">
           <MobileSidebar />
         </div>
-        <main className="relative grow">{children}</main>
+        <main className="relative grow px-4 py-8 md:px-8 lg:px-16">
+          {children}
+        </main>
       </div>
     </div>
   );
