@@ -38,7 +38,7 @@ function BaseBlock({ children, className, type, remove, id }: Props) {
       {...listeners}
       role="button"
     >
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-4 @container @xl:flex-row">
         <Grip className="mt-1 size-5 text-foreground-muted" />
         <div className="grow space-y-5">
           <div className="flex items-center justify-between">

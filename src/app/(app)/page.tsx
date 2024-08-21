@@ -1,5 +1,5 @@
 function HomePage() {
-  return <div className="px-8 py-6">Home</div>;
+  return <>Home</>;
 }
 
 export default HomePage;
