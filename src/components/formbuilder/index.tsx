@@ -19,7 +19,6 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { saveForm } from "@/server/actions/form";
 import { availableBlocks } from "./blocks";
-import FormBuilderWrapper from "./formbuilder-wrapper";
 import PreviewDialog from "../formrenderer/preview-dialog";
 import FieldAdder from "./field-adder";
 import FieldList from "./field-list";
@@ -71,7 +70,7 @@ function FormBuilder(props: Props) {
   }
 
   return (
-    <FormBuilderWrapper>
+    <>
       <div className="flex h-full flex-col-reverse gap-8 max-lg:p-4 lg:flex-row lg:pl-8">
         <div className="grow py-6">
           <div className="space-y-4">
@@ -131,7 +130,7 @@ function FormBuilder(props: Props) {
         </div>
         <FieldAdder setFields={setFields} />
       </div>
-    </FormBuilderWrapper>
+    </>
   );
 }
 

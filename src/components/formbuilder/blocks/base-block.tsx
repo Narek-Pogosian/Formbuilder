@@ -33,9 +33,10 @@ function BaseBlock({ children, className, type, remove, id }: Props) {
         className,
       )}
       ref={setNodeRef}
-      style={style}
+      style={{ ...style, touchAction: "none" }}
       {...attributes}
       {...listeners}
+      role="button"
     >
       <div className="flex gap-4">
         <Grip className="mt-1 size-5 text-foreground-muted" />
