@@ -89,9 +89,9 @@ function FieldAdder({ setFields }: FieldAdderProps) {
   }
 
   return (
-    <div className="shadow bg-background-card p-6">
+    <div className="shadow mx-auto w-fit bg-background-card p-6">
       <h3 className="mb-4 text-center font-semibold">Add field</h3>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap justify-center gap-4">
         <Button
           className="h-fit flex-col gap-2"
           variant="outline"
