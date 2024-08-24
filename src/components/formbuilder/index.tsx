@@ -17,7 +17,7 @@ import { useDragBuilder } from "./use-drag-builder";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Button } from "../ui/button";
-import { saveForm } from "@/server/actions/form";
+import { saveForm, updateForm } from "@/server/actions/form";
 import { availableBlocks } from "./blocks";
 import PreviewDialog from "../formrenderer/preview-dialog";
 import FieldAdder from "./field-adder";
@@ -60,12 +60,16 @@ function FormBuilder(props: Props) {
     if (!title.trim()) return;
 
     const { data, success } = formSchema.safeParse(fields);
-    if (success) {
-      if (props.mode === "edit") return;
+    if (!success) return;
 
+    if (props.mode === "edit") {
+      await updateForm({ form: { title, form: data }, id: props.id });
+      // TODO: Maybe toast message or navigate
+    } else {
       await saveForm({ title, form: data });
       setTitle("");
       setFields([]);
+      // TODO: Toast message
     }
   }
 

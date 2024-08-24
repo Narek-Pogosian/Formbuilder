@@ -18,7 +18,7 @@ export const saveForm = protectedActionClient
       },
     });
 
-    if (form) revalidatePath("/form");
+    if (form) revalidatePath("/surveys");
   });
 
 export const updateForm = protectedActionClient
@@ -34,7 +34,7 @@ export const updateForm = protectedActionClient
         content: JSON.stringify(parsedInput.form.form),
       },
     });
-    if (updatedForm) revalidatePath("/form");
+    if (updatedForm) revalidatePath("/surveys");
   });
 
 export const deleteFormById = protectedActionClient
@@ -45,5 +45,5 @@ export const deleteFormById = protectedActionClient
     if (!form || form.userId !== ctx.userId) return;
 
     await db.form.delete({ where: { id: parsedInput } });
-    revalidatePath("/forms");
+    revalidatePath("/surveys");
   });

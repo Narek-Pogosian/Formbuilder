@@ -27,6 +27,9 @@ async function FormsPage() {
             </div>
             <div>
               <DeleteFormDialog id={form.id} />
+              <Link href={`/surveys/${form.id}/edit`} className="relative">
+                Edit
+              </Link>
             </div>
           </li>
         ))}
