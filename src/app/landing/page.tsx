@@ -15,13 +15,13 @@ async function LandingPage() {
       <div className="container pb-52 pt-24">
         <div className="flex flex-col items-center gap-6">
           <div className="mx-auto max-w-xl text-center">
-            <h1 className="text-2xl font-bold sm:text-4xl md:text-6xl">
+            <h1 className="text-3xl font-bold sm:text-4xl md:text-6xl">
               Ask, Analyze, Act
             </h1>
           </div>
 
           <div className="max-w-3xl text-balance text-center">
-            <p className="text-lg text-foreground-muted">
+            <p className="text-foreground-muted md:text-lg">
               Create powerful surveys that drive results. Collect feedback,
               uncover trends, and make data-driven decisions with ease.
             </p>
@@ -29,7 +29,7 @@ async function LandingPage() {
 
           <Button asChild variant="outline" className="gap-2 rounded-full px-8">
             <Link className="" href="/sign-in">
-              Explore
+              Get Started
               <ArrowRight className="size-4" />
             </Link>
           </Button>

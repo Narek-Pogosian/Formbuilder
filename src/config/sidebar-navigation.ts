@@ -45,7 +45,7 @@ export function getMenuList(pathname: string): Group[] {
         {
           href: "/surveys",
           label: "Your Surveys",
-          active: pathname.includes("/surveys"),
+          active: pathname == "/surveys",
           icon: Library,
           submenus: [],
         },
