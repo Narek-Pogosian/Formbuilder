@@ -51,16 +51,23 @@ function RegisterForm() {
       if (res?.ok) {
         router.push("/");
         router.refresh();
+      } else {
+        if (res?.status === 401) {
+          setError("Invalid credentials");
+        } else {
+          setError("Something went wrong");
+        }
       }
+
+      setIsSigningIn(false);
     },
     onError: ({ error }) => {
       if (error.validationErrors) {
         setError("Please fill in all fields.");
       } else {
+        console.log("ERROR", error);
         setError("Something went wrong");
       }
-    },
-    onSettled: () => {
       setIsSigningIn(false);
     },
   });
@@ -154,7 +161,7 @@ function RegisterForm() {
         />
 
         {error && (
-          <Alert>
+          <Alert variant="destructive">
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}

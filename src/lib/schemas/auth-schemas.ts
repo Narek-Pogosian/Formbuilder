@@ -17,7 +17,7 @@ export const registerSchema = signInSchema
     (values) => {
       return values.password === values.confirmPassword;
     },
-    { message: "Passwords don't match" },
+    { message: "Passwords don't match", path: ["password"] },
   );
 
 export type SignInSchemaType = z.infer<typeof signInSchema>;

@@ -25,7 +25,7 @@ import Link from "next/link";
 function SignInForm() {
   const router = useRouter();
   const [isSigningIn, setIsSigningIn] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [error, setError] = useState("");
 
   const form = useForm<SignInSchemaType>({
     resolver: zodResolver(signInSchema),
@@ -37,21 +37,31 @@ function SignInForm() {
 
   async function onSubmit() {
     if (isSigningIn) return;
-
     setIsSigningIn(true);
-    setIsError(false);
-    const res = await signIn("credentials", {
-      email: form.getValues().email,
-      password: form.getValues().password,
-      redirect: false,
-    });
-    setIsSigningIn(false);
+    setError("");
 
-    if (res?.ok) {
-      router.push("/");
-      router.refresh();
-    } else {
-      setIsError(true);
+    try {
+      const res = await signIn("credentials", {
+        email: form.getValues().email,
+        password: form.getValues().password,
+        redirect: false,
+      });
+
+      if (!res) throw Error;
+      if (res.ok) {
+        router.push("/");
+        router.refresh();
+      } else {
+        if (res.status === 401) {
+          setError("Invalid credentials");
+        } else {
+          setError("Something went wrong");
+        }
+      }
+    } catch (error) {
+      setError("Something went wrong");
+    } finally {
+      setIsSigningIn(false);
     }
   }
 
@@ -88,9 +98,9 @@ function SignInForm() {
           )}
         />
 
-        {isError && (
-          <Alert>
-            <AlertDescription>Something went wrong.</AlertDescription>
+        {error && (
+          <Alert variant="destructive">
+            <AlertDescription>{error}</AlertDescription>
           </Alert>
         )}
 
