@@ -74,8 +74,8 @@ function FormBuilder(props: Props) {
   }
 
   return (
-    <div className="space-y-4">
-      <div className="shadow mb-8 flex flex-col gap-2 rounded bg-background-card p-6 sm:flex-row sm:gap-4">
+    <div className="flex min-h-full flex-col gap-10">
+      <div className="shadow flex flex-col gap-4 rounded bg-background-card p-6 sm:flex-row">
         <div className="grow">
           <Label>
             Title of survey
@@ -88,10 +88,12 @@ function FormBuilder(props: Props) {
             />
           </Label>
         </div>
-        <Button className="h-fit sm:mt-[22px]" onClick={handleSave}>
-          Save
-        </Button>
-        <PreviewDialog title={title} form={fields} />
+        <div className="flex gap-4">
+          <Button className="h-fit sm:mt-[22px]" onClick={handleSave}>
+            Save
+          </Button>
+          <PreviewDialog title={title} form={fields} />
+        </div>
       </div>
       <DndContext
         sensors={sensors}

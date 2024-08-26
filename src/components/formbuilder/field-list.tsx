@@ -3,6 +3,7 @@ import { type UniqueIdentifier } from "@dnd-kit/core";
 import { type FormSchema } from "@/lib/schemas/form-schema";
 import { createElement, memo } from "react";
 import BaseBlock from "./blocks/base-block";
+import { Squirrel } from "lucide-react";
 
 interface FieldsListProps {
   fields: FormSchema;
@@ -22,8 +23,18 @@ function FieldsList({ fields, setFields, activeId }: FieldsListProps) {
       );
   }
 
+  if (fields.length === 0) {
+    return (
+      <div className="mx-auto max-w-lg pt-10 text-center font-semibold text-foreground-muted">
+        <Squirrel className="mx-auto mb-4 size-44" strokeWidth={1} />
+        Your survey is currently empty. <br /> Add a field bellow to begin
+        building your survey.
+      </div>
+    );
+  }
+
   return (
-    <div className="grid gap-5">
+    <div className="grid gap-4">
       {fields.map((field) => (
         <BaseBlock
           key={field.id}

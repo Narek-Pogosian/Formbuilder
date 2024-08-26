@@ -89,11 +89,10 @@ function FieldAdder({ setFields }: FieldAdderProps) {
   }
 
   return (
-    <div className="shadow mx-auto w-fit bg-background-card p-6">
-      <h3 className="mb-4 text-center font-semibold">Add field</h3>
+    <div className="shadow mx-auto mt-auto w-fit rounded bg-background-card p-6">
       <div className="flex flex-wrap justify-center gap-4">
         <Button
-          className="h-fit flex-col gap-2"
+          className="h-fit flex-col gap-2 bg-neutral-500/5"
           variant="outline"
           onClick={addTextField}
         >
@@ -101,7 +100,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
           Text Field
         </Button>
         <Button
-          className="h-fit flex-col gap-2"
+          className="h-fit flex-col gap-2 bg-neutral-500/5"
           variant="outline"
           onClick={addTextArea}
         >
@@ -109,7 +108,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
           Text Area
         </Button>
         <Button
-          className="h-fit flex-col gap-2"
+          className="h-fit flex-col gap-2 bg-neutral-500/5"
           variant="outline"
           onClick={addNumberField}
         >
@@ -117,7 +116,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
           Number Field
         </Button>
         <Button
-          className="h-fit flex-col gap-2"
+          className="h-fit flex-col gap-2 bg-neutral-500/5"
           variant="outline"
           onClick={addSelectField}
         >
@@ -125,7 +124,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
           Select Field
         </Button>
         <Button
-          className="h-fit flex-col gap-2"
+          className="h-fit flex-col gap-2 bg-neutral-500/5"
           variant="outline"
           onClick={addCheckbox}
         >
@@ -133,7 +132,7 @@ function FieldAdder({ setFields }: FieldAdderProps) {
           Checkbox Field
         </Button>
         <Button
-          className="h-fit flex-col gap-2"
+          className="h-fit flex-col gap-2 bg-neutral-500/5"
           variant="outline"
           onClick={addRadioButtons}
         >
