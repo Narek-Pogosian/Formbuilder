@@ -1,5 +1,6 @@
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
+import { Toaster } from "@/components/ui/sonner";
 import SidebarNavigation from "./_components/sidebar-navigation";
 import MobileSidebar from "./_components/mobile-sidebar";
 
@@ -20,6 +21,7 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
           {children}
         </main>
       </div>
+      <Toaster position="top-center" />
     </div>
   );
 }

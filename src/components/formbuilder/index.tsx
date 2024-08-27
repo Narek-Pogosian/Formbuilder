@@ -19,6 +19,7 @@ import { Label } from "../ui/label";
 import { Button } from "../ui/button";
 import { saveForm, updateForm } from "@/server/actions/form";
 import { availableBlocks } from "./blocks";
+import { toast } from "sonner";
 import PreviewDialog from "../formrenderer/preview-dialog";
 import FieldAdder from "./field-adder";
 import FieldList from "./field-list";
@@ -42,12 +43,43 @@ interface FormBuilderUpdateProps extends FormBuilderProps {
 type Props = FormBuilderCreateProps | FormBuilderUpdateProps;
 
 function FormBuilder(props: Props) {
+  const [isLoading, setIsLoading] = useState(false);
   const [fields, setFields] = useState<FormSchema>(
     props.mode === "edit" ? props.defaultFields : [],
   );
-  const [title, setTitle] = useState(
+  const [title, setTitle] = useState<string>(
     props.mode === "edit" ? props.defaultTitle : "",
   );
+
+  async function handleSave() {
+    if (!title.trim()) {
+      toast("Please enter a title");
+      return;
+    }
+
+    const { data, success } = formSchema.safeParse(fields);
+    if (!success) {
+      // TODO: Communicate errors
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      if (props.mode === "edit") {
+        await updateForm({ form: { title, form: data }, id: props.id });
+        toast("Saved");
+      } else {
+        await saveForm({ title, form: data });
+        setTitle("");
+        setFields([]);
+        toast("New survey created");
+      }
+    } catch (error) {
+      toast("Something went wrong");
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
@@ -55,23 +87,6 @@ function FormBuilder(props: Props) {
 
   const { activeId, activeType, handleDragEnd, handleDragStart } =
     useDragBuilder({ fields, setFields });
-
-  async function handleSave() {
-    if (!title.trim()) return;
-
-    const { data, success } = formSchema.safeParse(fields);
-    if (!success) return;
-
-    if (props.mode === "edit") {
-      await updateForm({ form: { title, form: data }, id: props.id });
-      // TODO: Maybe toast message or navigate
-    } else {
-      await saveForm({ title, form: data });
-      setTitle("");
-      setFields([]);
-      // TODO: Toast message
-    }
-  }
 
   return (
     <div className="flex min-h-full flex-col gap-10">
@@ -88,8 +103,12 @@ function FormBuilder(props: Props) {
             />
           </Label>
         </div>
-        <div className="flex gap-4">
-          <Button className="h-fit sm:mt-[22px]" onClick={handleSave}>
+        <div className="flex gap-2">
+          <Button
+            className="h-fit sm:mt-[22px]"
+            onClick={handleSave}
+            disabled={isLoading}
+          >
             Save
           </Button>
           <PreviewDialog title={title} form={fields} />
