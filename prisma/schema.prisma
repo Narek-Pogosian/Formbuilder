@@ -8,16 +8,15 @@ datasource db {
 }
 
 model Form {
-    id          String    @id @default(auto()) @map("_id") @db.ObjectId
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
     title       String
-    content     Json      @default("[]")
-    isPublished Boolean   @default(false)
-    isCancelled Boolean?  @default(false)
-    expiryDate  DateTime?
-    createdAt   DateTime  @default(now())
-    updatedAt   DateTime  @updatedAt
-    User        User      @relation(fields: [userId], references: [id])
-    userId      String    @db.ObjectId
+    content     Json     @default("[]")
+    isPublished Boolean  @default(false)
+    isCancelled Boolean? @default(false)
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    User        User     @relation(fields: [userId], references: [id])
+    userId      String   @db.ObjectId
 }
 
 model User {

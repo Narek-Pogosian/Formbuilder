@@ -21,7 +21,7 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
           {children}
         </main>
       </div>
-      <Toaster position="top-center" />
+      <Toaster position="top-center" duration={2000} />
     </div>
   );
 }

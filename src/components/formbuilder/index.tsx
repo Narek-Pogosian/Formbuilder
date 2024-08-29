@@ -57,6 +57,11 @@ function FormBuilder(props: Props) {
       return;
     }
 
+    if (fields.length === 0) {
+      toast("Please add atleast 1 field");
+      return;
+    }
+
     const { data, success } = formSchema.safeParse(fields);
     if (!success) {
       // TODO: Communicate errors

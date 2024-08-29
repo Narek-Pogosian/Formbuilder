@@ -1,41 +1,33 @@
 import { getForms } from "@/server/data-access/form";
-import Link from "next/link";
-import DeleteFormDialog from "./_components/delete-form-dialog";
-import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import SurveysList from "./_components/surveys-list";
 
 async function FormsPage() {
-  const forms = await getForms();
+  const surveys = await getForms();
 
   return (
     <>
       <h1 className="mb-8 text-xl font-bold">Your Surveys</h1>
-      <ul className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-        {forms.map((form) => (
-          <li
-            key={form.id}
-            className="shadow relative rounded bg-background-card p-6"
-          >
-            <Link
-              href={`/surveys/${form.id}`}
-              className="mb-1 block font-semibold after:absolute after:inset-0"
-            >
-              {form.title}
-            </Link>
-            <p className="mb-8 text-sm font-medium text-foreground-muted">
-              {new Date(form.createdAt).toLocaleDateString()}
-            </p>
-
-            <div className="flex gap-2">
-              <DeleteFormDialog id={form.id} />
-              <Button asChild variant="outline" size="sm">
-                <Link href={`/surveys/${form.id}/edit`} className="relative">
-                  Edit
-                </Link>
-              </Button>
-            </div>
-          </li>
-        ))}
-      </ul>
+      <Tabs defaultValue="all">
+        <TabsList className="mb-2">
+          <TabsTrigger value="all">All</TabsTrigger>
+          <TabsTrigger value="published">Published</TabsTrigger>
+          <TabsTrigger value="draft">Draft</TabsTrigger>
+          <TabsTrigger value="cancelled">Cancelled</TabsTrigger>
+        </TabsList>
+        <TabsContent value="all">
+          <SurveysList surveys={surveys} />
+        </TabsContent>
+        <TabsContent value="published">
+          <SurveysList surveys={surveys.filter((s) => s.isPublished)} />
+        </TabsContent>
+        <TabsContent value="draft">
+          <SurveysList surveys={surveys.filter((s) => !s.isPublished)} />
+        </TabsContent>
+        <TabsContent value="cancelled">
+          <SurveysList surveys={surveys.filter((s) => s.isCancelled)} />
+        </TabsContent>
+      </Tabs>
     </>
   );
 }
