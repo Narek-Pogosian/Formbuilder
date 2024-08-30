@@ -95,7 +95,7 @@ function FormBuilder(props: Props) {
 
   return (
     <div className="flex min-h-full flex-col gap-10">
-      <div className="shadow flex flex-col gap-4 rounded bg-background-card p-6 sm:flex-row">
+      <div className="flex flex-col gap-4 rounded bg-background-card p-6 sm:flex-row">
         <div className="grow">
           <Label>
             Title of survey
@@ -136,7 +136,6 @@ function FormBuilder(props: Props) {
             <BaseBlock
               id="id"
               type={activeType}
-              className="shadow-xl"
               remove={() => {
                 undefined;
               }}

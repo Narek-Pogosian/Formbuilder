@@ -29,7 +29,7 @@ function BaseBlock({ children, className, type, remove, id }: Props) {
   return (
     <div
       className={cn(
-        "shadow cursor-grab rounded bg-background-card p-6 @container",
+        "cursor-grab rounded bg-background-card p-6 @container",
         className,
       )}
       ref={setNodeRef}

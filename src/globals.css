@@ -52,15 +52,4 @@
   body {
     @apply h-full overflow-x-clip overflow-y-scroll bg-background text-foreground;
   }
-
-  input {
-    @apply accent-primary;
-  }
-
-  .shadow {
-    @apply shadow-[0_2px_6px_#31315010] dark:shadow-[0_2px_8px_#0c0c0d50];
-  }
-  .shadow-xl {
-    @apply shadow-[0_3px_24px_#31315010] dark:shadow-[0_4px_30px_#0c0c0d50];
-  }
 }

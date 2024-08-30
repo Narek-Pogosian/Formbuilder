@@ -1,7 +1,7 @@
 "use server";
 
 import { z } from "zod";
-import { db } from "../db";
+import { db } from "@/lib/db";
 import { protectedActionClient } from ".";
 import { createFormScema } from "@/lib/schemas/form-schema";
 import { revalidatePath } from "next/cache";

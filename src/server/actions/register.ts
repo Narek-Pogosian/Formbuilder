@@ -2,7 +2,7 @@
 
 import { registerSchema } from "@/lib/schemas/auth-schemas";
 import { actionClient } from ".";
-import { db } from "../db";
+import { db } from "../../lib/db";
 import bcrypt from "bcrypt";
 
 export const register = actionClient

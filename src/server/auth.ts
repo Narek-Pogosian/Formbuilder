@@ -8,7 +8,7 @@ import { type Adapter } from "next-auth/adapters";
 import { signInSchema } from "@/lib/schemas/auth-schemas";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
-import { db } from "@/server/db";
+import { db } from "@/lib/db";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getServerAuthSession } from "../auth";
-import { db } from "../db";
+import { db } from "@/lib/db";
 
 export async function getForms() {
   const session = await getServerAuthSession();

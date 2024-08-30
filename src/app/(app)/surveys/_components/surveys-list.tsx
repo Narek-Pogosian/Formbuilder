@@ -21,10 +21,7 @@ function SurveysList({ surveys }: SurveysListProps) {
   return (
     <ul className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
       {surveys.map((survey) => (
-        <li
-          key={survey.id}
-          className="shadow relative rounded bg-background-card p-6"
-        >
+        <li key={survey.id} className="relative rounded bg-background-card p-6">
           <Link
             href={`/surveys/${survey.id}`}
             className="mb-1 block font-semibold after:absolute after:inset-0"

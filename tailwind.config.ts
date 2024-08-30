@@ -35,7 +35,6 @@ const config = {
       warning: colors.amber,
       info: colors.blue,
     },
-    boxShadow: {},
     extend: {
       fontFamily: {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
