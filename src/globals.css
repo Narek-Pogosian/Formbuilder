@@ -7,8 +7,8 @@
     --primary: 240 8% 10%;
     --primary-foreground: 0 0% 98%;
 
-    --background: 240 28% 97%;
-    --background-card: 240 10% 98.5%;
+    --background: 240 28% 96.5%;
+    --background-card: 240 10% 99%;
     --background-input: 240 10% 100%;
     --background-popover: 240 10% 99%;
 
@@ -26,7 +26,7 @@
     --primary: 0 0% 95%;
     --primary-foreground: 0 0% 8%;
 
-    --background: 240 5% 7%;
+    --background: 240 5% 5.5%;
     --background-card: 240 5% 9%;
     --background-input: 240 5% 12%;
     --background-popover: 240 5% 11%;

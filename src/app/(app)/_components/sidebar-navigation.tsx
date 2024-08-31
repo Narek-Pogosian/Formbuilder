@@ -1,8 +1,8 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Settings, SquarePen, LayoutGrid, Library } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { getMenuList } from "@/config/sidebar-navigation";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Signout from "@/components/signout";
@@ -50,3 +50,51 @@ function SidebarNavigation() {
 }
 
 export default SidebarNavigation;
+
+export function getMenuList(pathname: string) {
+  return [
+    {
+      groupLabel: "",
+      menus: [
+        {
+          href: "/",
+          label: "Dashboard",
+          active: pathname === "/",
+          icon: LayoutGrid,
+          submenus: [],
+        },
+      ],
+    },
+    {
+      groupLabel: "Contents",
+      menus: [
+        {
+          href: "/surveys",
+          label: "Your Surveys",
+          active: pathname == "/surveys",
+          icon: Library,
+          submenus: [],
+        },
+        {
+          href: "/create",
+          label: "Create Survey",
+          active: pathname.includes("/create"),
+          icon: SquarePen,
+          submenus: [],
+        },
+      ],
+    },
+    {
+      groupLabel: "Settings",
+      menus: [
+        {
+          href: "/",
+          label: "Account",
+          active: pathname.includes("/account"),
+          icon: Settings,
+          submenus: [],
+        },
+      ],
+    },
+  ];
+}

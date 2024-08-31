@@ -37,6 +37,22 @@ export const updateForm = protectedActionClient
     if (updatedForm) revalidatePath("/surveys");
   });
 
+export const publishForm = protectedActionClient
+  .schema(z.object({ id: z.string() }))
+  .action(async ({ ctx, parsedInput }) => {
+    const form = await getFormById(parsedInput.id);
+    if (form?.userId !== ctx.userId) return;
+
+    const updatedForm = await db.form.update({
+      where: { id: parsedInput.id },
+      data: {
+        isPublished: true,
+      },
+    });
+
+    if (updatedForm) revalidatePath("/surveys");
+  });
+
 export const deleteFormById = protectedActionClient
   .schema(z.string())
   .action(async ({ ctx, parsedInput }) => {

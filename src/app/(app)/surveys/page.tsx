@@ -1,13 +1,14 @@
 import { getForms } from "@/server/data-access/form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import SurveysList from "./_components/surveys-list";
+import PageTitle from "../_components/page-title";
 
 async function FormsPage() {
   const surveys = await getForms();
 
   return (
     <>
-      <h1 className="mb-8 text-xl font-bold">Your Surveys</h1>
+      <PageTitle>Your Surveys</PageTitle>
       <Tabs defaultValue="all">
         <TabsList className="mb-2">
           <TabsTrigger value="all">All</TabsTrigger>

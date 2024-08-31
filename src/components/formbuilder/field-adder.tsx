@@ -89,51 +89,51 @@ function FieldAdder({ setFields }: FieldAdderProps) {
   }
 
   return (
-    <div className="mx-auto mt-auto w-fit rounded bg-background-card p-6">
-      <div className="flex flex-wrap justify-center gap-4">
+    <div className="mx-auto mt-auto w-fit rounded bg-background-card p-2">
+      <div className="flex flex-wrap justify-center gap-1">
         <Button
-          className="h-fit flex-col gap-2 dark:bg-neutral-500/5"
-          variant="outline"
+          className="h-fit flex-col gap-2 py-4"
+          variant="ghost"
           onClick={addTextField}
         >
           <Type className="size-6" />
           Text Field
         </Button>
         <Button
-          className="h-fit flex-col gap-2 dark:bg-neutral-500/5"
-          variant="outline"
+          className="h-fit flex-col gap-2 py-4"
+          variant="ghost"
           onClick={addTextArea}
         >
           <TypeOutline className="size-6" />
           Text Area
         </Button>
         <Button
-          className="h-fit flex-col gap-2 dark:bg-neutral-500/5"
-          variant="outline"
+          className="h-fit flex-col gap-2 py-4"
+          variant="ghost"
           onClick={addNumberField}
         >
           <Sigma className="size-6" />
           Number Field
         </Button>
         <Button
-          className="h-fit flex-col gap-2 dark:bg-neutral-500/5"
-          variant="outline"
+          className="h-fit flex-col gap-2 py-4"
+          variant="ghost"
           onClick={addSelectField}
         >
           <MousePointer className="size-6" />
           Select Field
         </Button>
         <Button
-          className="h-fit flex-col gap-2 dark:bg-neutral-500/5"
-          variant="outline"
+          className="h-fit flex-col gap-2 py-4"
+          variant="ghost"
           onClick={addCheckbox}
         >
           <CircleCheckBig className="size-6" />
           Checkbox Field
         </Button>
         <Button
-          className="h-fit flex-col gap-2 dark:bg-neutral-500/5"
-          variant="outline"
+          className="h-fit flex-col gap-2 py-4"
+          variant="ghost"
           onClick={addRadioButtons}
         >
           <Radio className="size-6" />
