@@ -12,32 +12,32 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { deleteForm } from "@/server/actions/form";
+import { publishForm } from "@/server/actions/form";
 
-interface DeleteFormDialogProps {
+interface PublishFormProps {
   id: string;
 }
 
-function DeleteFormDialog({ id }: DeleteFormDialogProps) {
+function PublishForm({ id }: PublishFormProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger className="relative" asChild>
-        <Button variant="danger" size="sm">
-          Delete
-        </Button>
+        <Button size="sm">Publish</Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the form
-            and all related stats will be removed from our servers.
+            After a survey has been published it can no longer be edited.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={async () => deleteForm({ id })}>
-            Delete
+          <AlertDialogAction
+            onClick={async () => publishForm({ id })}
+            className="bg-primary text-primary-foreground hover:bg-primary/90"
+          >
+            Publish
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -45,4 +45,4 @@ function DeleteFormDialog({ id }: DeleteFormDialogProps) {
   );
 }
 
-export default DeleteFormDialog;
+export default PublishForm;

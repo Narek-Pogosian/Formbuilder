@@ -53,13 +53,45 @@ export const publishForm = protectedActionClient
     if (updatedForm) revalidatePath("/surveys");
   });
 
-export const deleteFormById = protectedActionClient
-  .schema(z.string())
+export const cancelForm = protectedActionClient
+  .schema(z.object({ id: z.string() }))
   .action(async ({ ctx, parsedInput }) => {
-    const form = await db.form.findFirst({ where: { id: parsedInput } });
+    const form = await getFormById(parsedInput.id);
+    if (form?.userId !== ctx.userId) return;
+
+    const updatedForm = await db.form.update({
+      where: { id: parsedInput.id },
+      data: {
+        isCancelled: true,
+      },
+    });
+
+    if (updatedForm) revalidatePath("/surveys");
+  });
+
+export const unCancelForm = protectedActionClient
+  .schema(z.object({ id: z.string() }))
+  .action(async ({ ctx, parsedInput }) => {
+    const form = await getFormById(parsedInput.id);
+    if (form?.userId !== ctx.userId) return;
+
+    const updatedForm = await db.form.update({
+      where: { id: parsedInput.id },
+      data: {
+        isCancelled: false,
+      },
+    });
+
+    if (updatedForm) revalidatePath("/surveys");
+  });
+
+export const deleteForm = protectedActionClient
+  .schema(z.object({ id: z.string() }))
+  .action(async ({ ctx, parsedInput }) => {
+    const form = await db.form.findFirst({ where: { id: parsedInput.id } });
 
     if (!form || form.userId !== ctx.userId) return;
 
-    await db.form.delete({ where: { id: parsedInput } });
+    await db.form.delete({ where: { id: parsedInput.id } });
     revalidatePath("/surveys");
   });

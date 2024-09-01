@@ -12,32 +12,31 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { deleteForm } from "@/server/actions/form";
+import { cancelForm } from "@/server/actions/form";
 
-interface DeleteFormDialogProps {
+interface CancelFormDialogProps {
   id: string;
 }
 
-function DeleteFormDialog({ id }: DeleteFormDialogProps) {
+function CancelFormDialog({ id }: CancelFormDialogProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger className="relative" asChild>
-        <Button variant="danger" size="sm">
-          Delete
+        <Button variant="outline" size="sm">
+          Cancel
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete the form
-            and all related stats will be removed from our servers.
+            This means people will no longer be able to answer your survey.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={async () => deleteForm({ id })}>
-            Delete
+          <AlertDialogAction onClick={async () => cancelForm({ id })}>
+            Proceed
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
@@ -45,4 +44,4 @@ function DeleteFormDialog({ id }: DeleteFormDialogProps) {
   );
 }
 
-export default DeleteFormDialog;
+export default CancelFormDialog;
