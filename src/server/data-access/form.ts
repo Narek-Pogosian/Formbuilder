@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { getServerAuthSession } from "../auth";
+import { cache } from "react";
 import { db } from "@/lib/db";
 
 export async function getForms() {
@@ -9,8 +10,8 @@ export async function getForms() {
   return db.form.findMany({ where: { userId: session.user.id } });
 }
 
-export async function getFormById(id: string) {
+export const getFormById = cache(async (id: string) => {
   const form = await db.form.findFirst({ where: { id } });
 
   return form;
-}
+});

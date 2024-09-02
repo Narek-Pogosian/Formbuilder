@@ -1,10 +1,29 @@
 import FormRenderer from "@/components/formrenderer";
-import { formSchema } from "@/lib/schemas/form-schema";
+import { type Metadata } from "next";
 import { getFormById } from "@/server/data-access/form";
+import { formSchema } from "@/lib/schemas/form-schema";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const form = await getFormById(params.id);
+  if (!form) notFound();
+
+  return {
+    title: form.title,
+    openGraph: {
+      type: "website",
+      siteName: "Insights",
+      title: form.title,
+      url: process.env.VERCEL_URL + "/survey/" + params.id,
+    },
+  };
+}
+
 async function page({ params }: { params: { id: string } }) {
-  console.log("hello");
   const form = await getFormById(params.id);
   if (!form) notFound();
 
@@ -15,10 +34,10 @@ async function page({ params }: { params: { id: string } }) {
   if (!data || !success) notFound();
 
   return (
-    <>
+    <div className="py-8">
       <h1 className="text-center text-3xl font-bold">{form?.title}</h1>
       <FormRenderer mode="answer" id={params.id} form={data} />
-    </>
+    </div>
   );
 }
 
