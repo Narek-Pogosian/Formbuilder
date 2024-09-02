@@ -26,24 +26,35 @@ import { Checkbox } from "../ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 
 interface FormRendererProps {
+  mode: "answer" | "preview";
   form: FormSchema;
-  mode?: "answer" | "preview";
 }
 
-function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
-  const schema = createValidationSchema(form);
+interface FormRendererAnswerProps extends FormRendererProps {
+  mode: "answer";
+  id: string;
+}
+
+interface FormRendererPreviewProps extends FormRendererProps {
+  mode: "preview";
+}
+
+type Props = FormRendererAnswerProps | FormRendererPreviewProps;
+
+function FormRenderer(props: Props) {
+  const schema = createValidationSchema(props.form);
   const f = useForm<typeof schema>({
     resolver: zodResolver(schema),
     reValidateMode: "onChange",
   });
 
-  function onSubmit(data: typeof schema) {
-    if (mode === "preview") {
+  async function onSubmit(data: typeof schema) {
+    if (props.mode === "preview") {
       alert("Preview survey submitted without errors");
       return;
     }
 
-    console.log("data", data);
+    console.log(data);
   }
 
   return (
@@ -52,7 +63,7 @@ function FormRenderer({ form, mode = "answer" }: FormRendererProps) {
         onSubmit={f.handleSubmit(onSubmit)}
         className="mx-auto grid w-full max-w-3xl gap-8 py-4"
       >
-        {form.map((formField, i) => {
+        {props.form.map((formField, i) => {
           const label = formField.label as keyof typeof schema;
 
           if (formField.type === "text")

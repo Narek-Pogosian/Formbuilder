@@ -10,11 +10,7 @@ export async function getForms() {
 }
 
 export async function getFormById(id: string) {
-  const session = await getServerAuthSession();
-  if (!session) throw redirect("/sign-in");
-
   const form = await db.form.findFirst({ where: { id } });
-  if (form?.userId !== session.user.id) return;
 
   return form;
 }
