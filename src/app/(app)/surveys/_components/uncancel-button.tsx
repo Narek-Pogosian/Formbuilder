@@ -7,7 +7,6 @@ function UncancelButton({ id }: { id: string }) {
   return (
     <Button
       size="sm"
-      variant="outline"
       className="relative"
       onClick={async () => unCancelForm({ id })}
     >

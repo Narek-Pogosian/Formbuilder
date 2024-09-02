@@ -20,7 +20,9 @@ async function FormsPage() {
           <SurveysList surveys={surveys} />
         </TabsContent>
         <TabsContent value="published">
-          <SurveysList surveys={surveys.filter((s) => s.isPublished)} />
+          <SurveysList
+            surveys={surveys.filter((s) => s.isPublished && !s.isCancelled)}
+          />
         </TabsContent>
         <TabsContent value="draft">
           <SurveysList surveys={surveys.filter((s) => !s.isPublished)} />
