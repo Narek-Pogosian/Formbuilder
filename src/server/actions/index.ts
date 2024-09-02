@@ -12,6 +12,7 @@ export const protectedActionClient = actionClient.use(async ({ next }) => {
 
   return next({
     ctx: {
+      email: session.user.email,
       userId: session.user.id,
     },
   });

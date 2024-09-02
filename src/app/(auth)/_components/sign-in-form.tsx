@@ -35,15 +35,21 @@ function SignInForm() {
     },
   });
 
-  async function onSubmit() {
+  async function onSubmit({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) {
     if (isSigningIn) return;
     setIsSigningIn(true);
     setError("");
 
     try {
       const res = await signIn("credentials", {
-        email: form.getValues().email,
-        password: form.getValues().password,
+        email,
+        password,
         redirect: false,
       });
 
@@ -115,6 +121,15 @@ function SignInForm() {
           </Link>
         </div>
       </form>
+      <Button
+        className="mt-8 w-full"
+        variant="outline"
+        onClick={() =>
+          onSubmit({ email: "demo@demo.com", password: "123demo321" })
+        }
+      >
+        {isSigningIn ? "Loading..." : "Demo Account"}
+      </Button>
     </Form>
   );
 }

@@ -40,9 +40,7 @@ function SurveysList({ surveys }: SurveysListProps) {
             ) : (
               <Badge variant="cancel">Cancelled</Badge>
             )}
-            <SharePopover
-              url={`${process.env.VERCEL_URL}/survey/${survey.id}`}
-            />
+            <SharePopover id={survey.id} />
           </div>
 
           <div className="mb-10">

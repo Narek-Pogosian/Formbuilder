@@ -14,9 +14,12 @@ import {
   XIcon,
 } from "react-share";
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Check, Copy } from "lucide-react";
+import { useState } from "react";
 
-function SharePopover({ url }: { url: string }) {
+function SharePopover({ id }: { id: string }) {
+  const url = `${process.env.VERCEL_URL}/survey/${id}`;
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -46,15 +49,20 @@ function SharePopover({ url }: { url: string }) {
 export default SharePopover;
 
 function CopyToClipboard({ url }: { url: string }) {
+  const [hasCopied, setHasCopied] = useState(false);
+
+  async function handleCopy() {
+    await navigator.clipboard.writeText(url);
+    setHasCopied(true);
+    setTimeout(() => {
+      setHasCopied(false);
+    }, 1000);
+  }
+
   return (
-    <Button
-      className="size-16 border-0"
-      onClick={async () => {
-        await navigator.clipboard.writeText(url);
-      }}
-    >
+    <Button className="size-16 border-0" onClick={handleCopy}>
       <span className="sr-only">Copy to clipboard</span>
-      <Copy />
+      {hasCopied ? <Check /> : <Copy />}
     </Button>
   );
 }
