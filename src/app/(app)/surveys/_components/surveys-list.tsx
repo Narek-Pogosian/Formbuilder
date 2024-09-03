@@ -28,9 +28,9 @@ function SurveysList({ surveys }: SurveysListProps) {
       {surveys.map((survey) => (
         <li
           key={survey.id}
-          className="relative rounded bg-background-card px-6 pb-6 pt-3"
+          className="relative flex flex-col rounded bg-background-card px-6 pb-6 pt-3"
         >
-          <div className="mb-1 flex justify-between">
+          <div className="mb-1 flex justify-between py-1">
             {!survey.isCancelled ? (
               survey.isPublished ? (
                 <Badge>Published</Badge>
@@ -40,7 +40,9 @@ function SurveysList({ surveys }: SurveysListProps) {
             ) : (
               <Badge variant="cancel">Cancelled</Badge>
             )}
-            <SharePopover id={survey.id} />
+            {survey.isPublished && !survey.isCancelled && (
+              <SharePopover id={survey.id} />
+            )}
           </div>
 
           <div className="mb-10">
@@ -55,7 +57,7 @@ function SurveysList({ surveys }: SurveysListProps) {
             </p>
           </div>
 
-          <div className="flex justify-between">
+          <div className="mt-auto flex justify-between">
             <div className="flex gap-2">
               {!survey.isPublished ? (
                 <>

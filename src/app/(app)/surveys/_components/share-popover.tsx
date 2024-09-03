@@ -23,7 +23,7 @@ function SharePopover({ id }: { id: string }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="ghost" size="sm" className="h-fit">
+        <Button variant="ghost" size="sm" className="h-fit py-0">
           Share
         </Button>
       </PopoverTrigger>
