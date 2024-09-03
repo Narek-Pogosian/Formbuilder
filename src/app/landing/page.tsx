@@ -27,8 +27,11 @@ async function LandingPage() {
             </p>
           </div>
 
-          <Button asChild variant="outline" className="gap-2 rounded-full px-8">
-            <Link className="" href="/sign-in">
+          <Button
+            asChild
+            className="gap-2 rounded-full px-8 shadow-lg dark:shadow-black"
+          >
+            <Link href="/sign-in">
               Get Started
               <ArrowRight className="size-4" />
             </Link>

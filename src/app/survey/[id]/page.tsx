@@ -20,6 +20,10 @@ export async function generateMetadata({
       title: form.title,
       url: process.env.VERCEL_URL + "/survey/" + params.id,
     },
+    twitter: {
+      title: form.title,
+      site: process.env.VERCEL_URL + "/survey/" + params.id,
+    },
   };
 }
 

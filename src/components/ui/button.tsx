@@ -13,7 +13,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-accent",
         outline: "border hover:bg-accent bg-background-card",
         danger:
-          "bg-danger-700/90 text-white hover:bg-danger-700/80 focus-visible:ring-danger-600 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "bg-red-700/90 text-white hover:bg-red-700/80 focus-visible:ring-danger-600 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       },
       size: {
         default: "px-4 py-2",

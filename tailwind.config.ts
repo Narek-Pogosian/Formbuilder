@@ -15,7 +15,7 @@ const config = {
       center: true,
       padding: "1rem",
       screens: {
-        "2xl": "1400px",
+        xl: "1200px",
       },
     },
     borderRadius: {
@@ -30,10 +30,10 @@ const config = {
       current: colors.current,
       black: colors.black,
       white: colors.white,
-      neutral: colors.neutral,
-      danger: colors.red,
-      warning: colors.amber,
-      info: colors.blue,
+      neutral: colors.zinc,
+      red: colors.red,
+      amber: colors.amber,
+      blue: colors.blue,
     },
     extend: {
       fontFamily: {

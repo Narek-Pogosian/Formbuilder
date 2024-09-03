@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Signout from "@/components/signout";
 import ThemeToggle from "@/components/theme-toggle";
+import Logo from "@/components/logo";
 
 function SidebarNavigation() {
   const pathname = usePathname();
@@ -14,7 +15,8 @@ function SidebarNavigation() {
 
   return (
     <nav className="relative flex h-full flex-col overflow-y-auto pr-2 pt-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-scrollbar lg:pl-4">
-      <ul className="space-y-4">
+      <Logo />
+      <ul className="mt-4 space-y-4">
         {menuList.map((item) => (
           <div key={item.groupLabel}>
             {item.groupLabel && (
