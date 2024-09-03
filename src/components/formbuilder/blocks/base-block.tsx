@@ -28,21 +28,18 @@ function BaseBlock({ children, className, type, remove, id }: Props) {
 
   return (
     <div
-      className={cn(
-        "cursor-grab rounded bg-background-card p-6 @container",
-        className,
-      )}
+      className={cn("cursor-grab rounded bg-background-card p-6", className)}
       ref={setNodeRef}
       style={{ ...style, touchAction: "none" }}
       {...attributes}
       {...listeners}
       role="button"
     >
-      <div className="flex flex-col gap-4 @container @xl:flex-row">
+      <div className="flex flex-col gap-4 sm:flex-row">
         <Grip className="mt-1 size-5 text-foreground-muted" />
         <div className="grow space-y-5">
           <div className="flex items-center justify-between">
-            <h3 className="text-lg font-extrabold capitalize">{type}</h3>
+            <h3 className="text-lg font-bold capitalize">{type}</h3>
             <Button variant="danger" size="sm" type="button" onClick={remove}>
               Remove
             </Button>

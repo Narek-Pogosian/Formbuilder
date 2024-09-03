@@ -16,7 +16,7 @@ async function page({ params }: { params: { id: string } }) {
   return (
     <>
       <h1 className="text-center text-3xl font-bold">{form?.title}</h1>
-      <FormRenderer form={data} />
+      <FormRenderer mode="preview" form={data} />
     </>
   );
 }

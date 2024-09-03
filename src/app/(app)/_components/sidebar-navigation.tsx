@@ -14,7 +14,7 @@ function SidebarNavigation() {
   const menuList = getMenuList(pathname);
 
   return (
-    <nav className="relative flex h-full flex-col overflow-y-auto pr-2 pt-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-scrollbar lg:pl-4">
+    <nav className="relative flex h-full flex-col overflow-y-auto pr-2 pt-4 lg:pl-4">
       <Logo />
       <ul className="mt-4 space-y-4">
         {menuList.map((item) => (

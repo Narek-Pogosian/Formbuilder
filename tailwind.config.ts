@@ -37,7 +37,7 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-geist-sans)", ...fontFamily.sans],
+        sans: ["Arial", ...fontFamily.sans],
       },
       colors: {
         primary: {
@@ -56,15 +56,10 @@ const config = {
         },
         accent: "hsla(var(--accent))",
         border: "hsl(var(--border))",
-        scrollbar: "hsl(var(--scrollbar))",
       },
     },
   },
-  plugins: [
-    require("tailwindcss-animate"),
-    require("tailwind-scrollbar"),
-    require("@tailwindcss/container-queries"),
-  ],
+  plugins: [require("tailwindcss-animate")],
 } satisfies Config;
 
 export default config;

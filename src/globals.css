@@ -17,7 +17,6 @@
 
     --accent: 240, 70%, 40%, 0.04;
     --border: 240 8% 93%;
-    --scrollbar: 240 8% 85%;
 
     --radius: 6px;
   }
@@ -36,7 +35,6 @@
 
     --accent: 240, 20%, 80%, 0.085;
     --border: 240 6% 16%;
-    --scrollbar: 240 6% 20%;
   }
 }
 
@@ -46,10 +44,10 @@
   }
 
   html {
-    @apply h-full scrollbar scrollbar-track-transparent scrollbar-thumb-scrollbar;
+    @apply h-full;
   }
 
   body {
-    @apply h-full overflow-x-clip overflow-y-scroll bg-background text-foreground;
+    @apply h-full overflow-x-clip bg-background text-foreground;
   }
 }
