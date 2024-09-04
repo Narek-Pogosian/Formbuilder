@@ -24,6 +24,8 @@ import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
+import { answerSurvey } from "@/server/actions/answer";
+import { type ZodObject } from "zod";
 
 interface FormRendererProps {
   mode: "answer" | "preview";
@@ -54,7 +56,14 @@ function FormRenderer(props: Props) {
       return;
     }
 
-    console.log(data);
+    const res = await answerSurvey({
+      answers: JSON.stringify(data),
+      surveyId: props.id,
+    });
+
+    if (res?.data?.success) {
+      console.log("Success");
+    }
   }
 
   return (

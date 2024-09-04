@@ -12,14 +12,9 @@ interface UseDragBuilderParams {
   setFields: React.Dispatch<React.SetStateAction<FormSchema>>;
 }
 
-/**
- * This hook holds all the logic for formbuilder related to drag and drop.
- */
 export function useDragBuilder({ fields, setFields }: UseDragBuilderParams) {
   const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
-  const [activeType, setActiveType] = useState<
-    FormSchema[number]["type"] | null
-  >(null);
+  const [activeType, setActiveType] = useState<FieldType | null>(null);
 
   function handleDragStart(event: DragStartEvent) {
     const { active } = event;
