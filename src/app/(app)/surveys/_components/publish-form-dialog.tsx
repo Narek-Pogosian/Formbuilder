@@ -2,7 +2,6 @@
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -13,14 +12,33 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { publishForm } from "@/server/actions/form";
+import { useAction } from "next-safe-action/hooks";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface PublishFormProps {
   id: string;
 }
 
 function PublishForm({ id }: PublishFormProps) {
+  const [open, setOpen] = useState(false);
+
+  const { executeAsync, isPending } = useAction(publishForm, {
+    onSettled: () => {
+      setOpen(false);
+    },
+    onError: () => {
+      toast("Survey could not be published.");
+    },
+  });
+
+  async function handleClick() {
+    if (isPending) return;
+    await executeAsync({ id });
+  }
+
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger className="relative" asChild>
         <Button size="sm">Publish</Button>
       </AlertDialogTrigger>
@@ -33,12 +51,13 @@ function PublishForm({ id }: PublishFormProps) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={async () => publishForm({ id })}
+          <Button
+            onClick={handleClick}
+            aria-disabled={isPending}
             className="bg-primary text-primary-foreground hover:bg-primary/90"
           >
             Publish
-          </AlertDialogAction>
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

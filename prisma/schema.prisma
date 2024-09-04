@@ -23,8 +23,8 @@ model Form {
 model Response {
     id         String   @id @default(auto()) @map("_id") @db.ObjectId
     surveyId   String   @db.ObjectId
-    survey     Form     @relation(fields: [surveyId], references: [id])
-    respondent String // Anonymized identifier (could be IP or a generated token)
+    survey     Form     @relation(fields: [surveyId], references: [id], onDelete: Cascade)
+    respondent String 
     answers    Json
     createdAt  DateTime @default(now())
 }

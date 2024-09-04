@@ -14,7 +14,7 @@ interface SurveysListProps {
 }
 
 function SurveysList({ surveys }: SurveysListProps) {
-  if (surveys.length == 0) {
+  if (surveys.length === 0) {
     return (
       <div className="mx-auto max-w-lg pt-20 text-center font-semibold text-foreground-muted">
         <Squirrel className="mx-auto mb-4 size-44" strokeWidth={1} />
@@ -31,15 +31,10 @@ function SurveysList({ surveys }: SurveysListProps) {
           className="relative flex flex-col rounded bg-background-card px-6 pb-6 pt-3"
         >
           <div className="mb-1 flex justify-between py-1">
-            {!survey.isCancelled ? (
-              survey.isPublished ? (
-                <Badge>Published</Badge>
-              ) : (
-                <Badge variant="secondary">Draft</Badge>
-              )
-            ) : (
-              <Badge variant="cancel">Cancelled</Badge>
-            )}
+            <SurveyStatusBadge
+              isPublished={survey.isPublished}
+              isCancelled={survey.isCancelled}
+            />
             {survey.isPublished && !survey.isCancelled && (
               <SharePopover id={survey.id} />
             )}
@@ -58,26 +53,11 @@ function SurveysList({ surveys }: SurveysListProps) {
           </div>
 
           <div className="mt-auto flex justify-between">
-            <div className="flex gap-2">
-              {!survey.isPublished ? (
-                <>
-                  <PublishForm id={survey.id} />
-                  <Button asChild variant="ghost" size="sm">
-                    <Link
-                      href={`/surveys/${survey.id}/edit`}
-                      className="relative"
-                    >
-                      Edit
-                    </Link>
-                  </Button>
-                </>
-              ) : !survey.isCancelled ? (
-                <CancelFormDialog id={survey.id} />
-              ) : (
-                <UncancelButton id={survey.id} />
-              )}
-            </div>
-
+            <SurveyActionButtons
+              isPublished={survey.isPublished}
+              isCancelled={survey.isCancelled}
+              id={survey.id}
+            />
             <DeleteFormDialog id={survey.id} />
           </div>
         </li>
@@ -87,3 +67,48 @@ function SurveysList({ surveys }: SurveysListProps) {
 }
 
 export default SurveysList;
+
+function SurveyStatusBadge({
+  isPublished,
+  isCancelled,
+}: {
+  isPublished: boolean;
+  isCancelled: boolean | null;
+}) {
+  if (isCancelled) {
+    return <Badge variant="cancel">Cancelled</Badge>;
+  }
+  if (isPublished) {
+    return <Badge>Published</Badge>;
+  }
+  return <Badge variant="secondary">Draft</Badge>;
+}
+
+function SurveyActionButtons({
+  isPublished,
+  isCancelled,
+  id,
+}: {
+  isPublished: boolean;
+  isCancelled: boolean | null;
+  id: string;
+}) {
+  if (!isPublished) {
+    return (
+      <div className="flex gap-2">
+        <PublishForm id={id} />
+        <Button asChild variant="ghost" size="sm">
+          <Link href={`/surveys/${id}/edit`} className="relative">
+            Edit
+          </Link>
+        </Button>
+      </div>
+    );
+  }
+
+  if (isCancelled) {
+    return <UncancelButton id={id} />;
+  }
+
+  return <CancelFormDialog id={id} />;
+}

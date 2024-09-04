@@ -2,7 +2,6 @@
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -13,14 +12,33 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { cancelForm } from "@/server/actions/form";
+import { useAction } from "next-safe-action/hooks";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface CancelFormDialogProps {
   id: string;
 }
 
 function CancelFormDialog({ id }: CancelFormDialogProps) {
+  const [open, setOpen] = useState(false);
+
+  const { executeAsync, isPending } = useAction(cancelForm, {
+    onSettled: () => {
+      setOpen(false);
+    },
+    onError: () => {
+      toast("Survey could not be cancelled.");
+    },
+  });
+
+  async function handleClick() {
+    if (isPending) return;
+    await executeAsync({ id });
+  }
+
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger className="relative" asChild>
         <Button size="sm">Cancel Survey</Button>
       </AlertDialogTrigger>
@@ -33,9 +51,9 @@ function CancelFormDialog({ id }: CancelFormDialogProps) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={async () => cancelForm({ id })}>
+          <Button onClick={handleClick} aria-disabled={isPending}>
             Proceed
-          </AlertDialogAction>
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

@@ -25,7 +25,8 @@ import { Input } from "../ui/input";
 import { Checkbox } from "../ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { answerSurvey } from "@/server/actions/answer";
-import { type ZodObject } from "zod";
+import { useAction } from "next-safe-action/hooks";
+import { toast } from "sonner";
 
 interface FormRendererProps {
   mode: "answer" | "preview";
@@ -50,18 +51,22 @@ function FormRenderer(props: Props) {
     reValidateMode: "onChange",
   });
 
+  const { executeAsync, isPending, hasSucceeded } = useAction(answerSurvey);
+
   async function onSubmit(data: typeof schema) {
     if (props.mode === "preview") {
-      alert("Preview survey submitted without errors");
+      toast("Preview survey submitted without errors");
       return;
     }
 
-    const res = await answerSurvey({
+    if (isPending) return;
+    await executeAsync({
       answers: JSON.stringify(data),
       surveyId: props.id,
+      respondent: "",
     });
 
-    if (res?.data?.success) {
+    if (hasSucceeded) {
       console.log("Success");
     }
   }
@@ -70,7 +75,7 @@ function FormRenderer(props: Props) {
     <Form {...f}>
       <form
         onSubmit={f.handleSubmit(onSubmit)}
-        className="mx-auto grid w-full max-w-3xl gap-8 py-4"
+        className="mx-auto grid w-full max-w-2xl gap-8 py-4"
       >
         {props.form.map((formField, i) => {
           const label = formField.label as keyof typeof schema;
@@ -235,7 +240,9 @@ function FormRenderer(props: Props) {
             );
         })}
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit" aria-disabled={isPending}>
+          Submit
+        </Button>
       </form>
     </Form>
   );

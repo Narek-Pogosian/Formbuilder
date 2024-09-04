@@ -65,7 +65,6 @@ function RegisterForm() {
       if (error.validationErrors) {
         setError("Please fill in all fields.");
       } else {
-        console.log("ERROR", error);
         setError("Something went wrong");
       }
       setIsSigningIn(false);

@@ -1,3 +1,5 @@
+"use server";
+
 import { actionClient } from ".";
 import { db } from "@/lib/db";
 import { z } from "zod";
@@ -7,6 +9,7 @@ export const answerSurvey = actionClient
     z.object({
       surveyId: z.string(),
       answers: z.string(),
+      respondent: z.string(),
     }),
   )
   .action(async ({ parsedInput }) => {

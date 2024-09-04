@@ -39,7 +39,7 @@ async function page({ params }: { params: { id: string } }) {
 
   return (
     <div className="py-8">
-      <h1 className="text-center text-3xl font-bold">{form?.title}</h1>
+      <h1 className="mb-4 text-center text-3xl font-bold">{form?.title}</h1>
       <FormRenderer mode="answer" id={params.id} form={data} />
     </div>
   );

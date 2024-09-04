@@ -2,7 +2,6 @@
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -13,14 +12,33 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { deleteForm } from "@/server/actions/form";
+import { useAction } from "next-safe-action/hooks";
+import { useState } from "react";
+import { toast } from "sonner";
 
 interface DeleteFormDialogProps {
   id: string;
 }
 
 function DeleteFormDialog({ id }: DeleteFormDialogProps) {
+  const [open, setOpen] = useState(false);
+
+  const { executeAsync, isPending } = useAction(deleteForm, {
+    onSettled: () => {
+      setOpen(false);
+    },
+    onError: () => {
+      toast("Survey could not be deleted.");
+    },
+  });
+
+  async function handleClick() {
+    if (isPending) return;
+    await executeAsync({ id });
+  }
+
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger className="relative" asChild>
         <Button variant="danger" size="sm">
           Delete
@@ -36,9 +54,13 @@ function DeleteFormDialog({ id }: DeleteFormDialogProps) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={async () => deleteForm({ id })}>
+          <Button
+            variant="danger"
+            aria-disabled={isPending}
+            onClick={handleClick}
+          >
             Delete
-          </AlertDialogAction>
+          </Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
