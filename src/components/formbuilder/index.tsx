@@ -24,6 +24,7 @@ import PreviewDialog from "../formrenderer/preview-dialog";
 import FieldAdder from "./field-adder";
 import FieldList from "./field-list";
 import BaseBlock from "./blocks/base-block";
+import PageTitle from "@/app/(app)/_components/page-title";
 
 interface FormBuilderProps {
   mode: "create" | "edit";
@@ -94,8 +95,11 @@ function FormBuilder(props: Props) {
     useDragBuilder({ fields, setFields });
 
   return (
-    <div className="flex min-h-full flex-col gap-10">
-      <div className="flex flex-col gap-4 rounded bg-background-card p-6 sm:flex-row">
+    <div className="relative flex min-h-full flex-col">
+      <PageTitle>
+        {props.mode === "create" ? "Create" : "Edit"} Survey
+      </PageTitle>
+      <div className="flex flex-col gap-4 rounded bg-background-card sm:flex-row">
         <div className="grow">
           <Label>
             Title of survey
@@ -136,6 +140,7 @@ function FormBuilder(props: Props) {
             <BaseBlock
               id="id"
               type={activeType}
+              className="border shadow-lg dark:shadow-black"
               remove={() => {
                 undefined;
               }}

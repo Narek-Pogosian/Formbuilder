@@ -28,7 +28,7 @@ function BaseBlock({ children, className, type, remove, id }: Props) {
 
   return (
     <div
-      className={cn("cursor-grab rounded bg-background-card p-6", className)}
+      className={cn("cursor-grab rounded bg-background-card p-4", className)}
       ref={setNodeRef}
       style={{ ...style, touchAction: "none" }}
       {...attributes}

@@ -28,7 +28,7 @@ function SurveysList({ surveys }: SurveysListProps) {
       {surveys.map((survey) => (
         <li
           key={survey.id}
-          className="relative flex flex-col rounded bg-background-card px-6 pb-6 pt-3"
+          className="relative flex flex-col rounded border px-6 pb-6 pt-3"
         >
           <div className="mb-1 flex justify-between py-1">
             <SurveyStatusBadge
