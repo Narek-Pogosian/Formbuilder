@@ -18,17 +18,14 @@ function FieldsList({ fields, setFields, activeId }: FieldsListProps) {
 
   function update(id: string, field: FormSchema[number]) {
     return (property: UpdateKeys, value: UpdateValue) =>
-      setFields(
-        fields.map((f) => (f.id != id ? f : { ...field, [property]: value })),
-      );
+      setFields(fields.map((f) => (f.id != id ? f : { ...field, [property]: value })));
   }
 
   if (fields.length === 0) {
     return (
-      <div className="mx-auto max-w-lg pt-10 text-center font-semibold text-foreground-muted">
-        <Squirrel className="mx-auto mb-4 size-44" strokeWidth={1} />
-        Your survey is currently empty. <br /> Add a field bellow to begin
-        building your survey.
+      <div className="mx-auto max-w-lg pt-20 text-center font-semibold text-foreground-muted">
+        <Squirrel className="mx-auto mb-4 size-44" strokeWidth={0.75} />
+        Your survey is currently empty. <br /> Add a field bellow to begin building your survey.
       </div>
     );
   }

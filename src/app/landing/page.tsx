@@ -12,25 +12,20 @@ async function LandingPage() {
   return (
     <>
       <Header />
-      <div className="container pb-52 pt-24">
+      <div className="container pb-52 pt-24 lg:pt-40">
         <div className="flex flex-col items-center gap-6">
           <div className="mx-auto max-w-xl text-center">
-            <h1 className="text-3xl font-bold sm:text-4xl md:text-6xl">
-              Ask, Analyze, Act
-            </h1>
+            <h1 className="text-3xl font-bold sm:text-5xl md:text-6xl">Ask, Analyze, Act</h1>
           </div>
 
           <div className="max-w-3xl text-balance text-center">
             <p className="text-foreground-muted md:text-lg">
-              Create powerful surveys that drive results. Collect feedback,
-              uncover trends, and make data-driven decisions with ease.
+              Create powerful surveys that drive results. Collect feedback, uncover trends, and make data-driven
+              decisions with ease.
             </p>
           </div>
 
-          <Button
-            asChild
-            className="gap-2 rounded-full px-8 shadow-lg dark:shadow-black"
-          >
+          <Button asChild className="gap-2 rounded-full px-8 shadow-lg dark:shadow-black">
             <Link href="/sign-in">
               Get Started
               <ArrowRight className="size-4" />
