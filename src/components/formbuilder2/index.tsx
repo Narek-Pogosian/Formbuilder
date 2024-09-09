@@ -1,4 +1,9 @@
+"use client";
+
 import PageTitle from "@/app/(app)/_components/page-title";
+import FormbuilderSettings from "./settings";
+import FieldList from "./field-list";
+import FieldAdder from "./field-adder";
 
 interface FormBuilderProps {
   mode: "create" | "edit";
@@ -16,14 +21,12 @@ interface FormBuilderUpdateProps extends FormBuilderProps {
 type Props = FormBuilderCreateProps | FormBuilderUpdateProps;
 
 function FormBuilder2(props: Props) {
-  console.log(props);
   return (
     <>
       <PageTitle>{props.mode === "create" ? "Create" : "Edit"} Survey</PageTitle>
-
-      <div>TODO: Settings</div>
-      <div>TODO: Fields list</div>
-      <div>TODO: Add field dialog</div>
+      <FormbuilderSettings />
+      <FieldList />
+      <FieldAdder />
     </>
   );
 }

@@ -4,7 +4,8 @@ export type FormbuilderState = { title: string; fields: FormSchema };
 export type FormbuilderActionsType =
   | { type: "EDIT_TITLE"; payload: string }
   | { type: "REMOVE_FIELD"; payload: string }
-  | { type: "ADD_FIELD"; payload: FormSchema[number] };
+  | { type: "ADD_FIELD"; payload: FormSchema[number] }
+  | { type: "SET_FIELDS"; payload: FormSchema };
 
 export const formbuilderReducer = (state: FormbuilderState, action: FormbuilderActionsType): FormbuilderState => {
   switch (action.type) {
@@ -26,6 +27,13 @@ export const formbuilderReducer = (state: FormbuilderState, action: FormbuilderA
       return {
         ...state,
         fields: [...state.fields, action.payload],
+      };
+    }
+
+    case "SET_FIELDS": {
+      return {
+        ...state,
+        fields: action.payload,
       };
     }
 
