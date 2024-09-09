@@ -16,8 +16,8 @@ interface SurveysListProps {
 function SurveysList({ surveys }: SurveysListProps) {
   if (surveys.length === 0) {
     return (
-      <div className="mx-auto max-w-lg pt-20 text-center font-semibold text-foreground-muted">
-        <Squirrel className="mx-auto mb-4 size-44" strokeWidth={0.75} />
+      <div className="mx-auto max-w-lg pt-20 text-center font-medium text-neutral-300 dark:text-neutral-600">
+        <Squirrel className="mx-auto mb-4 size-28" strokeWidth={0.75} />
         Empty. No surveys here.
       </div>
     );
