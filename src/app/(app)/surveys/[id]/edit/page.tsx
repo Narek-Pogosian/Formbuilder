@@ -1,4 +1,5 @@
-import FormBuilder from "@/components/formbuilder";
+import FormBuilder2 from "@/components/formbuilder2";
+import FormbuilderProvider from "@/components/formbuilder2/context/formbuilder-context";
 import { formSchema } from "@/lib/schemas/form-schema";
 import { getServerAuthSession } from "@/server/auth";
 import { getFormById } from "@/server/data-access/form";
@@ -10,27 +11,18 @@ async function page({ params }: { params: { id: string } }) {
 
   if (!form) notFound();
   if (form.isPublished) {
-    return (
-      <div className="text-center font-semibold">
-        Cannot edit a published survey.
-      </div>
-    );
+    return <div className="text-center font-semibold">Cannot edit a published survey.</div>;
   }
   if (session?.user.id !== form.userId) notFound();
 
-  const { data, success } = formSchema.safeParse(
-    JSON.parse(form?.content?.toString() ?? ""),
-  );
+  const { data, success } = formSchema.safeParse(JSON.parse(form?.content?.toString() ?? ""));
 
   if (!data || !success) notFound();
 
   return (
-    <FormBuilder
-      mode="edit"
-      id={params.id}
-      defaultTitle={form.title}
-      defaultFields={data}
-    />
+    <FormbuilderProvider mode="edit" defaultTitle={form.title} defaultFields={data}>
+      <FormBuilder2 mode="edit" id={params.id} />
+    </FormbuilderProvider>
   );
 }
 
