@@ -22,12 +22,14 @@ type Props = FormBuilderCreateProps | FormBuilderUpdateProps;
 
 function FormBuilder2(props: Props) {
   return (
-    <>
-      <PageTitle>{props.mode === "create" ? "Create" : "Edit"} Survey</PageTitle>
+    <div className="mx-auto max-w-3xl">
+      <PageTitle>
+        {props.mode === "create" ? "Create" : "Edit"} Survey
+      </PageTitle>
       <FormbuilderSettings />
       <FieldList />
       <FieldDialog />
-    </>
+    </div>
   );
 }
 

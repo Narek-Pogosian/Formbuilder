@@ -38,9 +38,9 @@ function TextAreaForm({ defaultField, closeDialog }: FormProps) {
 
   function onSubmit(data: TextareaFormSchemaType) {
     dispatch({
-      type: "ADD_FIELD",
+      type: defaultField ? "EDIT_FIELD" : "ADD_FIELD",
       payload: {
-        id: crypto.randomUUID(),
+        id: defaultField?.id ?? crypto.randomUUID(),
         type: "textarea",
         ...data,
       },
@@ -139,7 +139,7 @@ function TextAreaForm({ defaultField, closeDialog }: FormProps) {
           )}
         />
 
-        <Button type="submit">Add</Button>
+        <Button type="submit">{defaultField ? "Edit" : "Add"}</Button>
       </form>
     </Form>
   );

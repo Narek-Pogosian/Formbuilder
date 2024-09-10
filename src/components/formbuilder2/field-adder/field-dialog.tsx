@@ -7,9 +7,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useCallback, useState } from "react";
 import { buttonVariants } from "@/components/ui/button";
 import FieldAdder from ".";
-import { useCallback, useState } from "react";
 
 interface Props {
   defaultField?: FormSchema[number];
@@ -24,7 +24,9 @@ function FieldDialog({ defaultField }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className={buttonVariants()}>
+      <DialogTrigger
+        className={buttonVariants({ size: defaultField ? "sm" : "default" })}
+      >
         {defaultField ? "Edit" : "Add Field"}
       </DialogTrigger>
       <DialogContent className="max-w-4xl p-8">

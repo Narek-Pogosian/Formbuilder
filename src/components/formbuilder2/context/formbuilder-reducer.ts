@@ -5,9 +5,13 @@ export type FormbuilderActionsType =
   | { type: "EDIT_TITLE"; payload: string }
   | { type: "REMOVE_FIELD"; payload: string }
   | { type: "ADD_FIELD"; payload: FormSchema[number] }
+  | { type: "EDIT_FIELD"; payload: FormSchema[number] }
   | { type: "SET_FIELDS"; payload: FormSchema };
 
-export const formbuilderReducer = (state: FormbuilderState, action: FormbuilderActionsType): FormbuilderState => {
+export const formbuilderReducer = (
+  state: FormbuilderState,
+  action: FormbuilderActionsType,
+): FormbuilderState => {
   switch (action.type) {
     case "EDIT_TITLE": {
       return {
@@ -27,6 +31,16 @@ export const formbuilderReducer = (state: FormbuilderState, action: FormbuilderA
       return {
         ...state,
         fields: [...state.fields, action.payload],
+      };
+    }
+
+    case "EDIT_FIELD": {
+      console.log(action.payload);
+      return {
+        ...state,
+        fields: state.fields.map((f) =>
+          f.id !== action.payload.id ? { ...f } : action.payload,
+        ),
       };
     }
 

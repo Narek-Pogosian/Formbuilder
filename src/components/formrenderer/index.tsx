@@ -191,8 +191,12 @@ function FormRenderer(props: Props) {
                       </FormControl>
                       <SelectContent>
                         {formField.options.map((option) => (
-                          <SelectItem value={option} key={option}>
-                            {option}
+                          <SelectItem
+                            value={option.value}
+                            key={option.value}
+                            className="capitalize"
+                          >
+                            {option.value}
                           </SelectItem>
                         ))}
                       </SelectContent>
@@ -220,14 +224,14 @@ function FormRenderer(props: Props) {
                       >
                         {formField.options.map((option) => (
                           <FormItem
-                            key={option}
+                            key={option.value}
                             className="flex items-center space-x-3 space-y-0"
                           >
                             <FormControl>
-                              <RadioGroupItem value={option} />
+                              <RadioGroupItem value={option.value} />
                             </FormControl>
-                            <FormLabel className="font-normal">
-                              {option}
+                            <FormLabel className="font-normal capitalize">
+                              {option.value}
                             </FormLabel>
                           </FormItem>
                         ))}

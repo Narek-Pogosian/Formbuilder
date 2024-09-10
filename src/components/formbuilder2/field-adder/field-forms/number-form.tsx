@@ -36,9 +36,9 @@ function NumberForm({ defaultField, closeDialog }: FormProps) {
 
   function onSubmit(data: NumberFormSchemaType) {
     dispatch({
-      type: "ADD_FIELD",
+      type: defaultField ? "EDIT_FIELD" : "ADD_FIELD",
       payload: {
-        id: crypto.randomUUID(),
+        id: defaultField?.id ?? crypto.randomUUID(),
         type: "number",
         ...data,
       },
@@ -111,7 +111,7 @@ function NumberForm({ defaultField, closeDialog }: FormProps) {
           )}
         />
 
-        <Button type="submit">Add</Button>
+        <Button type="submit">{defaultField ? "Edit" : "Add"}</Button>
       </form>
     </Form>
   );

@@ -40,9 +40,9 @@ function RadioForm({ defaultField, closeDialog }: FormProps) {
 
   function onSubmit(data: RadioFormSchemaType) {
     dispatch({
-      type: "ADD_FIELD",
+      type: defaultField ? "EDIT_FIELD" : "ADD_FIELD",
       payload: {
-        id: crypto.randomUUID(),
+        id: defaultField?.id ?? crypto.randomUUID(),
         type: "radio",
         ...data,
       },
@@ -117,7 +117,7 @@ function RadioForm({ defaultField, closeDialog }: FormProps) {
           </Button>
         </div>
 
-        <Button type="submit">Add</Button>
+        <Button type="submit">{defaultField ? "Edit" : "Add"}</Button>
       </form>
     </Form>
   );

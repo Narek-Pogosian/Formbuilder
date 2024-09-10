@@ -41,9 +41,9 @@ function SelectForm({ defaultField, closeDialog }: FormProps) {
 
   function onSubmit(data: SelectFormSchemaType) {
     dispatch({
-      type: "ADD_FIELD",
+      type: defaultField ? "EDIT_FIELD" : "ADD_FIELD",
       payload: {
-        id: crypto.randomUUID(),
+        id: defaultField?.id ?? crypto.randomUUID(),
         type: "select",
         ...data,
       },
@@ -108,7 +108,7 @@ function SelectForm({ defaultField, closeDialog }: FormProps) {
             <div key={option.id} className="mb-2 flex items-center gap-2">
               <FormField
                 control={form.control}
-                name={`options.${index}.value`} // Bind input to the field array
+                name={`options.${index}.value`}
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormControl>
@@ -132,7 +132,7 @@ function SelectForm({ defaultField, closeDialog }: FormProps) {
           </Button>
         </div>
 
-        <Button type="submit">Add</Button>
+        <Button type="submit">{defaultField ? "Edit" : "Add"}</Button>
       </form>
     </Form>
   );
