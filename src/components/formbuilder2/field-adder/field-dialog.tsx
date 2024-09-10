@@ -20,7 +20,7 @@ function FieldDialog({ defaultField }: Props) {
       <DialogTrigger className={buttonVariants()}>
         {defaultField ? "Edit" : "Add Field"}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="max-w-4xl p-8">
         <DialogHeader>
           <DialogTitle>
             {defaultField ? "Edit field" : "Create field"}

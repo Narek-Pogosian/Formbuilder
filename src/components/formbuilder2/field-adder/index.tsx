@@ -1,26 +1,33 @@
-import { Button } from "@/components/ui/button";
 import { type FormSchema, type FieldType } from "@/lib/schemas/form-schema";
-import { Check, type LucideIcon } from "lucide-react";
-import { useState } from "react";
+import {
+  CircleCheckBig,
+  MousePointer,
+  Radio,
+  Sigma,
+  Type,
+  TypeOutline,
+  type LucideIcon as LI,
+} from "lucide-react";
+import { createElement, useState } from "react";
+import { Button } from "@/components/ui/button";
+import TextForm from "./field-forms/text-form";
+import TextareaForm from "./field-forms/textarea-form";
+import NumberForm from "./field-forms/number-form";
+import RadioForm from "./field-forms/radio-form";
+import CheckboxForm from "./field-forms/checkbox-form";
+import SelectForm from "./field-forms/select-form";
 
-/**
- *  Need compoents to work for creating and editing.
- *  Need a form for each type of field to create with RHF that onSubmit adds or edits in state.
- *  Each block in field-list need to open a dialog to edit and based on type of input render corresponding form.
- *  For creating, we open a dialog and choose which type of field to add and then render the form.
- *  The forms should close dialog after submitting.
- */
-
-type Value = { label: string; icon: LucideIcon; form: React.ReactNode };
-type FieldForms = Record<FieldType, Value>;
+export type FormProps = { defaultField?: FormSchema[number] };
+type V = { label: string; icon: LI; form: React.ComponentType<FormProps> };
+type FieldForms = Record<FieldType, V>;
 
 const forms: FieldForms = {
-  text: { form: <div></div>, icon: Check, label: "Text" },
-  textarea: { form: <div></div>, icon: Check, label: "Textarea" },
-  number: { form: <div></div>, icon: Check, label: "Number" },
-  radio: { form: <div></div>, icon: Check, label: "Radio" },
-  checkbox: { form: <div></div>, icon: Check, label: "Checkbox" },
-  select: { form: <div></div>, icon: Check, label: "Select" },
+  text: { form: TextForm, icon: Type, label: "Text" },
+  textarea: { form: TextareaForm, icon: TypeOutline, label: "Textarea" },
+  number: { form: NumberForm, icon: Sigma, label: "Number" },
+  radio: { form: RadioForm, icon: Radio, label: "Radio Group" },
+  select: { form: SelectForm, icon: MousePointer, label: "Select" },
+  checkbox: { form: CheckboxForm, icon: CircleCheckBig, label: "Checkbox" },
 };
 
 interface Props {
@@ -34,13 +41,15 @@ function FieldAdder({ defaultField }: Props) {
 
   if (!fieldType) {
     return (
-      <ul className="flex flex-wrap gap-4">
+      <ul className="flex flex-wrap gap-2">
         {Object.entries(forms).map(([type, value]) => (
           <li key={type}>
             <Button
+              className="size-24 flex-col gap-2"
               variant="outline"
               onClick={() => setFieldType(type as FieldType)}
             >
+              <value.icon className="size-6" />
               {value.label}
             </Button>
           </li>
@@ -49,7 +58,7 @@ function FieldAdder({ defaultField }: Props) {
     );
   }
 
-  return <div>View that show the form of the Field type.</div>;
+  return <div>{createElement(forms[fieldType].form, { defaultField })}</div>;
 }
 
 export default FieldAdder;
