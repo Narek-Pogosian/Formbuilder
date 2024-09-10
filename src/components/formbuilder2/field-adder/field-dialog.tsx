@@ -9,14 +9,21 @@ import {
 } from "@/components/ui/dialog";
 import { buttonVariants } from "@/components/ui/button";
 import FieldAdder from ".";
+import { useCallback, useState } from "react";
 
 interface Props {
   defaultField?: FormSchema[number];
 }
 
 function FieldDialog({ defaultField }: Props) {
+  const [open, setOpen] = useState(false);
+
+  const closeDialog = useCallback(() => {
+    setOpen(false);
+  }, []);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className={buttonVariants()}>
         {defaultField ? "Edit" : "Add Field"}
       </DialogTrigger>
@@ -27,7 +34,7 @@ function FieldDialog({ defaultField }: Props) {
           </DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
-        <FieldAdder defaultField={defaultField} />
+        <FieldAdder defaultField={defaultField} closeDialog={closeDialog} />
       </DialogContent>
     </Dialog>
   );

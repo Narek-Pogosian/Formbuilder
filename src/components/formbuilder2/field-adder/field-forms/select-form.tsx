@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useFormbuilder } from "../../hooks/use-formbuilder";
 
-function SelectForm({ defaultField }: FormProps) {
+function SelectForm({ defaultField, closeDialog }: FormProps) {
   if (defaultField && defaultField.type !== "select")
     throw Error("Need to pass in a select field to select form");
 
@@ -48,6 +48,7 @@ function SelectForm({ defaultField }: FormProps) {
         ...data,
       },
     });
+    closeDialog();
   }
 
   return (

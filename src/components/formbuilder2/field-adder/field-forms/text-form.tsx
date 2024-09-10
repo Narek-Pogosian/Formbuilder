@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useFormbuilder } from "../../hooks/use-formbuilder";
 
-function TextForm({ defaultField }: FormProps) {
+function TextForm({ defaultField, closeDialog }: FormProps) {
   if (defaultField && defaultField.type !== "text")
     throw Error("Need to pass in a text field to text form");
 
@@ -45,6 +45,7 @@ function TextForm({ defaultField }: FormProps) {
         ...data,
       },
     });
+    closeDialog();
   }
 
   return (

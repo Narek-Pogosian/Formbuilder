@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useFormbuilder } from "../../hooks/use-formbuilder";
 
-function RadioForm({ defaultField }: FormProps) {
+function RadioForm({ defaultField, closeDialog }: FormProps) {
   if (defaultField && defaultField.type !== "radio")
     throw Error("Need to pass in a radio field to radio form");
 
@@ -47,6 +47,7 @@ function RadioForm({ defaultField }: FormProps) {
         ...data,
       },
     });
+    closeDialog();
   }
 
   return (
@@ -92,7 +93,7 @@ function RadioForm({ defaultField }: FormProps) {
             <div key={option.id} className="mb-2 flex items-center gap-2">
               <FormField
                 control={form.control}
-                name={`options.${index}.value`} // Bind input to the field array
+                name={`options.${index}.value`}
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormControl>

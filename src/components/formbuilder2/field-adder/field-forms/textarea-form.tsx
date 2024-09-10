@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useFormbuilder } from "../../hooks/use-formbuilder";
 
-function TextAreaForm({ defaultField }: FormProps) {
+function TextAreaForm({ defaultField, closeDialog }: FormProps) {
   if (defaultField && defaultField.type !== "textarea")
     throw Error("Need to pass in a textarea field to textarea form");
 
@@ -45,6 +45,7 @@ function TextAreaForm({ defaultField }: FormProps) {
         ...data,
       },
     });
+    closeDialog();
   }
 
   return (

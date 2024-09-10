@@ -17,7 +17,10 @@ import RadioForm from "./field-forms/radio-form";
 import CheckboxForm from "./field-forms/checkbox-form";
 import SelectForm from "./field-forms/select-form";
 
-export type FormProps = { defaultField?: FormSchema[number] };
+export type FormProps = {
+  defaultField?: FormSchema[number];
+  closeDialog: () => void;
+};
 type V = { label: string; icon: LI; form: React.ComponentType<FormProps> };
 type FieldForms = Record<FieldType, V>;
 
@@ -32,9 +35,10 @@ const forms: FieldForms = {
 
 interface Props {
   defaultField?: FormSchema[number];
+  closeDialog: () => void;
 }
 
-function FieldAdder({ defaultField }: Props) {
+function FieldAdder({ defaultField, closeDialog }: Props) {
   const [fieldType, setFieldType] = useState<FieldType | undefined>(
     defaultField?.type,
   );
@@ -45,7 +49,7 @@ function FieldAdder({ defaultField }: Props) {
         {Object.entries(forms).map(([type, value]) => (
           <li key={type}>
             <Button
-              className="size-24 flex-col gap-2"
+              className="size-28 flex-col gap-2"
               variant="outline"
               onClick={() => setFieldType(type as FieldType)}
             >
@@ -58,7 +62,13 @@ function FieldAdder({ defaultField }: Props) {
     );
   }
 
-  return <div>{createElement(forms[fieldType].form, { defaultField })}</div>;
+  return (
+    <>
+      <div>
+        {createElement(forms[fieldType].form, { defaultField, closeDialog })}
+      </div>
+    </>
+  );
 }
 
 export default FieldAdder;

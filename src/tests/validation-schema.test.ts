@@ -133,7 +133,11 @@ describe("createValidationSchema", () => {
         placeholder: "text",
         label: "select1",
         required: false,
-        options: ["option1", "option2", "option3"],
+        options: [
+          { value: "option1" },
+          { value: "option2" },
+          { value: "option3" },
+        ],
       },
       {
         id: "id",
@@ -141,7 +145,11 @@ describe("createValidationSchema", () => {
         placeholder: "text",
         label: "select2",
         required: true,
-        options: ["option1", "option2", "option3"],
+        options: [
+          { value: "option1" },
+          { value: "option2" },
+          { value: "option3" },
+        ],
       },
     ];
 
@@ -168,14 +176,22 @@ describe("createValidationSchema", () => {
         type: "radio",
         label: "radio1",
         required: false,
-        options: ["option1", "option2", "option3"],
+        options: [
+          { value: "option1" },
+          { value: "option2" },
+          { value: "option3" },
+        ],
       },
       {
         id: "id",
         type: "radio",
         label: "radio2",
         required: true,
-        options: ["option1", "option2", "option3"],
+        options: [
+          { value: "option1" },
+          { value: "option2" },
+          { value: "option3" },
+        ],
       },
     ];
 
