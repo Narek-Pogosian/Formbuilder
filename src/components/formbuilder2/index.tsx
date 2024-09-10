@@ -3,7 +3,7 @@
 import PageTitle from "@/app/(app)/_components/page-title";
 import FormbuilderSettings from "./settings";
 import FieldList from "./field-list";
-import FieldAdder from "./field-adder";
+import FieldDialog from "./field-adder/field-dialog";
 
 interface FormBuilderProps {
   mode: "create" | "edit";
@@ -26,7 +26,7 @@ function FormBuilder2(props: Props) {
       <PageTitle>{props.mode === "create" ? "Create" : "Edit"} Survey</PageTitle>
       <FormbuilderSettings />
       <FieldList />
-      <FieldAdder />
+      <FieldDialog />
     </>
   );
 }
