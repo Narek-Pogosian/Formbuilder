@@ -29,7 +29,7 @@ function FieldList() {
 
   if (state.fields.length === 0) {
     return (
-      <div className="mx-auto mb-4 pt-10 text-center font-medium text-neutral-300 dark:text-neutral-600">
+      <div className="mx-auto mb-8 pt-10 text-center font-medium text-neutral-300 dark:text-neutral-600">
         Empty, no fields added yet.
       </div>
     );
@@ -45,7 +45,7 @@ function FieldList() {
         items={state.fields}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="space-y-4 py-4 [&>div:not(:last-of-type)]:border-b">
+        <ul className="mb-8 space-y-4">
           {state.fields.map((f) => (
             <Field
               key={f.id}

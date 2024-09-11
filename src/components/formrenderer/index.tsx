@@ -71,11 +71,19 @@ function FormRenderer(props: Props) {
     }
   }
 
+  if (props.form.length === 0) {
+    return (
+      <div className="mx-auto mb-8 pt-10 text-center font-medium text-neutral-300 dark:text-neutral-600">
+        Empty, no form to show.
+      </div>
+    );
+  }
+
   return (
     <Form {...f}>
       <form
         onSubmit={f.handleSubmit(onSubmit)}
-        className="mx-auto grid w-full max-w-2xl gap-8 py-4"
+        className="mx-auto grid w-full max-w-3xl gap-8 py-4"
       >
         {props.form.map((formField, i) => {
           const label = formField.label as keyof typeof schema;

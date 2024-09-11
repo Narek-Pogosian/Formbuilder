@@ -139,6 +139,7 @@ export const formSchema = z
       radioSchema,
     ]),
   )
+  .min(1, { message: "Atleast 1 field is required" })
   .refine(
     (data) => {
       const labels = data.map((item) => item.label);
