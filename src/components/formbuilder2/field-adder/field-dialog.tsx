@@ -25,11 +25,19 @@ function FieldDialog({ defaultField }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger
-        className={buttonVariants({ size: defaultField ? "sm" : "default" })}
+        className={buttonVariants({
+          size: defaultField ? "sm" : "default",
+        })}
       >
         {defaultField ? "Edit" : "Add Field"}
       </DialogTrigger>
-      <DialogContent className="max-w-4xl p-8">
+      <DialogContent
+        className="max-w-4xl p-8"
+        onDragStart={(e) => e.stopPropagation()}
+        onMouseDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()}
+      >
         <DialogHeader>
           <DialogTitle>
             {defaultField ? "Edit field" : "Create field"}

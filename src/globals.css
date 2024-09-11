@@ -25,9 +25,9 @@
     --primary: 0 0% 95%;
     --primary-foreground: 0 0% 8%;
 
-    --background: 240, 8%, 6%;
+    --background: 240, 6%, 6%;
     --background-card: 240, 6%, 9%;
-    --background-input: 240, 4%, 13%;
+    --background-input: 240, 6%, 13%;
     --background-popover: 240, 6%, 10%;
 
     --foreground: 240 6% 98%;

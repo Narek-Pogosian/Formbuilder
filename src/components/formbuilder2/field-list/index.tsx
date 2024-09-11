@@ -27,6 +27,14 @@ function FieldList() {
     useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
   );
 
+  if (state.fields.length === 0) {
+    return (
+      <div className="mx-auto mb-4 pt-10 text-center font-medium text-neutral-300 dark:text-neutral-600">
+        Empty, no fields added yet.
+      </div>
+    );
+  }
+
   return (
     <DndContext
       sensors={sensors}
@@ -37,7 +45,7 @@ function FieldList() {
         items={state.fields}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="space-y-4 py-4">
+        <ul className="space-y-4 py-4 [&>div:not(:last-of-type)]:border-b">
           {state.fields.map((f) => (
             <Field
               key={f.id}
@@ -82,33 +90,37 @@ function Field({ field, className }: FieldProps) {
 
   return (
     <div
-      className={cn("cursor-grab rounded p-4", className)}
-      ref={setNodeRef}
+      className={cn("flex justify-between rounded", className)}
       style={{ ...style, touchAction: "none" }}
-      {...attributes}
-      {...listeners}
-      role="button"
     >
-      <div className="flex flex-col gap-4 sm:flex-row">
-        <Grip className="mt-1 size-5 text-foreground-muted" />
-        <div className="flex grow justify-between">
+      <div
+        ref={setNodeRef}
+        {...attributes}
+        {...listeners}
+        role="button"
+        className="w-full py-4"
+      >
+        <div className="flex flex-col gap-4 sm:flex-row">
+          <Grip className="mt-1 size-5 text-foreground-muted" />
           <div className="grow">
-            <h3 className="text-2xl font-bold capitalize">{field.label}</h3>
-            <p className="text-lg font-semibold capitalize">{field.type}</p>
-          </div>
-
-          <div className="flex h-fit items-center gap-2">
-            <FieldDialog defaultField={field} />
-            <Button
-              onClick={handleRemove}
-              aria-label="Delete field"
-              variant="danger"
-              size="sm"
-            >
-              Remove
-            </Button>
+            <h3 className="text-xl font-bold capitalize">{field.label}</h3>
+            <p className="font-semibold capitalize text-foreground-muted">
+              {field.type}
+            </p>
           </div>
         </div>
+      </div>
+
+      <div className="relative flex h-fit items-center gap-2 py-4">
+        <FieldDialog defaultField={field} />
+        <Button
+          onClick={handleRemove}
+          aria-label="Delete field"
+          variant="danger"
+          size="sm"
+        >
+          Remove
+        </Button>
       </div>
     </div>
   );

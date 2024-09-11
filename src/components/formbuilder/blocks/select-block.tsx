@@ -86,11 +86,11 @@ function SelectBlock({ field, update }: BlockProps) {
           <ul className="mt-4 flex flex-wrap gap-2">
             {field.options.map((opt) => (
               <li
-                key={opt}
+                key={opt.value}
                 className="group flex cursor-pointer items-center gap-0.5 rounded border bg-background-input py-1 pl-5 text-sm font-semibold"
-                onClick={() => removeOption(opt)}
+                onClick={() => removeOption(opt.value)}
               >
-                {optionFormat(opt)}
+                {optionFormat(opt.value)}
                 <span className="pr-1 opacity-0 transition-opacity group-hover:opacity-100">
                   <X className="size-4" />
                 </span>
