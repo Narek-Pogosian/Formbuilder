@@ -16,13 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useFormbuilder } from "../../hooks/use-formbuilder";
 
-function RadioForm({ defaultField, closeDialog }: FormProps) {
+function RadioForm({ defaultField, handleAdd }: FormProps) {
   if (defaultField && defaultField.type !== "radio")
     throw Error("Need to pass in a radio field to radio form");
-
-  const { dispatch } = useFormbuilder();
 
   const form = useForm<RadioFormSchemaType>({
     resolver: zodResolver(radioFormSchema),
@@ -39,15 +36,15 @@ function RadioForm({ defaultField, closeDialog }: FormProps) {
   });
 
   function onSubmit(data: RadioFormSchemaType) {
-    dispatch({
-      type: defaultField ? "EDIT_FIELD" : "ADD_FIELD",
-      payload: {
-        id: defaultField?.id ?? crypto.randomUUID(),
-        type: "radio",
-        ...data,
-      },
+    const res = handleAdd({
+      id: defaultField?.id ?? crypto.randomUUID(),
+      type: "radio",
+      ...data,
     });
-    closeDialog();
+
+    if (res === "Label Error") {
+      form.setError("label", { message: "Every label needs to be unique" });
+    }
   }
 
   return (

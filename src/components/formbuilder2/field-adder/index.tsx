@@ -9,6 +9,7 @@ import {
   type LucideIcon as LI,
 } from "lucide-react";
 import { createElement, useState } from "react";
+import { useFormbuilder } from "../hooks/use-formbuilder";
 import { Button } from "@/components/ui/button";
 import TextForm from "./field-forms/text-form";
 import TextareaForm from "./field-forms/textarea-form";
@@ -19,8 +20,9 @@ import SelectForm from "./field-forms/select-form";
 
 export type FormProps = {
   defaultField?: FormSchema[number];
-  closeDialog: () => void;
+  handleAdd: (data: FormSchema[number]) => void | "Label Error";
 };
+
 type V = { label: string; icon: LI; form: React.ComponentType<FormProps> };
 type FieldForms = Record<FieldType, V>;
 
@@ -39,9 +41,24 @@ interface Props {
 }
 
 function FieldAdder({ defaultField, closeDialog }: Props) {
+  const { dispatch, state } = useFormbuilder();
   const [fieldType, setFieldType] = useState<FieldType | undefined>(
     defaultField?.type,
   );
+
+  function handleAdd(data: FormSchema[number]) {
+    if (state.fields.find((f) => f.label.trim() === data.label.trim())) {
+      return "Label Error";
+    }
+
+    dispatch({
+      type: defaultField ? "EDIT_FIELD" : "ADD_FIELD",
+      payload: {
+        ...data,
+      },
+    });
+    closeDialog();
+  }
 
   if (!fieldType) {
     return (
@@ -63,11 +80,7 @@ function FieldAdder({ defaultField, closeDialog }: Props) {
   }
 
   return (
-    <>
-      <div>
-        {createElement(forms[fieldType].form, { defaultField, closeDialog })}
-      </div>
-    </>
+    <>{createElement(forms[fieldType].form, { defaultField, handleAdd })}</>
   );
 }
 

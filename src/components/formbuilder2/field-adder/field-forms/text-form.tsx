@@ -17,13 +17,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useFormbuilder } from "../../hooks/use-formbuilder";
 
-function TextForm({ defaultField, closeDialog }: FormProps) {
+function TextForm({ defaultField, handleAdd }: FormProps) {
   if (defaultField && defaultField.type !== "text")
     throw Error("Need to pass in a text field to text form");
-
-  const { dispatch } = useFormbuilder();
 
   const form = useForm<TextFormSchemaType>({
     resolver: zodResolver(textFormSchema),
@@ -37,15 +34,15 @@ function TextForm({ defaultField, closeDialog }: FormProps) {
   });
 
   function onSubmit(data: TextFormSchemaType) {
-    dispatch({
-      type: defaultField ? "EDIT_FIELD" : "ADD_FIELD",
-      payload: {
-        id: defaultField?.id ?? crypto.randomUUID(),
-        type: "text",
-        ...data,
-      },
+    const res = handleAdd({
+      id: defaultField?.id ?? crypto.randomUUID(),
+      type: "text",
+      ...data,
     });
-    closeDialog();
+
+    if (res === "Label Error") {
+      form.setError("label", { message: "Every label needs to be unique" });
+    }
   }
 
   return (

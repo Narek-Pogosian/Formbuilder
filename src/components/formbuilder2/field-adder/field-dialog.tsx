@@ -33,13 +33,7 @@ function FieldDialog({ defaultField }: Props) {
           {defaultField ? "Edit" : "Add Field"}
         </Button>
       </DialogTrigger>
-      <DialogContent
-        className="max-w-4xl p-8"
-        onDragStart={(e) => e.stopPropagation()}
-        onMouseDown={(e) => e.stopPropagation()}
-        onTouchStart={(e) => e.stopPropagation()}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <DialogContent className="max-w-4xl p-8">
         <DialogHeader>
           <DialogTitle>
             {defaultField ? "Edit field" : "Create field"}

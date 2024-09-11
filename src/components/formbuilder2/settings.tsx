@@ -32,6 +32,7 @@ function FormbuilderSettings(props: FormbuilderProps) {
         toast("Saved");
       } else {
         await saveForm({ title: data.title, form: data.form });
+        dispatch({ type: "RESET" });
         toast("New survey created");
       }
     } catch (error) {

@@ -16,13 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useFormbuilder } from "../../hooks/use-formbuilder";
 
-function SelectForm({ defaultField, closeDialog }: FormProps) {
+function SelectForm({ defaultField, handleAdd }: FormProps) {
   if (defaultField && defaultField.type !== "select")
     throw Error("Need to pass in a select field to select form");
-
-  const { dispatch } = useFormbuilder();
 
   const form = useForm<SelectFormSchemaType>({
     resolver: zodResolver(selectFormSchema),
@@ -40,15 +37,15 @@ function SelectForm({ defaultField, closeDialog }: FormProps) {
   });
 
   function onSubmit(data: SelectFormSchemaType) {
-    dispatch({
-      type: defaultField ? "EDIT_FIELD" : "ADD_FIELD",
-      payload: {
-        id: defaultField?.id ?? crypto.randomUUID(),
-        type: "select",
-        ...data,
-      },
+    const res = handleAdd({
+      id: defaultField?.id ?? crypto.randomUUID(),
+      type: "select",
+      ...data,
     });
-    closeDialog();
+
+    if (res === "Label Error") {
+      form.setError("label", { message: "Every label needs to be unique" });
+    }
   }
 
   return (

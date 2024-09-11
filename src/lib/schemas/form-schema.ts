@@ -15,7 +15,10 @@ const FieldTypes = [
 const baseSchema = z.object({
   id: z.string(),
   type: z.enum(FieldTypes),
-  label: z.string().min(1, { message: "A label is required for every field" }),
+  label: z
+    .string()
+    .min(1, { message: "A label is required for every field" })
+    .trim(),
   required: z.boolean(),
 });
 

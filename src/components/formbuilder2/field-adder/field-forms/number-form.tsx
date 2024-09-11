@@ -16,13 +16,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useFormbuilder } from "../../hooks/use-formbuilder";
 
-function NumberForm({ defaultField, closeDialog }: FormProps) {
+function NumberForm({ defaultField, handleAdd }: FormProps) {
   if (defaultField && defaultField.type !== "number")
     throw Error("Need to pass in a number field to number form");
-
-  const { dispatch } = useFormbuilder();
 
   const form = useForm<NumberFormSchemaType>({
     resolver: zodResolver(numberFormSchema),
@@ -35,15 +32,15 @@ function NumberForm({ defaultField, closeDialog }: FormProps) {
   });
 
   function onSubmit(data: NumberFormSchemaType) {
-    dispatch({
-      type: defaultField ? "EDIT_FIELD" : "ADD_FIELD",
-      payload: {
-        id: defaultField?.id ?? crypto.randomUUID(),
-        type: "number",
-        ...data,
-      },
+    const res = handleAdd({
+      id: defaultField?.id ?? crypto.randomUUID(),
+      type: "number",
+      ...data,
     });
-    closeDialog();
+
+    if (res === "Label Error") {
+      form.setError("label", { message: "Every label needs to be unique" });
+    }
   }
 
   return (

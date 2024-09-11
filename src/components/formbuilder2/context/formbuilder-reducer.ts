@@ -6,7 +6,8 @@ export type FormbuilderActionsType =
   | { type: "REMOVE_FIELD"; payload: string }
   | { type: "ADD_FIELD"; payload: FormSchema[number] }
   | { type: "EDIT_FIELD"; payload: FormSchema[number] }
-  | { type: "SET_FIELDS"; payload: FormSchema };
+  | { type: "SET_FIELDS"; payload: FormSchema }
+  | { type: "RESET" };
 
 export const formbuilderReducer = (
   state: FormbuilderState,
@@ -48,6 +49,13 @@ export const formbuilderReducer = (
       return {
         ...state,
         fields: action.payload,
+      };
+    }
+
+    case "RESET": {
+      return {
+        title: "",
+        fields: [],
       };
     }
 
