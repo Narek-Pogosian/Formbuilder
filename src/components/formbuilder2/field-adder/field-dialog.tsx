@@ -27,7 +27,7 @@ function FieldDialog({ defaultField }: Props) {
       <DialogTrigger asChild>
         <Button
           size={defaultField ? "sm" : "default"}
-          variant={defaultField ? "default" : "outline"}
+          variant="outline"
           className="w-full"
         >
           {defaultField ? "Edit" : "Add Field"}

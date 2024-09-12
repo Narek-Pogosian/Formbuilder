@@ -13,12 +13,13 @@ function FormbuilderSettings(props: FormbuilderProps) {
   const { dispatch, state } = useFormbuilder();
 
   async function handleSave() {
-    const { data, success } = createFormScema.safeParse({
+    const { data, error } = createFormScema.safeParse({
       title: state.title,
       form: state.fields,
     });
 
-    if (!success) {
+    if (error) {
+      toast(error.errors[0]?.message, { position: "top-center" });
       return;
     }
 
@@ -43,7 +44,7 @@ function FormbuilderSettings(props: FormbuilderProps) {
   }
 
   return (
-    <div className="mb-8 flex gap-2">
+    <div className="mb-4 flex gap-2">
       <Label htmlFor="title" className="sr-only">
         Title of survey
       </Label>

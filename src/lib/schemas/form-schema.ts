@@ -17,8 +17,8 @@ const baseSchema = z.object({
   type: z.enum(FieldTypes),
   label: z
     .string()
-    .min(1, { message: "A label is required for every field" })
-    .trim(),
+    .trim()
+    .min(1, { message: "A label is required for every field" }),
   required: z.boolean(),
 });
 
@@ -27,7 +27,10 @@ const baseSchema = z.object({
  * *****************/
 const textSchema = baseSchema.extend({
   type: z.literal("text"),
-  placeholder: z.string().min(1, { message: "A placeholder is required" }),
+  placeholder: z
+    .string()
+    .trim()
+    .min(1, { message: "A placeholder is required" }),
   minLength: z.coerce.number().min(0).max(MAX_LENGTH).optional(),
   maxLength: z.coerce.number().min(0).max(MAX_LENGTH).optional(),
 });
@@ -61,7 +64,10 @@ export const numberFormSchema = numberSchema.pick({
  * *****************/
 const textAreaSchema = baseSchema.extend({
   type: z.literal("textarea"),
-  placeholder: z.string().min(1, { message: "A placeholder is required" }),
+  placeholder: z
+    .string()
+    .trim()
+    .min(1, { message: "A placeholder is required" }),
   minLength: z.coerce.number().min(0).max(MAX_LENGTH_TEXTAREA).optional(),
   maxLength: z.coerce.number().min(0).max(MAX_LENGTH_TEXTAREA).optional(),
 });
@@ -79,11 +85,17 @@ export const textareaFormSchema = textAreaSchema.pick({
  * *****************/
 const selectSchema = baseSchema.extend({
   type: z.literal("select"),
-  placeholder: z.string().min(1, { message: "A placeholder is required" }),
+  placeholder: z
+    .string()
+    .trim()
+    .min(1, { message: "A placeholder is required" }),
   options: z
     .array(
       z.object({
-        value: z.string().min(1, { message: "An option label is required" }),
+        value: z
+          .string()
+          .trim()
+          .min(1, { message: "An option label is required" }),
       }),
     )
     .min(1),
@@ -116,7 +128,10 @@ const radioSchema = baseSchema.extend({
   options: z
     .array(
       z.object({
-        value: z.string().min(1, { message: "An option label is required" }),
+        value: z
+          .string()
+          .trim()
+          .min(1, { message: "An option label is required" }),
       }),
     )
     .min(1),
@@ -156,7 +171,7 @@ export const formSchema = z
   );
 
 export const createFormScema = z.object({
-  title: z.string().min(1, { message: "Title is required" }),
+  title: z.string().trim().min(1, { message: "Title is required" }),
   form: formSchema,
 });
 
