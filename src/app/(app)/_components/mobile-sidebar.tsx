@@ -18,7 +18,7 @@ function MobileSidebar() {
           <span className="sr-only">Open menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-full sm:max-w-72">
+      <SheetContent side="left" className="w-full p-0 sm:max-w-72">
         <SheetTitle className="sr-only">Sidebar</SheetTitle>
         <SheetDescription></SheetDescription>
         <SidebarNavigation />

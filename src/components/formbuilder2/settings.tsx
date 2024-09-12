@@ -1,18 +1,19 @@
 import { type FormbuilderProps } from ".";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
 import { useFormbuilder } from "./hooks/use-formbuilder";
-import { toast } from "sonner";
 import { createFormScema } from "@/lib/schemas/form-schema";
 import { saveForm, updateForm } from "@/server/actions/form";
 import { useState } from "react";
 import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { toast } from "sonner";
 
 function FormbuilderSettings(props: FormbuilderProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { dispatch, state } = useFormbuilder();
 
   async function handleSave() {
+    if (isLoading) return;
+
     const { data, error } = createFormScema.safeParse({
       title: state.title,
       form: state.fields,
@@ -45,12 +46,10 @@ function FormbuilderSettings(props: FormbuilderProps) {
 
   return (
     <div className="mb-4 flex gap-2">
-      <Label htmlFor="title" className="sr-only">
-        Title of survey
-      </Label>
       <Input
         id="title"
         type="text"
+        aria-label="Title of survey"
         placeholder="Title of survey"
         value={state.title}
         className="font-semibold dark:bg-accent"

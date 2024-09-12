@@ -101,7 +101,7 @@ function Field({ field, className }: FieldProps) {
         {...attributes}
         {...listeners}
         role="button"
-        className="w-full py-4"
+        className="w-full cursor-grab py-6"
       >
         <div className="flex flex-col gap-4 pl-2 sm:flex-row">
           <Grip className="mt-1 size-5 text-foreground-muted" />

@@ -14,17 +14,11 @@ export const env = createEnv({
     ),
   },
 
-  /**
-   * To expose them to the client, prefix them with `NEXT_PUBLIC_`.
-   */
   client: {
+    // Prefix with NEXT_PUBLIC_ to expose on the client
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
   },
 
-  /**
-   * You can't destruct `process.env` as a regular object in the Next.js edge runtimes (e.g.
-   * middlewares) or client-side so we need to destruct manually.
-   */
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     NODE_ENV: process.env.NODE_ENV,

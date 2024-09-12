@@ -14,7 +14,7 @@ function SidebarNavigation() {
   const menuList = getMenuList(pathname);
 
   return (
-    <nav className="relative flex h-full flex-col overflow-y-auto pr-2 pt-4 lg:pl-4">
+    <nav className="relative flex h-full flex-col overflow-y-auto p-4">
       <Logo />
       <ul className="mt-4 space-y-4">
         {menuList.map((item) => (
@@ -43,7 +43,7 @@ function SidebarNavigation() {
         ))}
       </ul>
 
-      <div className="sticky bottom-0 mt-auto flex justify-between border-t py-2">
+      <div className="sticky bottom-0 mt-auto flex justify-between bg-background pt-4">
         <Signout />
         <ThemeToggle />
       </div>
