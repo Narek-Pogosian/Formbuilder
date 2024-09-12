@@ -1,7 +1,7 @@
 import { getServerAuthSession } from "@/server/auth";
 import { redirect } from "next/navigation";
-import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import HeroImage from "./_components/hero-image";
 import Header from "./_components/header";
 import Link from "next/link";
 
@@ -12,27 +12,40 @@ async function LandingPage() {
   return (
     <>
       <Header />
-      <div className="container pb-52 pt-24 lg:pt-40">
-        <div className="flex flex-col items-center gap-6">
-          <div className="mx-auto max-w-xl text-center">
-            <h1 className="text-3xl font-bold sm:text-5xl md:text-6xl">Ask, Analyze, Act</h1>
+      <HeroImage />
+      <section className="container min-h-screen pt-36 lg:pt-52">
+        <div className="-mx-4 flex flex-wrap">
+          <div className="w-full px-4">
+            <div
+              className="wow fadeInUp mx-auto max-w-[800px] text-center"
+              data-wow-delay=".2s"
+            >
+              <h1 className="mb-4 text-4xl font-bold sm:text-5xl md:text-6xl">
+                Ask, Analyze, Act
+              </h1>
+              <div className="mb-8 max-w-3xl text-balance text-center">
+                <p className="md:text-lg">
+                  Create powerful surveys that drive results. Collect feedback,
+                  uncover trends, and make data-driven decisions with ease.
+                </p>
+              </div>
+              <div className="flex items-center justify-center gap-4">
+                <Button variant="outline" className="rounded-full" asChild>
+                  <Link
+                    href="https://github.com/Narek-Pogosian/Insights"
+                    target="_blank"
+                  >
+                    Star on GitHub
+                  </Link>
+                </Button>
+                <Button className="rounded-full" asChild>
+                  <Link href="/sign-in">Get Started</Link>
+                </Button>
+              </div>
+            </div>
           </div>
-
-          <div className="max-w-3xl text-balance text-center">
-            <p className="text-foreground-muted md:text-lg">
-              Create powerful surveys that drive results. Collect feedback, uncover trends, and make data-driven
-              decisions with ease.
-            </p>
-          </div>
-
-          <Button asChild className="gap-2 rounded-full px-8 shadow-lg dark:shadow-black">
-            <Link href="/sign-in">
-              Get Started
-              <ArrowRight className="size-4" />
-            </Link>
-          </Button>
         </div>
-      </div>
+      </section>
     </>
   );
 }

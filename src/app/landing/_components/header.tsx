@@ -5,11 +5,11 @@ import Link from "next/link";
 
 function Header() {
   return (
-    <header className="py-3">
+    <header className="fixed left-0 top-0 z-50 w-full py-3">
       <div className="container flex items-center justify-between">
         <Logo />
-        <div className="flex gap-1">
-          <Button variant="outline" className="h-fit rounded-full" asChild>
+        <div className="flex items-center gap-1">
+          <Button className="h-fit rounded-full" asChild>
             <Link href="/sign-in">Sign in</Link>
           </Button>
           <ThemeToggle />

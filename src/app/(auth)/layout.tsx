@@ -3,6 +3,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { MoveLeft } from "lucide-react";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import HeroImage from "../landing/_components/hero-image";
 
 async function layout({ children }: { children: React.ReactNode }) {
   const session = await getServerAuthSession();
@@ -10,6 +11,7 @@ async function layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="relative flex min-h-full flex-col max-lg:pt-20 lg:justify-center">
+      <HeroImage />
       <Button
         variant="outline"
         className="absolute left-4 top-4 text-xs sm:left-8 lg:top-8"
