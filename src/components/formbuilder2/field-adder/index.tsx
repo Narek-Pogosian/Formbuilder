@@ -47,7 +47,11 @@ function FieldAdder({ defaultField, closeDialog }: Props) {
   );
 
   function handleAdd(data: FormSchema[number]) {
-    if (state.fields.find((f) => f.label.trim() === data.label.trim())) {
+    if (
+      state.fields.find(
+        (f) => f.label.trim() === data.label.trim() && f.id !== data.id,
+      )
+    ) {
       return "Label Error";
     }
 

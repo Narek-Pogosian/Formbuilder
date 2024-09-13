@@ -29,7 +29,7 @@ export async function generateMetadata({
 
 async function page({ params }: { params: { id: string } }) {
   const form = await getFormById(params.id);
-  if (!form) notFound();
+  if (!form || form.status !== "PUBLISHED") notFound();
 
   const { data, success } = formSchema.safeParse(
     JSON.parse(form?.content?.toString() ?? ""),

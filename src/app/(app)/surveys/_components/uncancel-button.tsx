@@ -1,12 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { unCancelForm } from "@/server/actions/form";
+import { updateStatus } from "@/server/actions/form";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
 
 function UncancelButton({ id }: { id: string }) {
-  const { executeAsync, isPending } = useAction(unCancelForm, {
+  const { executeAsync, isPending } = useAction(updateStatus, {
     onError: () => {
       toast("Survey could not be uncancelled.");
     },
@@ -14,7 +14,7 @@ function UncancelButton({ id }: { id: string }) {
 
   async function handleClick() {
     if (isPending) return;
-    await executeAsync({ id });
+    await executeAsync({ id, status: "PUBLISHED" });
   }
 
   return (

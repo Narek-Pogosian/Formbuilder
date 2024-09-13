@@ -1,12 +1,12 @@
-import { type Form } from "@prisma/client";
+import { type Status, type Form } from "@prisma/client";
 import { Squirrel } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import PublishForm from "./publish-form-dialog";
-import DeleteFormDialog from "./delete-form-dialog";
-import CancelFormDialog from "./cancel-form-dialog";
+import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import UncancelButton from "./uncancel-button";
+import CancelFormDialog from "./cancel-form-dialog";
+import DeleteFormDialog from "./delete-form-dialog";
 import SharePopover from "./share-popover";
+import PublishForm from "./publish-form-dialog";
 import Link from "next/link";
 
 interface SurveysListProps {
@@ -24,43 +24,22 @@ function SurveysList({ surveys }: SurveysListProps) {
   }
 
   return (
-    <ul className="grid gap-4 md:grid-cols-2">
+    <ul className="grid gap-8 md:grid-cols-2">
       {surveys.map((survey) => (
-        <li
-          key={survey.id}
-          className="relative flex flex-col rounded border px-6 pb-6 pt-3"
-        >
-          <div className="mb-1 flex justify-between py-1">
-            <SurveyStatusBadge
-              isPublished={survey.isPublished}
-              isCancelled={survey.isCancelled}
-            />
-            {survey.isPublished && !survey.isCancelled && (
-              <SharePopover id={survey.id} />
-            )}
-          </div>
+        <Card key={survey.id}>
+          <CardHeader className="flex flex-row items-start justify-between">
+            <div>
+              <CardTitle className="mb-2">{survey.title}</CardTitle>
+              <SurveyStatusBadge status={survey.status} />
+            </div>
+            <SharePopover id={survey.id} />
+          </CardHeader>
 
-          <div className="mb-10">
-            <Link
-              href={`/surveys/${survey.id}`}
-              className="block text-lg font-semibold"
-            >
-              {survey.title}
-            </Link>
-            <p className="text-sm font-medium text-foreground-muted">
-              {new Date(survey.createdAt).toLocaleDateString()}
-            </p>
-          </div>
-
-          <div className="mt-auto flex justify-between">
-            <SurveyActionButtons
-              isPublished={survey.isPublished}
-              isCancelled={survey.isCancelled}
-              id={survey.id}
-            />
+          <CardFooter className="mt-4 flex justify-between">
+            <SurveyActionButtons status={survey.status} id={survey.id} />
             <DeleteFormDialog id={survey.id} />
-          </div>
-        </li>
+          </CardFooter>
+        </Card>
       ))}
     </ul>
   );
@@ -68,32 +47,26 @@ function SurveysList({ surveys }: SurveysListProps) {
 
 export default SurveysList;
 
-function SurveyStatusBadge({
-  isPublished,
-  isCancelled,
-}: {
-  isPublished: boolean;
-  isCancelled: boolean | null;
-}) {
-  if (isCancelled) {
-    return <Badge variant="cancel">Cancelled</Badge>;
+function SurveyStatusBadge({ status }: { status: Status }) {
+  if (status == "CANCELLED") {
+    return (
+      <p className="text-xs font-semibold text-red-600 dark:text-red-400">
+        Cancelled
+      </p>
+    );
   }
-  if (isPublished) {
-    return <Badge>Published</Badge>;
+  if (status == "PUBLISHED") {
+    return (
+      <p className="text-xs font-semibold text-blue-600 dark:text-blue-400">
+        Published
+      </p>
+    );
   }
-  return <Badge variant="secondary">Draft</Badge>;
+  return <p className="text-xs font-semibold">Draft</p>;
 }
 
-function SurveyActionButtons({
-  isPublished,
-  isCancelled,
-  id,
-}: {
-  isPublished: boolean;
-  isCancelled: boolean | null;
-  id: string;
-}) {
-  if (!isPublished) {
+function SurveyActionButtons({ status, id }: { status: Status; id: string }) {
+  if (status == "DRAFT") {
     return (
       <div className="flex gap-2">
         <PublishForm id={id} />
@@ -106,7 +79,7 @@ function SurveyActionButtons({
     );
   }
 
-  if (isCancelled) {
+  if (status == "CANCELLED") {
     return <UncancelButton id={id} />;
   }
 

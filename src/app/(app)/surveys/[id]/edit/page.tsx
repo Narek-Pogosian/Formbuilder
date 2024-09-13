@@ -10,17 +10,27 @@ async function page({ params }: { params: { id: string } }) {
   const form = await getFormById(params.id);
 
   if (!form) notFound();
-  if (form.isPublished) {
-    return <div className="text-center font-semibold">Cannot edit a published survey.</div>;
+  if (form.status !== "DRAFT") {
+    return (
+      <div className="text-center font-semibold">
+        Cannot edit a published survey.
+      </div>
+    );
   }
   if (session?.user.id !== form.userId) notFound();
 
-  const { data, success } = formSchema.safeParse(JSON.parse(form?.content?.toString() ?? ""));
+  const { data, success } = formSchema.safeParse(
+    JSON.parse(form?.content?.toString() ?? ""),
+  );
 
   if (!data || !success) notFound();
 
   return (
-    <FormbuilderProvider mode="edit" defaultTitle={form.title} defaultFields={data}>
+    <FormbuilderProvider
+      mode="edit"
+      defaultTitle={form.title}
+      defaultFields={data}
+    >
       <FormBuilder2 mode="edit" id={params.id} />
     </FormbuilderProvider>
   );

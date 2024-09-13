@@ -6,6 +6,7 @@ import { protectedActionClient } from ".";
 import { createFormScema } from "@/lib/schemas/form-schema";
 import { revalidatePath } from "next/cache";
 import { getFormById } from "../data-access/form";
+import { Status } from "@prisma/client";
 
 export const saveForm = protectedActionClient
   .schema(createFormScema)
@@ -15,6 +16,7 @@ export const saveForm = protectedActionClient
         title: parsedInput.title,
         content: JSON.stringify(parsedInput.form),
         userId: ctx.userId,
+        status: "DRAFT",
       },
     });
 
@@ -37,8 +39,8 @@ export const updateForm = protectedActionClient
     if (updatedForm) revalidatePath("/surveys");
   });
 
-export const publishForm = protectedActionClient
-  .schema(z.object({ id: z.string() }))
+export const updateStatus = protectedActionClient
+  .schema(z.object({ id: z.string(), status: z.nativeEnum(Status) }))
   .action(async ({ ctx, parsedInput }) => {
     const form = await getFormById(parsedInput.id);
     if (form?.userId !== ctx.userId) return;
@@ -46,39 +48,7 @@ export const publishForm = protectedActionClient
     const updatedForm = await db.form.update({
       where: { id: parsedInput.id },
       data: {
-        isPublished: true,
-      },
-    });
-
-    if (updatedForm) revalidatePath("/surveys");
-  });
-
-export const cancelForm = protectedActionClient
-  .schema(z.object({ id: z.string() }))
-  .action(async ({ ctx, parsedInput }) => {
-    const form = await getFormById(parsedInput.id);
-    if (form?.userId !== ctx.userId) return;
-
-    const updatedForm = await db.form.update({
-      where: { id: parsedInput.id },
-      data: {
-        isCancelled: true,
-      },
-    });
-
-    if (updatedForm) revalidatePath("/surveys");
-  });
-
-export const unCancelForm = protectedActionClient
-  .schema(z.object({ id: z.string() }))
-  .action(async ({ ctx, parsedInput }) => {
-    const form = await getFormById(parsedInput.id);
-    if (form?.userId !== ctx.userId) return;
-
-    const updatedForm = await db.form.update({
-      where: { id: parsedInput.id },
-      data: {
-        isCancelled: false,
+        status: parsedInput.status,
       },
     });
 

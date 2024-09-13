@@ -36,7 +36,6 @@ export const formbuilderReducer = (
     }
 
     case "EDIT_FIELD": {
-      console.log(action.payload);
       return {
         ...state,
         fields: state.fields.map((f) =>

@@ -7,12 +7,17 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
+enum Status {
+    DRAFT
+    PUBLISHED
+    CANCELLED
+}
+
 model Form {
     id          String     @id @default(auto()) @map("_id") @db.ObjectId
     title       String
     content     Json       @default("[]")
-    isPublished Boolean    @default(false)
-    isCancelled Boolean?   @default(false)
+    status      Status     @default(DRAFT)
     createdAt   DateTime   @default(now())
     updatedAt   DateTime   @updatedAt
     userId      String     @db.ObjectId

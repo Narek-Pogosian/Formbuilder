@@ -11,7 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { cancelForm } from "@/server/actions/form";
+import { updateStatus } from "@/server/actions/form";
 import { useAction } from "next-safe-action/hooks";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -23,7 +23,7 @@ interface CancelFormDialogProps {
 function CancelFormDialog({ id }: CancelFormDialogProps) {
   const [open, setOpen] = useState(false);
 
-  const { executeAsync, isPending } = useAction(cancelForm, {
+  const { executeAsync, isPending } = useAction(updateStatus, {
     onSettled: () => {
       setOpen(false);
     },
@@ -34,7 +34,7 @@ function CancelFormDialog({ id }: CancelFormDialogProps) {
 
   async function handleClick() {
     if (isPending) return;
-    await executeAsync({ id });
+    await executeAsync({ id, status: "CANCELLED" });
   }
 
   return (

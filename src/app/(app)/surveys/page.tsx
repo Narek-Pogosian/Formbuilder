@@ -10,7 +10,7 @@ async function FormsPage() {
     <>
       <PageTitle>Your Surveys</PageTitle>
       <Tabs defaultValue="all">
-        <TabsList className="gap-2">
+        <TabsList className="mb-4 gap-2">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="published">Published</TabsTrigger>
           <TabsTrigger value="draft">Draft</TabsTrigger>
@@ -21,14 +21,16 @@ async function FormsPage() {
         </TabsContent>
         <TabsContent value="published">
           <SurveysList
-            surveys={surveys.filter((s) => s.isPublished && !s.isCancelled)}
+            surveys={surveys.filter((s) => s.status == "PUBLISHED")}
           />
         </TabsContent>
         <TabsContent value="draft">
-          <SurveysList surveys={surveys.filter((s) => !s.isPublished)} />
+          <SurveysList surveys={surveys.filter((s) => s.status == "DRAFT")} />
         </TabsContent>
         <TabsContent value="cancelled">
-          <SurveysList surveys={surveys.filter((s) => s.isCancelled)} />
+          <SurveysList
+            surveys={surveys.filter((s) => s.status == "CANCELLED")}
+          />
         </TabsContent>
       </Tabs>
     </>
