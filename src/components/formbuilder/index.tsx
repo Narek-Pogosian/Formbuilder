@@ -1,29 +1,11 @@
 "use client";
 
-import {
-  DndContext,
-  DragOverlay,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
-import {
-  SortableContext,
-  verticalListSortingStrategy,
-} from "@dnd-kit/sortable";
-import { formSchema, type FormSchema } from "@/lib/schemas/form-schema";
-import { createElement, useState } from "react";
-import { useDragBuilder } from "./use-drag-builder";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
-import { saveForm, updateForm } from "@/server/actions/form";
-import { availableBlocks } from "./blocks";
-import { toast } from "sonner";
-import PreviewDialog from "../formrenderer/preview-dialog";
-import FieldAdder from "./field-adder";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useFormbuilder } from "./hooks/use-formbuilder";
+import FormbuilderSettings from "./settings";
+import FormRenderer from "../formrenderer";
+import FieldDialog from "./field-adder/field-dialog";
 import FieldList from "./field-list";
-import BaseBlock from "./blocks/base-block";
 import PageTitle from "@/app/(app)/_components/page-title";
 
 interface FormBuilderProps {
@@ -37,124 +19,36 @@ interface FormBuilderCreateProps extends FormBuilderProps {
 interface FormBuilderUpdateProps extends FormBuilderProps {
   mode: "edit";
   id: string;
-  defaultFields: FormSchema;
-  defaultTitle: string;
 }
 
-type Props = FormBuilderCreateProps | FormBuilderUpdateProps;
+export type FormbuilderProps = FormBuilderCreateProps | FormBuilderUpdateProps;
 
-function FormBuilder(props: Props) {
-  const [isLoading, setIsLoading] = useState(false);
-  const [fields, setFields] = useState<FormSchema>(
-    props.mode === "edit" ? props.defaultFields : [],
-  );
-  const [title, setTitle] = useState<string>(
-    props.mode === "edit" ? props.defaultTitle : "",
-  );
-
-  async function handleSave() {
-    if (!title.trim()) {
-      toast("Please enter a title");
-      return;
-    }
-
-    if (fields.length === 0) {
-      toast("Please add atleast 1 field");
-      return;
-    }
-
-    const { data, success } = formSchema.safeParse(fields);
-    if (!success) {
-      // TODO: Communicate errors
-      return;
-    }
-
-    setIsLoading(true);
-    try {
-      if (props.mode === "edit") {
-        await updateForm({ form: { title, form: data }, id: props.id });
-        toast("Saved");
-      } else {
-        await saveForm({ title, form: data });
-        setTitle("");
-        setFields([]);
-        toast("New survey created");
-      }
-    } catch (error) {
-      toast("Something went wrong");
-    } finally {
-      setIsLoading(false);
-    }
-  }
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 10 } }),
-  );
-
-  const { activeId, activeType, handleDragEnd, handleDragStart } =
-    useDragBuilder({ fields, setFields });
+function FormBuilder(props: FormbuilderProps) {
+  const { state } = useFormbuilder();
 
   return (
-    <div className="relative flex min-h-full flex-col">
+    <div className="mx-auto max-w-3xl">
       <PageTitle>
         {props.mode === "create" ? "Create" : "Edit"} Survey
       </PageTitle>
-      <div className="flex flex-col gap-4 rounded bg-background-card sm:flex-row">
-        <div className="grow">
-          <Label>
-            Title of survey
-            <Input
-              id="title"
-              required
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              placeholder="My survey"
-            />
-          </Label>
-        </div>
-        <div className="flex gap-2">
-          <Button
-            className="h-fit sm:mt-[22px]"
-            onClick={handleSave}
-            disabled={isLoading}
-          >
-            Save
-          </Button>
-          <PreviewDialog title={title} form={fields} />
-        </div>
-      </div>
-      <DndContext
-        sensors={sensors}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext items={fields} strategy={verticalListSortingStrategy}>
-          <FieldList
-            fields={fields}
-            setFields={setFields}
-            activeId={activeId}
-          />
-        </SortableContext>
-        <DragOverlay>
-          {activeType && activeId && (
-            <BaseBlock
-              id="id"
-              type={activeType}
-              className="border shadow-lg dark:shadow-black"
-              remove={() => {
-                undefined;
-              }}
-            >
-              {availableBlocks[activeType] &&
-                createElement(availableBlocks[activeType], {
-                  field: fields.find((f) => f.id == activeId)!,
-                  update: () => undefined,
-                })}
-            </BaseBlock>
-          )}
-        </DragOverlay>
-      </DndContext>
-      <FieldAdder setFields={setFields} />
+      <FormbuilderSettings {...props} />
+      <Tabs defaultValue="builder" className="pt-6">
+        <TabsList className="w-full py-4">
+          <TabsTrigger className="flex-1" value="builder">
+            Builder
+          </TabsTrigger>
+          <TabsTrigger className="flex-1" value="preview">
+            Preview
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="builder" className="py-2">
+          <FieldList />
+          <FieldDialog />
+        </TabsContent>
+        <TabsContent value="preview" className="py-2">
+          <FormRenderer mode="preview" form={state.fields} />
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

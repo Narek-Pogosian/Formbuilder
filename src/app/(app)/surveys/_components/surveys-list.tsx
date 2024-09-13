@@ -29,7 +29,9 @@ function SurveysList({ surveys }: SurveysListProps) {
         <Card key={survey.id}>
           <CardHeader className="flex flex-row items-start justify-between">
             <div>
-              <CardTitle className="mb-2">{survey.title}</CardTitle>
+              <Link href={`/surveys/${survey.id}`}>
+                <CardTitle className="mb-2">{survey.title}</CardTitle>
+              </Link>
               <SurveyStatusBadge status={survey.status} />
             </div>
             <SharePopover id={survey.id} />

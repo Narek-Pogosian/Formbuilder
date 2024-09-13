@@ -1,5 +1,5 @@
-import FormBuilder2 from "@/components/formbuilder2";
-import FormbuilderProvider from "@/components/formbuilder2/context/formbuilder-context";
+import FormBuilder from "@/components/formbuilder";
+import FormbuilderProvider from "@/components/formbuilder/context/formbuilder-context";
 import { formSchema } from "@/lib/schemas/form-schema";
 import { getServerAuthSession } from "@/server/auth";
 import { getFormById } from "@/server/data-access/form";
@@ -31,7 +31,7 @@ async function page({ params }: { params: { id: string } }) {
       defaultTitle={form.title}
       defaultFields={data}
     >
-      <FormBuilder2 mode="edit" id={params.id} />
+      <FormBuilder mode="edit" id={params.id} />
     </FormbuilderProvider>
   );
 }
