@@ -18,7 +18,7 @@ import { toast } from "sonner";
 import { Copy } from "lucide-react";
 
 function SharePopover({ id }: { id: string }) {
-  const url = `${process.env.VERCEL_URL}/survey/${id}`;
+  const url = `${window.location.origin}/survey/${id}`;
 
   return (
     <Popover>

@@ -27,6 +27,7 @@ import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { answerSurvey } from "@/server/actions/answer";
 import { useAction } from "next-safe-action/hooks";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface FormRendererProps {
   mode: "answer" | "preview";
@@ -45,13 +46,14 @@ interface FormRendererPreviewProps extends FormRendererProps {
 type Props = FormRendererAnswerProps | FormRendererPreviewProps;
 
 function FormRenderer(props: Props) {
+  const router = useRouter();
   const schema = createValidationSchema(props.form);
   const f = useForm<typeof schema>({
     resolver: zodResolver(schema),
     reValidateMode: "onChange",
   });
 
-  const { executeAsync, isPending, hasSucceeded } = useAction(answerSurvey);
+  const { executeAsync, isPending } = useAction(answerSurvey);
 
   async function onSubmit(data: typeof schema) {
     if (props.mode === "preview") {
@@ -60,14 +62,13 @@ function FormRenderer(props: Props) {
     }
 
     if (isPending) return;
-    await executeAsync({
+    const res = await executeAsync({
       answers: JSON.stringify(data),
       surveyId: props.id,
-      respondent: "",
     });
 
-    if (hasSucceeded) {
-      console.log("Success");
+    if (res?.data?.success) {
+      router.replace("/survey/success");
     }
   }
 

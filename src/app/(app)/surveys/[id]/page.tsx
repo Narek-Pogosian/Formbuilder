@@ -5,13 +5,16 @@ import { notFound } from "next/navigation";
 
 async function page({ params }: { params: { id: string } }) {
   const form = await getFormById(params.id);
-  if (!form) notFound();
+  if (!form || form.status !== "PUBLISHED") {
+    notFound();
+  }
 
   const { data, success } = formSchema.safeParse(
-    JSON.parse(form?.content?.toString() ?? ""),
+    JSON.parse(form.content?.toString() ?? ""),
   );
-
-  if (!data || !success) notFound();
+  if (!data || !success) {
+    notFound();
+  }
 
   return (
     <>

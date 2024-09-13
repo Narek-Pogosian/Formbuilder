@@ -34,7 +34,7 @@ function SurveysList({ surveys }: SurveysListProps) {
               </Link>
               <SurveyStatusBadge status={survey.status} />
             </div>
-            <SharePopover id={survey.id} />
+            {survey.status == "PUBLISHED" && <SharePopover id={survey.id} />}
           </CardHeader>
 
           <CardFooter className="mt-4 flex justify-between">
