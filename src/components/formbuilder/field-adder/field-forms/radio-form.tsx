@@ -85,7 +85,7 @@ function RadioForm({ defaultField, handleAdd }: FormProps) {
         />
 
         <div>
-          <FormLabel>Options</FormLabel>
+          <FormLabel className="mb-2">Options</FormLabel>
           {fields.map((option, index) => (
             <div key={option.id} className="mb-2 flex items-center gap-2">
               <FormField
@@ -114,7 +114,9 @@ function RadioForm({ defaultField, handleAdd }: FormProps) {
           </Button>
         </div>
 
-        <Button type="submit">{defaultField ? "Edit" : "Add"}</Button>
+        <Button className="mt-4" type="submit">
+          {defaultField ? "Edit" : "Add"}
+        </Button>
       </form>
     </Form>
   );

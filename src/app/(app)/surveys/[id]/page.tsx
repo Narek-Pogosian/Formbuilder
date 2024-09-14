@@ -1,25 +1,23 @@
-import FormRenderer from "@/components/formrenderer";
 import { formSchema } from "@/lib/schemas/form-schema";
 import { getFormById } from "@/server/data-access/form";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import PageTitle from "../../_components/page-title";
 
 async function page({ params }: { params: { id: string } }) {
   const form = await getFormById(params.id);
-  if (!form || form.status !== "PUBLISHED") {
-    notFound();
-  }
+
+  if (!form) notFound();
+  if (form.status === "DRAFT") redirect(`/surveys/${params.id}/edit`);
 
   const { data, success } = formSchema.safeParse(
     JSON.parse(form.content?.toString() ?? ""),
   );
-  if (!data || !success) {
-    notFound();
-  }
+  if (!data || !success) notFound();
 
   return (
     <>
-      <h1 className="mb-4 text-center text-3xl font-bold">{form?.title}</h1>
-      <FormRenderer mode="preview" form={data} />
+      <PageTitle>{form?.title}</PageTitle>
+      <p>TODO: Info about the survey, answers and preview</p>
     </>
   );
 }

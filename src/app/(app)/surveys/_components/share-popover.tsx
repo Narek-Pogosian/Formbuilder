@@ -18,7 +18,10 @@ import { toast } from "sonner";
 import { Copy } from "lucide-react";
 
 function SharePopover({ id }: { id: string }) {
-  const url = `${window.location.origin}/survey/${id}`;
+  const url =
+    typeof window !== "undefined"
+      ? `${window.location.origin}/survey/${id}`
+      : "";
 
   return (
     <Popover>

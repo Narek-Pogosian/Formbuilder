@@ -29,7 +29,13 @@ function SurveysList({ surveys }: SurveysListProps) {
         <Card key={survey.id}>
           <CardHeader className="flex flex-row items-start justify-between">
             <div>
-              <Link href={`/surveys/${survey.id}`}>
+              <Link
+                href={
+                  survey.status !== "DRAFT"
+                    ? `/surveys/${survey.id}`
+                    : `/surveys/${survey.id}/edit`
+                }
+              >
                 <CardTitle className="mb-2">{survey.title}</CardTitle>
               </Link>
               <SurveyStatusBadge status={survey.status} />
@@ -64,7 +70,7 @@ function SurveyStatusBadge({ status }: { status: Status }) {
       </p>
     );
   }
-  return <p className="text-xs font-semibold">Draft</p>;
+  return <p className="text-xs font-semibold text-foreground-muted">Draft</p>;
 }
 
 function SurveyActionButtons({ status, id }: { status: Status; id: string }) {
