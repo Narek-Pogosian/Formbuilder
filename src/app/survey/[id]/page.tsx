@@ -16,6 +16,7 @@ export async function generateMetadata({
 
   return {
     title: form.title,
+    description: "",
     openGraph: {
       type: "website",
       siteName: "Insights",

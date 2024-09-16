@@ -23,6 +23,8 @@ model Form {
     userId      String     @db.ObjectId
     User        User       @relation(fields: [userId], references: [id])
     Response    Response[]
+
+    @@index([userId])
 }
 
 model Response {
@@ -32,6 +34,8 @@ model Response {
     respondent String 
     answers    Json
     createdAt  DateTime @default(now())
+
+    @@index([surveyId])
 }
 
 model User {

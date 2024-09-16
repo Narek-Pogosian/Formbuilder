@@ -9,8 +9,6 @@ import {
   TwitterShareButton,
   FacebookShareButton,
   FacebookIcon,
-  LinkedinShareButton,
-  LinkedinIcon,
   XIcon,
 } from "react-share";
 import { Button } from "@/components/ui/button";
@@ -32,18 +30,14 @@ function SharePopover({ id }: { id: string }) {
       </PopoverTrigger>
       <PopoverContent className="flex gap-2">
         <CopyToClipboard url={url} />
-        <FacebookShareButton url={url}>
-          <span className="sr-only">Share on Facebook</span>
-          <FacebookIcon className="size-16 rounded" />
-        </FacebookShareButton>
-        <LinkedinShareButton url={url}>
-          <span className="sr-only">Share on Linkedin</span>
-          <LinkedinIcon className="size-16 rounded" />
-        </LinkedinShareButton>
         <TwitterShareButton url={url} title="Check out this survey!">
           <span className="sr-only">Share on Twitter</span>
           <XIcon className="size-16 rounded" />
         </TwitterShareButton>
+        <FacebookShareButton url={url}>
+          <span className="sr-only">Share on Facebook</span>
+          <FacebookIcon className="size-16 rounded" />
+        </FacebookShareButton>
       </PopoverContent>
     </Popover>
   );

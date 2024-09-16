@@ -15,3 +15,17 @@ export const getFormById = cache(async (id: string) => {
 
   return form;
 });
+
+export async function getAnswers(id: string) {
+  // Not checking for authentication and if userId matched the survey id for now
+  // since it's being checked in the /survey/:id page.tsx to verify
+  return db.response.findMany({
+    where: { surveyId: id },
+    orderBy: { createdAt: "desc" },
+    select: {
+      id: true,
+      answers: true,
+      createdAt: true,
+    },
+  });
+}
