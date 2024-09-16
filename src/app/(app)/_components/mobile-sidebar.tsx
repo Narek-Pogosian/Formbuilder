@@ -12,7 +12,7 @@ import SidebarNavigation from "./sidebar-navigation";
 function MobileSidebar() {
   return (
     <Sheet>
-      <SheetTrigger asChild>
+      <SheetTrigger className="lg:hidden" asChild>
         <Button variant="outline" size="icon">
           <Menu className="size-6" />
           <span className="sr-only">Open menu</span>

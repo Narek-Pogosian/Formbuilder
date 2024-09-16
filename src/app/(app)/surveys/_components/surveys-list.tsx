@@ -24,7 +24,7 @@ function SurveysList({ surveys }: SurveysListProps) {
   }
 
   return (
-    <ul className="grid gap-8 md:grid-cols-2">
+    <ul className="grid gap-4 md:grid-cols-2">
       {surveys.map((survey) => (
         <Card key={survey.id}>
           <CardHeader className="flex flex-row items-start justify-between">

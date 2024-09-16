@@ -20,7 +20,7 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
           <div className="mb-4 lg:hidden">
             <MobileSidebar />
           </div>
-          <main className="relative grow lg:px-20 lg:py-4">{children}</main>
+          <main className="relative grow lg:px-20 lg:py-6">{children}</main>
         </div>
         <Toaster position="top-center" duration={2000} />
       </div>
