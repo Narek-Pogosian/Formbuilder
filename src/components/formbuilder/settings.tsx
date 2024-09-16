@@ -1,46 +1,58 @@
 import { type FormbuilderProps } from ".";
-import { useFormbuilder } from "./hooks/use-formbuilder";
-import { createFormScema } from "@/lib/schemas/form-schema";
 import { saveForm, updateForm } from "@/server/actions/form";
-import { useState } from "react";
+import { useFormbuilder } from "./hooks/use-formbuilder";
+import { useAction } from "next-safe-action/hooks";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { toast } from "sonner";
 
 function FormbuilderSettings(props: FormbuilderProps) {
-  const [isLoading, setIsLoading] = useState(false);
   const { dispatch, state } = useFormbuilder();
 
-  async function handleSave() {
-    if (isLoading) return;
-
-    const { data, error } = createFormScema.safeParse({
-      title: state.title,
-      form: state.fields,
-    });
-
-    if (error) {
-      toast(error.errors[0]?.message, { position: "top-center" });
-      return;
-    }
-
-    try {
-      setIsLoading(true);
-      if (props.mode === "edit") {
-        await updateForm({
-          form: { title: data.title, form: data.form },
-          id: props.id,
-        });
-        toast("Saved");
+  const { execute: save, isPending: saving } = useAction(saveForm, {
+    onError: (err) => {
+      if (err.error.validationErrors) {
+        const errors = err.error.validationErrors?.fieldErrors;
+        if (errors.title) {
+          toast(errors.title[0]);
+        } else if (errors.form) {
+          toast(errors.form[0]);
+        }
       } else {
-        await saveForm({ title: data.title, form: data.form });
-        dispatch({ type: "RESET" });
-        toast("New survey created");
+        toast("Something went wrong");
       }
-    } catch (error) {
-      toast("Something went wrong");
-    } finally {
-      setIsLoading(false);
+    },
+    onSuccess: () => {
+      toast("New survey created");
+      dispatch({ type: "RESET" });
+    },
+  });
+
+  const { execute: update, isPending: updating } = useAction(updateForm, {
+    onError: (err) => {
+      // For some reason the validation errors don't show up in err.errors.validationErrors,
+      if (!err.input.form.title) {
+        toast("Title is required");
+      } else if (err.input.form.form.length === 0) {
+        toast("At least 1 field is required");
+      } else {
+        toast("Something went wrong");
+      }
+    },
+    onSuccess: () => {
+      toast("Saved");
+    },
+  });
+
+  async function handleSave() {
+    if (saving || updating) return;
+    if (props.mode === "create") {
+      save({ title: state.title, form: state.fields });
+    } else {
+      update({
+        form: { title: state.title, form: state.fields },
+        id: props.id,
+      });
     }
   }
 
@@ -57,7 +69,7 @@ function FormbuilderSettings(props: FormbuilderProps) {
           dispatch({ type: "EDIT_TITLE", payload: e.target.value })
         }
       />
-      <Button onClick={handleSave} disabled={isLoading}>
+      <Button onClick={handleSave} disabled={saving || updating}>
         Save
       </Button>
     </div>

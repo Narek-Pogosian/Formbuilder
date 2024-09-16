@@ -22,7 +22,7 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
           </div>
           <main className="relative grow lg:px-20 lg:py-4">{children}</main>
         </div>
-        <Toaster position="bottom-center" duration={2000} />
+        <Toaster position="top-center" duration={2000} />
       </div>
     </>
   );
