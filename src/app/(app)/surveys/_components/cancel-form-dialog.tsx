@@ -40,7 +40,9 @@ function CancelFormDialog({ id }: CancelFormDialogProps) {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger className="relative" asChild>
-        <Button size="sm">Cancel Survey</Button>
+        <Button variant="outline" size="sm">
+          Cancel Survey
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

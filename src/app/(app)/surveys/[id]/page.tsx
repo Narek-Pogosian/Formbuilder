@@ -9,6 +9,7 @@ import CancelFormDialog from "../_components/cancel-form-dialog";
 import UncancelButton from "../_components/uncancel-button";
 import SurveyInformation from "./_components/survey-information";
 import DeleteFormDialog from "../_components/delete-form-dialog";
+import { Button } from "@/components/ui/button";
 
 async function page({ params }: { params: { id: string } }) {
   const form = await getFormById(params.id);
@@ -29,14 +30,22 @@ async function page({ params }: { params: { id: string } }) {
       <PageTitle>{form?.title}</PageTitle>
       <SurveyInformation form={form} />
 
-      <div className="flex gap-2">
-        {form.status === "PUBLISHED" ? (
-          <CancelFormDialog id={form.id} />
-        ) : (
-          <UncancelButton id={form.id} />
-        )}
-        <DeleteFormDialog id={form.id} />
-      </div>
+      <section aria-describedby="actions">
+        <h2
+          id="actions"
+          className="mb-1 text-lg font-semibold text-foreground-muted"
+        >
+          Actions
+        </h2>
+        <div className="flex gap-2">
+          {form.status === "PUBLISHED" ? (
+            <CancelFormDialog id={form.id} />
+          ) : (
+            <UncancelButton id={form.id} />
+          )}
+          <DeleteFormDialog id={form.id} />
+        </div>
+      </section>
 
       <section aria-describedby="answers">
         <h2
@@ -44,6 +53,16 @@ async function page({ params }: { params: { id: string } }) {
           className="mb-1 text-lg font-semibold text-foreground-muted"
         >
           Answers
+        </h2>
+        <Button size="sm">Download all answers as CSV</Button>
+      </section>
+
+      <section aria-describedby="latest">
+        <h2
+          id="latest"
+          className="mb-1 text-lg font-semibold text-foreground-muted"
+        >
+          Latest answers
         </h2>
         <Suspense fallback={<p>Loading answers...</p>}>
           <Answers id={form.id} />

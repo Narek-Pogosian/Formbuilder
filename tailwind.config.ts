@@ -32,6 +32,7 @@ const config = {
     },
     boxShadow: {
       highlight: "var(--shadow-highlight)",
+      card: "var(--shadow-card)",
     },
     extend: {
       fontFamily: {

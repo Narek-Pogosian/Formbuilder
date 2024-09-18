@@ -24,9 +24,9 @@ function SurveysList({ surveys }: SurveysListProps) {
   }
 
   return (
-    <ul className="grid gap-4 md:grid-cols-2">
+    <ul className="grid gap-8 md:grid-cols-2">
       {surveys.map((survey) => (
-        <Card key={survey.id}>
+        <Card key={survey.id} className="shadow-card border-0">
           <CardHeader className="flex flex-row items-start justify-between">
             <div>
               <Link
@@ -78,7 +78,7 @@ function SurveyActionButtons({ status, id }: { status: Status; id: string }) {
     return (
       <div className="flex gap-2">
         <PublishForm id={id} />
-        <Button asChild variant="ghost" size="sm">
+        <Button asChild variant="outline" size="sm">
           <Link href={`/surveys/${id}/edit`} className="relative">
             Edit
           </Link>

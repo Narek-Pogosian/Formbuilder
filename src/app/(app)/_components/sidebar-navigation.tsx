@@ -43,7 +43,7 @@ function SidebarNavigation() {
         ))}
       </ul>
 
-      <div className="sticky bottom-0 mt-auto flex justify-between bg-background py-2">
+      <div className="sticky bottom-0 mt-auto flex justify-between bg-background py-2 lg:bg-white lg:dark:bg-black">
         <Signout />
         <ThemeToggle />
       </div>

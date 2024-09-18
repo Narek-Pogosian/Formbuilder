@@ -40,7 +40,9 @@ function PublishForm({ id }: PublishFormProps) {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger className="relative" asChild>
-        <Button size="sm">Publish</Button>
+        <Button variant="outline" size="sm">
+          Publish
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

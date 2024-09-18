@@ -19,6 +19,7 @@
     --border: 240 8% 95%;
 
     --shadow-highlight: inset 0 1px hsl(0deg 0% 100% / 6%);
+    --shadow-card: 0 -1px 3px 0 rgb(0 0 0 / 0.06);
 
     --radius: 4px;
   }
@@ -37,6 +38,9 @@
 
     --accent: 240, 25%, 70%, 0.08;
     --border: 240 4% 10%;
+
+    --shadow-card: 0 0 0 1px rgb(255 255 255 / 0.03),
+      0 -1px rgb(255 255 255 / 0.06);
   }
 }
 
