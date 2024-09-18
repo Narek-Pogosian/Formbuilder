@@ -1,4 +1,4 @@
-import { type FormSchema } from "@/lib/schemas/form-schema";
+import { type FormSchemaField } from "@/lib/schemas/form-schema";
 import {
   Dialog,
   DialogContent,
@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import FieldAdder from ".";
 
 interface Props {
-  defaultField?: FormSchema[number];
+  defaultField?: FormSchemaField;
 }
 
 function FieldDialog({ defaultField }: Props) {

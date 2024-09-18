@@ -1,11 +1,14 @@
-import { type FormSchema } from "@/lib/schemas/form-schema";
+import {
+  type FormSchema,
+  type FormSchemaField,
+} from "@/lib/schemas/form-schema";
 
 export type FormbuilderState = { title: string; fields: FormSchema };
 export type FormbuilderActionsType =
   | { type: "EDIT_TITLE"; payload: string }
   | { type: "REMOVE_FIELD"; payload: string }
-  | { type: "ADD_FIELD"; payload: FormSchema[number] }
-  | { type: "EDIT_FIELD"; payload: FormSchema[number] }
+  | { type: "ADD_FIELD"; payload: FormSchemaField }
+  | { type: "EDIT_FIELD"; payload: FormSchemaField }
   | { type: "SET_FIELDS"; payload: FormSchema }
   | { type: "RESET" };
 

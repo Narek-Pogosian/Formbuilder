@@ -177,6 +177,7 @@ export const createFormScema = z.object({
 
 export type FieldType = (typeof FieldTypes)[number];
 export type FormSchema = z.infer<typeof formSchema>;
+export type FormSchemaField = FormSchema[number];
 
 export type TextFormSchemaType = z.infer<typeof textFormSchema>;
 export type NumberFormSchemaType = z.infer<typeof numberFormSchema>;

@@ -29,7 +29,7 @@ function SidebarNavigation() {
                 <Button
                   variant="ghost"
                   className={cn("mt-1 w-full justify-start gap-4 text-sm", {
-                    "bg-accent": menu.active,
+                    "bg-neutral-100 dark:bg-neutral-900": menu.active,
                   })}
                   asChild
                 >

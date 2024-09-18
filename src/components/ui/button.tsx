@@ -11,9 +11,12 @@ const buttonVariants = cva(
         default:
           "bg-primary text-primary-foreground hover:bg-primary/80 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
         ghost: "hover:bg-accent",
-        outline: "border hover:bg-accent bg-background-card",
+        outline: "border-2 hover:bg-accent bg-background-input",
+        secondary: "bg-background-input shadow-highlight",
         danger:
-          "bg-red-700/90 text-white hover:bg-red-700/80 focus-visible:ring-red-600 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "bg-red-700 text-white focus-visible:ring-red-600 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        dangerOutline:
+          "bg-red-600/10 border hover:bg-red-700/20 dark:hover:bg-red-600/30 dark:hover:text-red-100 border-red-600/20 text-red-900 dark:text-red-200 focus-visible:ring-red-600 focus-visible:ring-offset-2 focus-visible:ring-offset-background",
       },
       size: {
         default: "px-4 py-2",

@@ -40,7 +40,7 @@ function DeleteFormDialog({ id }: DeleteFormDialogProps) {
   return (
     <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger className="relative" asChild>
-        <Button variant="danger" size="sm">
+        <Button variant="dangerOutline" size="sm">
           Delete
         </Button>
       </AlertDialogTrigger>

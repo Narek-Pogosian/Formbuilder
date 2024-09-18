@@ -26,9 +26,12 @@ const config = {
       black: colors.black,
       white: colors.white,
       neutral: colors.zinc,
-      red: colors.red,
       amber: colors.amber,
       blue: colors.blue,
+      red: colors.red,
+    },
+    boxShadow: {
+      highlight: "var(--shadow-highlight)",
     },
     extend: {
       fontFamily: {

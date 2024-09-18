@@ -1,4 +1,7 @@
-import { type FormSchema, type FieldType } from "@/lib/schemas/form-schema";
+import {
+  type FieldType,
+  type FormSchemaField,
+} from "@/lib/schemas/form-schema";
 import {
   CircleCheckBig,
   MousePointer,
@@ -19,8 +22,8 @@ import CheckboxForm from "./field-forms/checkbox-form";
 import SelectForm from "./field-forms/select-form";
 
 export type FormProps = {
-  defaultField?: FormSchema[number];
-  handleAdd: (data: FormSchema[number]) => void | "Label Error";
+  defaultField?: FormSchemaField;
+  handleAdd: (data: FormSchemaField) => void | "Label Error";
 };
 
 type V = { label: string; icon: LI; form: React.ComponentType<FormProps> };
@@ -36,7 +39,7 @@ const forms: FieldForms = {
 };
 
 interface Props {
-  defaultField?: FormSchema[number];
+  defaultField?: FormSchemaField;
   closeDialog: () => void;
 }
 
@@ -46,7 +49,7 @@ function FieldAdder({ defaultField, closeDialog }: Props) {
     defaultField?.type,
   );
 
-  function handleAdd(data: FormSchema[number]) {
+  function handleAdd(data: FormSchemaField) {
     if (
       state.fields.find(
         (f) => f.label.trim() === data.label.trim() && f.id !== data.id,

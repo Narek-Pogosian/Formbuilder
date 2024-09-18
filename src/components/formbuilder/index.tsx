@@ -41,11 +41,11 @@ function FormBuilder(props: FormbuilderProps) {
             Preview
           </TabsTrigger>
         </TabsList>
-        <TabsContent value="builder" className="py-2">
+        <TabsContent value="builder">
           <FieldList />
           <FieldDialog />
         </TabsContent>
-        <TabsContent value="preview" className="py-2">
+        <TabsContent value="preview">
           <FormRenderer mode="preview" form={state.fields} />
         </TabsContent>
       </Tabs>

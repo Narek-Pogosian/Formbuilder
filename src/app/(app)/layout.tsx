@@ -13,7 +13,7 @@ async function layout({ children }: Readonly<{ children: React.ReactNode }>) {
     <>
       <NextTopLoader showSpinner={false} />
       <div className="flex min-h-full">
-        <div className="sticky top-0 hidden h-screen w-64 shrink-0 border-r lg:block">
+        <div className="sticky top-0 hidden h-screen w-64 shrink-0 border-r bg-white dark:bg-black lg:block">
           <SidebarNavigation />
         </div>
         <div className="flex w-full flex-col p-4">

@@ -18,6 +18,8 @@
     --accent: 240, 10%, 50%, 0.05;
     --border: 240 8% 95%;
 
+    --shadow-highlight: inset 0 1px hsl(0deg 0% 100% / 6%);
+
     --radius: 4px;
   }
 
@@ -33,7 +35,7 @@
     --foreground: 240 4% 98%;
     --foreground-muted: 240 4% 55%;
 
-    --accent: 240, 25%, 70%, 0.085;
+    --accent: 240, 25%, 70%, 0.08;
     --border: 240 4% 10%;
   }
 }

@@ -1,4 +1,4 @@
-import { type FormSchema } from "@/lib/schemas/form-schema";
+import { type FormSchemaField } from "@/lib/schemas/form-schema";
 import { useDragBuilder } from "../hooks/use-drag-builder";
 import {
   DndContext,
@@ -45,7 +45,7 @@ function FieldList() {
         items={state.fields}
         strategy={verticalListSortingStrategy}
       >
-        <ul className="mb-8 space-y-4">
+        <ul>
           {state.fields.map((f) => (
             <Field
               key={f.id}
@@ -68,7 +68,7 @@ function FieldList() {
 export default FieldList;
 
 type FieldProps = React.HtmlHTMLAttributes<HTMLDivElement> & {
-  field: FormSchema[number];
+  field: FormSchemaField;
 };
 
 function Field({ field, className }: FieldProps) {
@@ -101,7 +101,7 @@ function Field({ field, className }: FieldProps) {
         {...attributes}
         {...listeners}
         role="button"
-        className="w-full cursor-grab py-6"
+        className="w-full cursor-grab py-8"
       >
         <div className="flex flex-col gap-4 pl-2 sm:flex-row">
           <Grip className="mt-1 size-5 text-foreground-muted" />
@@ -114,12 +114,12 @@ function Field({ field, className }: FieldProps) {
         </div>
       </div>
 
-      <div className="absolute right-2 flex h-fit items-center gap-2 py-4">
+      <div className="absolute right-2 flex h-fit items-center gap-2 pt-8">
         <FieldDialog defaultField={field} />
         <Button
           onClick={handleRemove}
           aria-label="Delete field"
-          variant="danger"
+          variant="dangerOutline"
           size="sm"
         >
           Remove
