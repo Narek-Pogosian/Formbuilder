@@ -69,7 +69,11 @@ function FormbuilderSettings(props: FormbuilderProps) {
           dispatch({ type: "EDIT_TITLE", payload: e.target.value })
         }
       />
-      <Button onClick={handleSave} disabled={saving || updating}>
+      <Button
+        onClick={handleSave}
+        loading={saving || updating}
+        disabled={saving || updating}
+      >
         Save
       </Button>
     </div>

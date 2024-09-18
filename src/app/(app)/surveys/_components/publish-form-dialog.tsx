@@ -55,6 +55,7 @@ function PublishForm({ id }: PublishFormProps) {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <Button
             onClick={handleClick}
+            loading={isPending}
             aria-disabled={isPending}
             className="bg-primary text-primary-foreground hover:bg-primary/90"
           >

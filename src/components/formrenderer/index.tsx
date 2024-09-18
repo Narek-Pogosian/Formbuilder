@@ -253,7 +253,7 @@ function FormRenderer(props: Props) {
             );
         })}
 
-        <Button type="submit" aria-disabled={isPending}>
+        <Button type="submit" loading={isPending} aria-disabled={isPending}>
           Submit
         </Button>
       </form>

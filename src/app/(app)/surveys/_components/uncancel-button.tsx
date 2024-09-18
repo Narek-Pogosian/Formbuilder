@@ -23,6 +23,7 @@ function UncancelButton({ id }: { id: string }) {
       variant="outline"
       className="relative"
       onClick={handleClick}
+      loading={isPending}
       aria-disabled={isPending}
     >
       Uncancel

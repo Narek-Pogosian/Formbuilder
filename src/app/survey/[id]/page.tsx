@@ -5,6 +5,7 @@ import { formSchema } from "@/lib/schemas/form-schema";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
 import { db } from "@/lib/db";
+import { parsePrismaJson } from "@/lib/utils";
 
 export async function generateMetadata({
   params,
@@ -51,9 +52,7 @@ async function page({ params }: { params: { id: string } }) {
     notFound();
   }
 
-  const { data, success } = formSchema.safeParse(
-    JSON.parse(form.content?.toString() ?? ""),
-  );
+  const { data, success } = formSchema.safeParse(parsePrismaJson(form.content));
   if (!data || !success) {
     notFound();
   }

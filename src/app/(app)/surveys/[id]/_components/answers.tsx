@@ -1,3 +1,4 @@
+import { parsePrismaJson } from "@/lib/utils";
 import { getLatestAnswers } from "@/server/data-access/form";
 
 async function Answers({ id }: { id: string }) {
@@ -6,14 +7,10 @@ async function Answers({ id }: { id: string }) {
   return (
     <ul className="grid gap-8 md:grid-cols-2">
       {answers.map((a) => {
-        // eslint-disable-next-line
-        const obj = JSON.parse(a.answers?.toString() ?? "") as Record<
-          string,
-          string
-        >;
+        const obj = parsePrismaJson(a.answers) as Record<string, string>;
 
         return (
-          <li key={a.id} className="shadow-card space-y-1 rounded p-4">
+          <li key={a.id} className="space-y-1 rounded p-4 shadow-card">
             <p className="mb-3 text-sm text-foreground-muted">
               {a.createdAt.toLocaleDateString()}
             </p>

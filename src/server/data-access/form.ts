@@ -30,3 +30,12 @@ export async function getLatestAnswers(id: string) {
     take: 2,
   });
 }
+
+export async function getAllAnswers(id: string) {
+  return db.response.findMany({
+    where: { surveyId: id },
+    select: {
+      answers: true,
+    },
+  });
+}

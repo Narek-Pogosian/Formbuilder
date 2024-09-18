@@ -53,7 +53,11 @@ function CancelFormDialog({ id }: CancelFormDialogProps) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <Button onClick={handleClick} aria-disabled={isPending}>
+          <Button
+            loading={isPending}
+            onClick={handleClick}
+            aria-disabled={isPending}
+          >
             Proceed
           </Button>
         </AlertDialogFooter>

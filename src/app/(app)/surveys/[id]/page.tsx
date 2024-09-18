@@ -9,7 +9,8 @@ import CancelFormDialog from "../_components/cancel-form-dialog";
 import UncancelButton from "../_components/uncancel-button";
 import SurveyInformation from "./_components/survey-information";
 import DeleteFormDialog from "../_components/delete-form-dialog";
-import { Button } from "@/components/ui/button";
+import CsvDownload from "./_components/csv-download";
+import { parsePrismaJson } from "@/lib/utils";
 
 async function page({ params }: { params: { id: string } }) {
   const form = await getFormById(params.id);
@@ -20,9 +21,7 @@ async function page({ params }: { params: { id: string } }) {
   const session = await getServerAuthSession();
   if (form.userId !== session?.user.id) notFound();
 
-  const { data, success } = formSchema.safeParse(
-    JSON.parse(form.content?.toString() ?? ""),
-  );
+  const { data, success } = formSchema.safeParse(parsePrismaJson(form.content));
   if (!data || !success) notFound();
 
   return (
@@ -54,7 +53,7 @@ async function page({ params }: { params: { id: string } }) {
         >
           Answers
         </h2>
-        <Button size="sm">Download all answers as CSV</Button>
+        <CsvDownload surveyId={form.id} title={form.title} />
       </section>
 
       <section aria-describedby="latest">

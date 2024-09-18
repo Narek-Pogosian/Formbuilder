@@ -1,6 +1,7 @@
 import FormBuilder from "@/components/formbuilder";
 import FormbuilderProvider from "@/components/formbuilder/context/formbuilder-context";
 import { formSchema } from "@/lib/schemas/form-schema";
+import { parsePrismaJson } from "@/lib/utils";
 import { getServerAuthSession } from "@/server/auth";
 import { getFormById } from "@/server/data-access/form";
 import { notFound } from "next/navigation";
@@ -19,10 +20,7 @@ async function page({ params }: { params: { id: string } }) {
   }
   if (session?.user.id !== form.userId) notFound();
 
-  const { data, success } = formSchema.safeParse(
-    JSON.parse(form?.content?.toString() ?? ""),
-  );
-
+  const { data, success } = formSchema.safeParse(parsePrismaJson(form.content));
   if (!data || !success) notFound();
 
   return (

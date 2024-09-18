@@ -56,6 +56,7 @@ function DeleteFormDialog({ id }: DeleteFormDialogProps) {
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <Button
             variant="danger"
+            loading={isPending}
             aria-disabled={isPending}
             onClick={handleClick}
           >
