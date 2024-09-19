@@ -11,6 +11,7 @@ import SurveyInformation from "./_components/survey-information";
 import DeleteFormDialog from "../_components/delete-form-dialog";
 import CsvDownload from "./_components/csv-download";
 import { parsePrismaJson } from "@/lib/utils";
+import SharePopover from "../_components/share-popover";
 
 async function page({ params }: { params: { id: string } }) {
   const form = await getFormById(params.id);
@@ -38,7 +39,10 @@ async function page({ params }: { params: { id: string } }) {
         </h2>
         <div className="flex gap-2">
           {form.status === "PUBLISHED" ? (
-            <CancelFormDialog id={form.id} />
+            <div className="flex gap-2">
+              <CancelFormDialog id={form.id} />
+              <SharePopover id={form.id} />
+            </div>
           ) : (
             <UncancelButton id={form.id} />
           )}

@@ -26,21 +26,18 @@ function SurveysList({ surveys }: SurveysListProps) {
   return (
     <ul className="grid gap-8 md:grid-cols-2">
       {surveys.map((survey) => (
-        <Card key={survey.id} className="shadow-card border-0">
-          <CardHeader className="flex flex-row items-start justify-between">
-            <div>
-              <Link
-                href={
-                  survey.status !== "DRAFT"
-                    ? `/surveys/${survey.id}`
-                    : `/surveys/${survey.id}/edit`
-                }
-              >
-                <CardTitle className="mb-2">{survey.title}</CardTitle>
-              </Link>
-              <SurveyStatusBadge status={survey.status} />
-            </div>
-            {survey.status == "PUBLISHED" && <SharePopover id={survey.id} />}
+        <Card key={survey.id} className="border-0 shadow-card">
+          <CardHeader>
+            <Link
+              href={
+                survey.status !== "DRAFT"
+                  ? `/surveys/${survey.id}`
+                  : `/surveys/${survey.id}/edit`
+              }
+            >
+              <CardTitle>{survey.title}</CardTitle>
+            </Link>
+            <SurveyStatusBadge status={survey.status} />
           </CardHeader>
 
           <CardFooter className="mt-4 flex justify-between">
@@ -91,5 +88,10 @@ function SurveyActionButtons({ status, id }: { status: Status; id: string }) {
     return <UncancelButton id={id} />;
   }
 
-  return <CancelFormDialog id={id} />;
+  return (
+    <div className="flex gap-2">
+      <SharePopover id={id} />
+      <CancelFormDialog id={id} />
+    </div>
+  );
 }
