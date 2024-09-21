@@ -10,7 +10,7 @@ async function Answers({ id }: { id: string }) {
         const obj = parsePrismaJson(a.answers) as Record<string, string>;
 
         return (
-          <li key={a.id} className="space-y-1 rounded p-4 shadow-card">
+          <li key={a.id} className="space-y-1 rounded p-4">
             <p className="mb-3 text-sm text-foreground-muted">
               {a.createdAt.toLocaleDateString()}
             </p>

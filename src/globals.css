@@ -7,19 +7,16 @@
     --primary: 240 8% 14%;
     --primary-foreground: 0 0% 98%;
 
-    --background: 240 10% 98.5%;
-    --background-card: 240 10% 98.5%;
+    --background: 240 30% 98%;
+    --background-card: 240 10% 99%;
     --background-input: 240 0% 100%;
     --background-popover: 240 10% 99%;
 
     --foreground: 240 8% 5%;
     --foreground-muted: 240 8% 45%;
 
-    --accent: 240, 10%, 50%, 0.05;
-    --border: 240 8% 95%;
-
-    --shadow-highlight: inset 0 1px hsl(0deg 0% 100% / 6%);
-    --shadow-card: 0 -1px 3px 0 rgb(0 0 0 / 0.06);
+    --accent: 240, 25%, 70%, 0.03;
+    --border: 240 8% 92%;
 
     --radius: 4px;
   }
@@ -28,19 +25,16 @@
     --primary: 0 0% 95%;
     --primary-foreground: 0 0% 8%;
 
-    --background: 240, 4%, 5%;
-    --background-card: 240, 4%, 5%;
-    --background-input: 240, 6%, 8%;
-    --background-popover: 240, 4%, 6%;
+    --background: 240, 4%, 6.5%;
+    --background-card: 240, 4%, 7.5%;
+    --background-input: 240, 6%, 9%;
+    --background-popover: 240, 4%, 7%;
 
     --foreground: 240 4% 98%;
     --foreground-muted: 240 4% 55%;
 
-    --accent: 240, 25%, 70%, 0.08;
-    --border: 240 4% 10%;
-
-    --shadow-card: 0 0 0 1px rgb(255 255 255 / 0.03),
-      0 -1px rgb(255 255 255 / 0.06);
+    --accent: 240, 25%, 80%, 0.1;
+    --border: 240 4% 15%;
   }
 }
 

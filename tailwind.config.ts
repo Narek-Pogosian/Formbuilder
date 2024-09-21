@@ -10,7 +10,7 @@ const config = {
       center: true,
       padding: "1rem",
       screens: {
-        xl: "1200px",
+        xl: "1240px",
       },
     },
     borderRadius: {
@@ -29,10 +29,6 @@ const config = {
       amber: colors.amber,
       blue: colors.blue,
       red: colors.red,
-    },
-    boxShadow: {
-      highlight: "var(--shadow-highlight)",
-      card: "var(--shadow-card)",
     },
     extend: {
       fontFamily: {

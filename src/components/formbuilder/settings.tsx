@@ -64,7 +64,7 @@ function FormbuilderSettings(props: FormbuilderProps) {
         aria-label="Title of survey"
         placeholder="Title of survey"
         value={state.title}
-        className="font-semibold dark:bg-accent"
+        className="font-semibold"
         onChange={(e) =>
           dispatch({ type: "EDIT_TITLE", payload: e.target.value })
         }
