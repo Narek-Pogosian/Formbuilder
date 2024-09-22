@@ -7,7 +7,7 @@ function HeroImage() {
       >
         <svg
           width="450"
-          height="556"
+          height="530"
           viewBox="0 0 450 556"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ function HeroImage() {
           />
           <circle
             opacity="0.8"
-            cx="356"
+            cx="326"
             cy="290"
             r="179.5"
             transform="rotate(-30 356 290)"
@@ -142,8 +142,8 @@ function HeroImage() {
         className="absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100"
       >
         <svg
-          width="364"
-          height="201"
+          width="280"
+          height="180"
           viewBox="0 0 364 201"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

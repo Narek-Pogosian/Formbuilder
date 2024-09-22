@@ -124,6 +124,7 @@ function SignInForm() {
       <Button
         className="mt-8 w-full"
         variant="outline"
+        loading={isSigningIn}
         onClick={() =>
           onSubmit({ email: "demo@demo.com", password: "123demo321" })
         }

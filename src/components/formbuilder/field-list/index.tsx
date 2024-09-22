@@ -29,7 +29,7 @@ function FieldList() {
 
   if (state.fields.length === 0) {
     return (
-      <div className="mx-auto mb-8 pt-10 text-center font-medium text-neutral-300 dark:text-neutral-600">
+      <div className="mx-auto mb-8 pt-10 text-center font-medium text-neutral-400 dark:text-neutral-600">
         Empty, no fields added yet.
       </div>
     );
@@ -45,7 +45,7 @@ function FieldList() {
         items={state.fields}
         strategy={verticalListSortingStrategy}
       >
-        <ul>
+        <ul className="my-4 space-y-4">
           {state.fields.map((f) => (
             <Field
               key={f.id}
@@ -58,7 +58,7 @@ function FieldList() {
       <DragOverlay>
         <Field
           field={state.fields.find((f) => f.id === activeId)!}
-          className="rounded bg-background-card shadow-lg dark:shadow-black/40"
+          className="shadow-lg dark:shadow-black/40"
         />
       </DragOverlay>
     </DndContext>
@@ -91,7 +91,7 @@ function Field({ field, className }: FieldProps) {
   return (
     <div
       className={cn(
-        "relative flex justify-between rounded bg-background-card",
+        "relative flex justify-between rounded border bg-background-input",
         className,
       )}
       style={{ ...style, touchAction: "none" }}
@@ -101,9 +101,9 @@ function Field({ field, className }: FieldProps) {
         {...attributes}
         {...listeners}
         role="button"
-        className="w-full cursor-grab py-8"
+        className="w-full cursor-grab pb-6 pt-4"
       >
-        <div className="flex flex-col gap-4 pl-2 sm:flex-row">
+        <div className="flex flex-col gap-4 pl-4 sm:flex-row">
           <Grip className="mt-1 size-5 text-foreground-muted" />
           <div className="grow">
             <h3 className="font-bold capitalize lg:text-lg">{field.label}</h3>
@@ -114,7 +114,7 @@ function Field({ field, className }: FieldProps) {
         </div>
       </div>
 
-      <div className="absolute right-2 flex h-fit items-center gap-2 pt-8">
+      <div className="absolute right-4 flex h-fit items-center gap-2 pt-4">
         <FieldDialog defaultField={field} />
         <Button
           onClick={handleRemove}

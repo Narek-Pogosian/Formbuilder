@@ -165,7 +165,12 @@ function RegisterForm() {
           </Alert>
         )}
 
-        <Button type="submit" className="mt-2" aria-disabled={isSigningIn}>
+        <Button
+          type="submit"
+          className="mt-2"
+          aria-disabled={isSigningIn}
+          loading={isSigningIn}
+        >
           {isSigningIn ? "Loading..." : "Register"}
         </Button>
 

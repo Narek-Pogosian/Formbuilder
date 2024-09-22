@@ -1,12 +1,13 @@
 "use client";
 
-import Logo from "@/components/logo";
+import MobileSidebar from "./mobile-sidebar";
 import ThemeToggle from "@/components/theme-toggle";
+import Logo from "@/components/logo";
+import Link from "next/link";
 import { getNavigationList } from "./navigation";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
-import MobileSidebar from "./mobile-sidebar";
+import Signout from "./signout";
 
 function Header() {
   const pathname = usePathname();
@@ -20,27 +21,33 @@ function Header() {
             <Logo />
           </Link>
           <nav className="h-full max-md:hidden">
-            <ul className="flex h-full gap-8">
+            <ul className="flex h-full gap-2">
               {menuList.map((item) => (
                 <li
                   key={item.href}
                   className={cn(
                     "relative flex items-center text-sm font-semibold",
                     {
-                      "after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-[125%] after:-translate-x-1/2 after:bg-primary":
+                      "after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-full after:-translate-x-1/2 after:bg-primary":
                         item.active,
                     },
                   )}
                 >
-                  <Link href={item.href}>{item.label}</Link>
+                  <Link
+                    className="rounded px-3 py-1.5 transition-colors hover:bg-accent"
+                    href={item.href}
+                  >
+                    {item.label}
+                  </Link>
                 </li>
               ))}
             </ul>
           </nav>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
           <ThemeToggle />
           <MobileSidebar />
+          <Signout icon />
         </div>
       </div>
     </header>

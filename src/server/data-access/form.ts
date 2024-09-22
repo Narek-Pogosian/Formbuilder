@@ -7,7 +7,10 @@ export async function getForms() {
   const session = await getServerAuthSession();
   if (!session) throw redirect("/sign-in");
 
-  return db.form.findMany({ where: { userId: session.user.id } });
+  return db.form.findMany({
+    where: { userId: session.user.id },
+    orderBy: { createdAt: "desc" },
+  });
 }
 
 export const getFormById = cache(async (id: string) => {

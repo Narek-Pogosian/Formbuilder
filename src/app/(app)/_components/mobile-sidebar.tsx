@@ -9,9 +9,10 @@ import {
 import { Menu } from "lucide-react";
 import { getNavigationList } from "./navigation";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+import Signout from "./signout";
 import Logo from "@/components/logo";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 function MobileSidebar() {
   const pathname = usePathname();
@@ -30,7 +31,7 @@ function MobileSidebar() {
         <SheetDescription></SheetDescription>
         <Logo />
         <nav>
-          <ul className="mt-8 grid gap-2">
+          <ul className="my-8 grid gap-2">
             {menuList.map((item) => (
               <li key={item.href}>
                 <Link
@@ -47,6 +48,7 @@ function MobileSidebar() {
             ))}
           </ul>
         </nav>
+        <Signout />
       </SheetContent>
     </Sheet>
   );

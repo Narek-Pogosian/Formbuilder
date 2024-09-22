@@ -23,14 +23,19 @@ async function LandingPage() {
               <h1 className="mb-4 text-4xl font-bold sm:text-5xl md:text-6xl">
                 Ask, Analyze, Act
               </h1>
-              <div className="mb-8 max-w-3xl text-balance text-center">
+              <div className="mb-12 max-w-3xl text-balance text-center">
                 <p className="md:text-lg">
                   Create powerful surveys that drive results. Collect feedback,
                   uncover trends, and make data-driven decisions with ease.
                 </p>
               </div>
-              <div className="flex items-center justify-center gap-4">
-                <Button variant="outline" className="rounded-full" asChild>
+              <div className="flex flex-wrap items-center justify-center gap-4">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full"
+                  asChild
+                >
                   <Link
                     href="https://github.com/Narek-Pogosian/Insights"
                     target="_blank"
@@ -38,7 +43,7 @@ async function LandingPage() {
                     Star on GitHub
                   </Link>
                 </Button>
-                <Button className="rounded-full" asChild>
+                <Button size="lg" className="rounded-full" asChild>
                   <Link href="/sign-in">Get Started</Link>
                 </Button>
               </div>

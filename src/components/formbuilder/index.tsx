@@ -32,14 +32,10 @@ function FormBuilder(props: FormbuilderProps) {
         {props.mode === "create" ? "Create" : "Edit"} Survey
       </PageTitle>
       <FormbuilderSettings {...props} />
-      <Tabs defaultValue="builder" className="pt-6">
-        <TabsList className="w-full py-4">
-          <TabsTrigger className="flex-1" value="builder">
-            Builder
-          </TabsTrigger>
-          <TabsTrigger className="flex-1" value="preview">
-            Preview
-          </TabsTrigger>
+      <Tabs defaultValue="builder">
+        <TabsList>
+          <TabsTrigger value="builder">Builder</TabsTrigger>
+          <TabsTrigger value="preview">Preview</TabsTrigger>
         </TabsList>
         <TabsContent value="builder">
           <FieldList />
