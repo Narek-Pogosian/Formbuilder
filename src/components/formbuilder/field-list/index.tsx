@@ -91,7 +91,7 @@ function Field({ field, className }: FieldProps) {
   return (
     <div
       className={cn(
-        "relative flex justify-between rounded border bg-background-input",
+        "relative flex justify-between rounded border bg-background-card",
         className,
       )}
       style={{ ...style, touchAction: "none" }}

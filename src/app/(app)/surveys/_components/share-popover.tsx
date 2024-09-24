@@ -14,22 +14,25 @@ import {
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Copy } from "lucide-react";
+import { useState } from "react";
 
 function SharePopover({ id }: { id: string }) {
+  const [open, setOpen] = useState(false);
+
   const url =
     typeof window !== "undefined"
       ? `${window.location.origin}/survey/${id}`
       : "";
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button variant="outline" size="sm">
           Share
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex gap-2">
-        <CopyToClipboard url={url} />
+        <CopyToClipboard url={url} setOpen={setOpen} />
         <TwitterShareButton url={url} title="Check out this survey!">
           <span className="sr-only">Share on Twitter</span>
           <XIcon className="size-16 rounded" />
@@ -45,12 +48,22 @@ function SharePopover({ id }: { id: string }) {
 
 export default SharePopover;
 
-function CopyToClipboard({ url }: { url: string }) {
+function CopyToClipboard({
+  url,
+  setOpen,
+}: {
+  url: string;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   async function handleCopy() {
     try {
       await navigator.clipboard.writeText(url);
       toast("Survey link copied to clipboard");
-    } catch (error) {}
+    } catch (error) {
+      toast("Survey link url could not be copied");
+    } finally {
+      setOpen(false);
+    }
   }
 
   return (

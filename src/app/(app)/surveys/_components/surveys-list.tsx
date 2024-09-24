@@ -39,14 +39,14 @@ function SurveysList({ surveys }: SurveysListProps) {
           id="title"
           aria-label="Title"
           placeholder="Search by title"
-          className="w-[280px] bg-background-card text-sm font-semibold"
+          className="w-[280px] bg-background-input text-sm font-semibold dark:bg-background-card"
           value={titleQuery}
           onChange={(e) => setTitleQuery(e.target.value)}
         />
         <select
           id="status"
           aria-label="Status"
-          className="rounded border bg-background-card px-2 text-sm font-semibold outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="rounded border bg-background-input px-2 text-sm font-semibold outline-none focus-visible:ring-2 focus-visible:ring-primary dark:bg-background-card"
           value={status}
           onChange={(e) => setStatus(e.target.value)}
         >
