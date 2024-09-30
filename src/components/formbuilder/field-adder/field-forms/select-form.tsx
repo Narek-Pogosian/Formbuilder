@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Trash2 } from "lucide-react";
 
 function SelectForm({ defaultField, handleAdd }: FormProps) {
   if (defaultField && defaultField.type !== "select")
@@ -120,7 +121,8 @@ function SelectForm({ defaultField, handleAdd }: FormProps) {
                 variant="danger"
                 onClick={() => remove(index)}
               >
-                Remove
+                <span className="sr-only">Remove</span>
+                <Trash2 />
               </Button>
             </div>
           ))}

@@ -16,6 +16,9 @@ enum Status {
 model Form {
     id          String     @id @default(auto()) @map("_id") @db.ObjectId
     title       String
+    description String?
+    image       String?
+    columns     Int        @default(1)
     content     Json       @default("[]")
     status      Status     @default(DRAFT)
     createdAt   DateTime   @default(now())

@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Trash2 } from "lucide-react";
 
 function RadioForm({ defaultField, handleAdd }: FormProps) {
   if (defaultField && defaultField.type !== "radio")
@@ -102,10 +103,12 @@ function RadioForm({ defaultField, handleAdd }: FormProps) {
               />
               <Button
                 type="button"
-                variant="danger"
+                variant="dangerOutline"
+                size="icon"
                 onClick={() => remove(index)}
               >
-                Remove
+                <span className="sr-only">Remove</span>
+                <Trash2 className="size-5" />
               </Button>
             </div>
           ))}
