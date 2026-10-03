@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --background: hsl(0, 0%, 5%);
+  --foreground: hsl(0, 0%, 95%);
+
+  --card: hsl(0, 0%, 5%);
+  --popover: hsl(0, 0%, 6%);
+
+  --input: hsl(0, 0%, 7%);
+  --input-border: hsl(0, 0%, 12%);
+  --input-placeholder: hsl(0, 0%, 45%);
+
+  --primary: hsl(160, 58%, 60%);
+  --primary-hover: hsl(160, 65%, 67%);
+  --primary-foreground: hsl(160, 75%, 2%);
+  --primary-text: hsl(160, 58%, 72%);
+
+  --muted: hsl(0, 0%, 100%, 10%);
+  --muted-hover: hsl(0, 0%, 100%, 12%);
+  --muted-foreground: hsl(0, 0%, 55%);
+
+  --danger: hsl(0, 60%, 55%);
+  --danger-hover: hsl(0, 55%, 48%);
+  --danger-foreground: hsl(0, 0%, 100%);
+  --danger-text: hsl(0, 100%, 70%);
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-popover: var(--popover);
+
+  --color-input: var(--input);
+  --color-input-border: var(--input-border);
+  --color-input-placeholder: var(--input-placeholder);
+
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-text: var(--primary-text);
+
+  --color-muted: var(--muted);
+  --color-muted-hover: var(--muted-hover);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+  --color-danger-foreground: var(--danger-foreground);
+  --color-danger-text: var(--danger-text);
+}
+
+@layer base {
+  * {
+    @apply border-foreground/5;
+  }
+
+  html {
+    @apply scrollbar-thin scrollbar-thumb-foreground/20 scrollbar-track-background;
+  }
+
+  body {
+    @apply scrollbar-gutter-stable overflow-y-scroll bg-background text-foreground;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-3 outline-primary-text;
+  }
+}
+
+@layer utilities {
+  .container {
+    max-inline-size: 1740px;
+    margin-inline: auto;
+    padding-inline: 0.5rem;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl border-2 bg-card shadow-xl/25;
+  }
+
+  .scrollable-container {
+    @apply scrollbar-thin scrollbar-thumb-foreground/20 scrollbar-track-card scrollbar-gutter-stable overflow-y-auto;
+  }
+}

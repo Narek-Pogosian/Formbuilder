@@ -1,0 +1,18 @@
+## TODO
+
+- Setup DB, better-auth
+- Sign in flow
+- Simple dashboard
+- Landing page
+- Form publishing
+- Form sharing
+- Form responding
+- Export responses CSV
+- Try dynamic importing builder
+
+## Builder improvements
+
+- Conditional logic/follow up
+- Undo redo
+- Improve fields list validation and not reset values on change
+- More tests, store actions
