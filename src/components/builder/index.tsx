@@ -40,8 +40,8 @@ export default function FormBuilder() {
           }
         }}
       >
-        <div className="grid gap-4 lg:grid-cols-[280px_1fr] xl:grid-cols-[280px_1fr_280px]">
-          <div className="card scrollable-container sticky top-21 h-fit max-h-[calc(100vh-115px)] p-6 max-lg:hidden">
+        <div className="grid gap-4 lg:grid-cols-[290px_1fr] xl:grid-cols-[290px_1fr_290px]">
+          <div className="card scrollable-container sticky top-22 h-fit max-h-[calc(100vh-115px)] p-7 max-lg:hidden">
             <FieldsPanel />
           </div>
           <div className="card mx-auto mb-7 h-fit w-full max-w-3xl py-10">
@@ -76,7 +76,7 @@ function Title() {
     <div className="px-10">
       <Input
         autoComplete="off"
-        className="mb-8 w-full rounded-none border-0 bg-transparent px-0 text-xl font-black outline-none lg:text-2xl"
+        className="mb-8 w-full rounded-none border-0 bg-transparent px-0 text-xl font-black shadow-none inset-shadow-none outline-none lg:text-2xl"
         placeholder="Untitled form"
         value={title}
         onChange={(e) => setTitle(e.target.value)}

@@ -12,7 +12,7 @@ export default function FieldsPanel() {
     <>
       {Object.entries(categorizedFields).map(([category, fields]) => (
         <div key={category} className="not-last:mb-5">
-          <h3 className="mb-2 text-xs font-semibold tracking-wide text-primary-text uppercase">
+          <h3 className="mb-2 text-xs font-medium tracking-wide text-primary-text uppercase">
             {category} fields
           </h3>
 
@@ -48,7 +48,7 @@ function FieldPanelItem({ type, Icon }: { type: FieldType; Icon: LucideIcon }) {
   return (
     <button
       ref={ref}
-      className="flex cursor-grab flex-col items-center gap-2 rounded-lg border-2 p-3 text-[13px] font-medium tracking-wide capitalize hover:bg-muted"
+      className="flex cursor-grab flex-col items-center gap-2 rounded-lg border-2 p-3 text-[13px] tracking-wide capitalize hover:bg-muted"
     >
       <Icon className="pointer-events-none size-5" />
       {type}

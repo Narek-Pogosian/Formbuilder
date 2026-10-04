@@ -17,7 +17,7 @@
   --primary-foreground: hsl(160, 75%, 2%);
   --primary-text: hsl(160, 58%, 72%);
 
-  --muted: hsl(0, 0%, 100%, 10%);
+  --muted: hsl(0, 0%, 100%, 8%);
   --muted-hover: hsl(0, 0%, 100%, 12%);
   --muted-foreground: hsl(0, 0%, 55%);
 
@@ -57,7 +57,7 @@
 
 @layer base {
   * {
-    @apply border-foreground/5;
+    @apply border-foreground/3;
   }
 
   html {

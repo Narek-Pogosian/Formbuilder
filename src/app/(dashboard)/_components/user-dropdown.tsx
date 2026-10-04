@@ -5,28 +5,24 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuPortal,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown";
-import { Laptop, LogOut, Moon, Palette, Sun, UserCircle2 } from "lucide-react";
+import { LogOut, UserCircle2 } from "lucide-react";
 import { authClient } from "@/server/auth/client";
 
 export default function UserDropdown() {
   const { data, isPending } = authClient.useSession();
 
   if (isPending) {
-    return <div className="flex size-10 items-center justify-center rounded-full bg-muted" />;
+    return <div className="flex size-8.5 items-center justify-center rounded-full bg-muted" />;
   }
 
-  if (!data) return <ThemeToggle />;
+  if (!data) return null;
 
   async function handleSignOut() {
     await authClient.signOut();
-    location.replace("/landing");
+    location.reload();
   }
 
   const displayName = data.user.name || data.user.email || "Account";
@@ -44,7 +40,7 @@ export default function UserDropdown() {
           <Button
             size="icon"
             variant="ghost"
-            className="size-10 overflow-hidden rounded-full bg-muted"
+            className="size-8.5 overflow-hidden rounded-full bg-muted"
           />
         }
       >
@@ -58,7 +54,6 @@ export default function UserDropdown() {
         </div>
 
         <DropdownMenuSeparator />
-        {/* <ThemeSubmenu /> */}
 
         <DropdownMenuItem className="justify-start" onClick={handleSignOut}>
           <LogOut className="size-4" />
@@ -66,51 +61,5 @@ export default function UserDropdown() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  );
-}
-
-// function ThemeSubmenu() {
-//   const { setTheme } = useTheme();
-
-//   return (
-//     <DropdownMenuSub>
-//       <DropdownMenuSubTrigger>
-//         <Palette /> Theme
-//       </DropdownMenuSubTrigger>
-//       <DropdownMenuPortal>
-//         <DropdownMenuSubContent className="w-36">
-//           <DropdownMenuItem onClick={() => setTheme("light")}>
-//             <Sun /> Light
-//           </DropdownMenuItem>
-//           <DropdownMenuItem onClick={() => setTheme("dark")}>
-//             <Moon /> Dark
-//           </DropdownMenuItem>
-//           <DropdownMenuItem onClick={() => setTheme("system")}>
-//             <Laptop /> Sytem
-//           </DropdownMenuItem>
-//         </DropdownMenuSubContent>
-//       </DropdownMenuPortal>
-//     </DropdownMenuSub>
-//   );
-// }
-
-function ThemeToggle() {
-  // const { setTheme, resolvedTheme } = useTheme();
-
-  // function toggleTheme() {
-  //   setTheme(resolvedTheme !== "dark" ? "dark" : "light");
-  // }
-
-  return (
-    <Button
-      size="icon"
-      variant="ghost"
-      className="size-10 rounded-full"
-      // onClick={toggleTheme}
-    >
-      <Sun className="hidden size-5 dark:block" />
-      <Moon className="block size-5 dark:hidden" />
-      <span className="sr-only">Toggle theme</span>
-    </Button>
   );
 }

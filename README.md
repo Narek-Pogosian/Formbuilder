@@ -1,7 +1,6 @@
 ## TODO
 
-- Next-themes
-- Landing page
+- Design improvements
 
 - Form publishing
 - Simple dashboard
