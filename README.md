@@ -1,10 +1,10 @@
 ## TODO
 
-- Setup DB, better-auth
-- Sign in flow
-- Simple dashboard
+- Next-themes
 - Landing page
+
 - Form publishing
+- Simple dashboard
 - Form sharing
 - Form responding
 - Export responses CSV

@@ -1,11 +1,12 @@
 import FormBuilder from "@/components/builder";
-import { Button } from "@/components/ui/button";
+import Header from "@/components/ui/header";
 import { BookOpen, MoveLeft, Settings } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
-export default function Home() {
+export default function EditorPage() {
   return (
     <div className="container">
-      <header className="card sticky top-2 z-10 mb-9 flex h-12 items-center justify-between px-4">
+      <Header>
         <div className="flex items-center gap-4">
           <Button size="icon" variant="ghost" aria-label="Back">
             <MoveLeft />
@@ -21,7 +22,7 @@ export default function Home() {
             <BookOpen /> Publish
           </Button>
         </div>
-      </header>
+      </Header>
 
       <FormBuilder />
     </div>
