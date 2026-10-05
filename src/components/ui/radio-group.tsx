@@ -19,7 +19,7 @@ function RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {
     <RadioPrimitive.Root
       data-slot="radio-group-item"
       className={cn(
-        "relative aspect-square size-4.5 shrink-0 cursor-pointer rounded-full border-2 border-input-border bg-input transition-colors disabled:cursor-not-allowed disabled:opacity-70 aria-checked:border-primary",
+        "relative aspect-square size-4.5 shrink-0 cursor-pointer rounded-full border-2 bg-input transition-colors disabled:cursor-not-allowed disabled:opacity-70 aria-checked:border-primary",
         className
       )}
       {...props}

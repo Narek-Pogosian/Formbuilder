@@ -11,10 +11,10 @@ import {
 import { LogOut, UserCircle2 } from "lucide-react";
 import { authClient } from "@/server/auth/client";
 
-export default function UserDropdown() {
+export default function UserDropdown({ showPending = false }: { showPending?: boolean }) {
   const { data, isPending } = authClient.useSession();
 
-  if (isPending) {
+  if (showPending && isPending) {
     return <div className="flex size-8.5 items-center justify-center rounded-full bg-muted" />;
   }
 

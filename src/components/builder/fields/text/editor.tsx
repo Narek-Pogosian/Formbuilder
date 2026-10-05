@@ -2,6 +2,7 @@
 
 import { type FieldEditorProps, fieldRegistry } from "../registry";
 import { Field, FieldDescription, FieldError, FieldLabel, FieldTitle } from "@/components/ui/field";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Controller, useForm } from "react-hook-form";
 import { useInputFocus } from "../shared/use-input-focus";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,7 +10,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMemo } from "react";
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Editor from "../shared/editor";
 
 export default function TextFieldEditor({ fieldDefinition }: FieldEditorProps) {
@@ -34,7 +34,6 @@ export default function TextFieldEditor({ fieldDefinition }: FieldEditorProps) {
   });
 
   const Icon = fieldRegistry.get("text").icon;
-
   const isLongAnswer = form.watch("longAnswer");
 
   return (
@@ -47,8 +46,7 @@ export default function TextFieldEditor({ fieldDefinition }: FieldEditorProps) {
             <FieldLabel htmlFor="label">Field label</FieldLabel>
 
             <FieldDescription>
-              This is the question or label shown above the field and used for identifying the
-              field.
+              This is the question or label shown above the field.
             </FieldDescription>
 
             <Input
@@ -218,13 +216,6 @@ export default function TextFieldEditor({ fieldDefinition }: FieldEditorProps) {
                       </label>
                     ))}
                   </RadioGroup>
-
-                  {isLongAnswer && (
-                    <p className="mt-2 text-xs text-danger-text">
-                      Long answer mode ignores validation rules and limits entries to 1000
-                      characters.
-                    </p>
-                  )}
 
                   {fieldState.invalid && <FieldError error={fieldState.error?.message} />}
                 </Field>

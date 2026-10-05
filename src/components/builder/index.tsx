@@ -87,7 +87,7 @@ function Title() {
 
 function OverlayPanelItem({ Icon, type }: { type: FieldType; Icon: LucideIcon }) {
   return (
-    <button className="flex min-w-27.75 cursor-grab flex-col items-center gap-2 rounded-lg border-2 bg-card p-3 text-[13px] font-medium capitalize hover:bg-muted">
+    <button className="flex min-w-27.75 cursor-grab flex-col items-center gap-2 rounded-lg border-2 bg-card p-3 text-[13px] font-medium capitalize shadow-xl/35 hover:bg-muted">
       <Icon className="pointer-events-none size-5" />
       {type}
     </button>
@@ -99,7 +99,7 @@ function OverlayField({ field }: { field: FieldDefinition }) {
   const Renderer = fieldRegistry.get(field.type).Renderer;
 
   return (
-    <div className="rounded-lg border-2 bg-card p-4 opacity-80">
+    <div className="rounded-lg border-2 bg-card p-4 opacity-80 shadow-xl/35">
       <Renderer form={form} fieldDefinition={field} />
     </div>
   );

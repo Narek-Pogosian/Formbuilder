@@ -30,7 +30,7 @@ function Field({ className, ...props }: React.ComponentProps<"div">) {
     <div
       role="group"
       data-slot="field"
-      className={cn("group/field flex w-full flex-col gap-1", className)}
+      className={cn("group/field flex w-full flex-col gap-1.5", className)}
       {...props}
     />
   );

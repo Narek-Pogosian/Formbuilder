@@ -3,12 +3,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg text-sm font-semibold transition-colors aria-disabled:pointer-events-none aria-disabled:opacity-70 [&_svg:not([class*='size-'])]:size-4",
+  "group/button inline-flex shrink-0 cursor-pointer items-center justify-center rounded-lg text-sm font-semibold transition-colors duration-200 aria-disabled:pointer-events-none aria-disabled:opacity-70 [&_svg:not([class*='size-'])]:size-4",
   {
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary-hover",
-        secondary: "bg-muted hover:bg-muted-hover aria-expanded:bg-muted-hover",
+        secondary: "border-2 bg-muted hover:bg-muted-hover aria-expanded:bg-muted-hover",
         danger: "bg-danger text-danger-foreground outline-danger-text hover:bg-danger-hover",
         ghost: "hover:bg-muted-hover aria-expanded:bg-muted",
       },

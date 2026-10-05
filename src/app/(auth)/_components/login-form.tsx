@@ -60,9 +60,6 @@ export default function LoginForm() {
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel htmlFor="email">Email address</FieldLabel>
-            {/* <FieldDescription>
-              Enter the email address associated with your account.
-            </FieldDescription> */}
             <Input
               id="email"
               type="email"
@@ -83,8 +80,6 @@ export default function LoginForm() {
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel htmlFor="password">Password</FieldLabel>
-            {/* <FieldDescription> Enter your account password.</FieldDescription> */}
-
             <Input
               id="password"
               type="password"
@@ -105,7 +100,7 @@ export default function LoginForm() {
         </Alert>
       )}
 
-      <Button type="submit" className="w-full" disabled={isLoading}>
+      <Button type="submit" className="w-full" aria-disabled={isLoading}>
         {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         {isLoading ? "Signing in..." : "Sign in"}
       </Button>

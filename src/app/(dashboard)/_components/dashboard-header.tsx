@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { LayoutDashboard, Menu, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/logo";
 
 export const NAVIGATION = [
   {
@@ -17,7 +18,7 @@ export default function DashboardHeader() {
   return (
     <Header>
       <div className="flex flex-row-reverse items-center gap-3 md:flex-row md:gap-8">
-        <span>Logo</span>
+        <Logo />
 
         <nav className="flex items-center gap-1 max-md:hidden">
           {NAVIGATION.map((link) => (
@@ -38,7 +39,7 @@ export default function DashboardHeader() {
       </div>
 
       <div className="flex items-center gap-3">
-        <UserDropdown />
+        <UserDropdown showPending />
       </div>
     </Header>
   );

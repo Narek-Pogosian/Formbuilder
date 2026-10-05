@@ -64,10 +64,15 @@ export default function DateTimeFieldEditor({ fieldDefinition }: FieldEditorProp
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="date-time-description">
+            <FieldLabel htmlFor="description">
               Description
               <span className="font-normal text-muted-foreground"> (optional)</span>
             </FieldLabel>
+
+            <FieldDescription>
+              Add additional context or instructions to help respondents answer this question.
+            </FieldDescription>
+
             <Textarea
               id="date-time-description"
               {...field}

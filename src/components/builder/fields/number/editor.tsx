@@ -62,10 +62,15 @@ export default function NumberFieldEditor({ fieldDefinition }: FieldEditorProps)
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="number-description">
+            <FieldLabel htmlFor="description">
               Description
               <span className="font-normal text-muted-foreground"> (optional)</span>
             </FieldLabel>
+
+            <FieldDescription>
+              Add additional context or instructions to help respondents answer this question.
+            </FieldDescription>
+
             <Textarea
               id="number-description"
               {...field}
@@ -82,10 +87,15 @@ export default function NumberFieldEditor({ fieldDefinition }: FieldEditorProps)
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel htmlFor="number-placeholder">
+            <FieldLabel htmlFor="placeholder">
               Placeholder
               <span className="font-normal text-muted-foreground"> (optional)</span>
             </FieldLabel>
+
+            <FieldDescription>
+              A short hint displayed inside the field before the user starts typing.
+            </FieldDescription>
+
             <Input
               id="number-placeholder"
               {...field}

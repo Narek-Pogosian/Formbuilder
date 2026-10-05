@@ -1,7 +1,5 @@
 ## TODO
 
-- Design improvements
-
 - Form publishing
 - Simple dashboard
 - Form sharing

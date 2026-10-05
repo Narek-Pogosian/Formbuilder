@@ -1,6 +1,7 @@
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { BookOpen, EllipsisVertical, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Logo } from "@/components/logo";
 import EditorBackButton from "./editor-back-button";
 import UserDropdown from "@/app/(dashboard)/_components/user-dropdown";
 import Header from "@/components/ui/header";
@@ -10,7 +11,7 @@ export default function EditorHeader() {
     <Header>
       <div className="flex items-center gap-4">
         <EditorBackButton />
-        <span>Logo</span>
+        <Logo />
       </div>
 
       {/* ACTIONS */}

@@ -4,13 +4,10 @@ import RegisterForm from "../_components/register-form";
 export default function RegisterPage() {
   return (
     <>
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">Create your account</h1>
-
-        <p className="mt-2 text-sm text-muted-foreground">
-          Create an account to get started and access all available features.
-        </p>
-      </div>
+      <h1 className="mb-1 text-center text-3xl font-bold tracking-tight">Create your account</h1>
+      <p className="mb-8 text-center text-sm text-muted-foreground">
+        Create an account to get started and access all available features.
+      </p>
 
       <RegisterForm />
 

@@ -9,26 +9,14 @@ export default function LandingSignInButton() {
 
   if (!data) {
     return (
-      <Button
-        size="lg"
-        variant="secondary"
-        className="rounded-full"
-        nativeButton={false}
-        render={<Link href="/login" />}
-      >
+      <Button size="sm" variant="secondary" nativeButton={false} render={<Link href="/login" />}>
         Sign in
       </Button>
     );
   }
 
   return (
-    <Button
-      size="lg"
-      variant="secondary"
-      className="rounded-full"
-      nativeButton={false}
-      render={<Link href="/" />}
-    >
+    <Button size="sm" variant="secondary" nativeButton={false} render={<Link href="/" />}>
       Dashboard
     </Button>
   );

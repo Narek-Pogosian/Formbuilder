@@ -4,13 +4,10 @@ import LoginForm from "../_components/login-form";
 export default function LoginPage() {
   return (
     <>
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
-
-        <p className="mt-2 text-sm text-muted-foreground">
-          Sign in to access your account and continue where you left off.
-        </p>
-      </div>
+      <h1 className="mb-1 text-center text-3xl font-bold tracking-tight">Welcome back</h1>
+      <p className="mb-8 text-center text-sm text-muted-foreground">
+        Sign in to access your account and continue where you left off.
+      </p>
 
       <LoginForm />
 

@@ -1,24 +1,40 @@
-import { Button } from "@/components/ui/button";
 import LandingSignInButton from "./_components/sign-in-button";
+import Header from "@/components/ui/header";
 import Link from "next/link";
+import { MoveRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/logo";
 
 export default function LandingPage() {
   return (
-    <>
-      <section className="flex min-h-screen flex-col items-center justify-center gap-6">
-        <h1>TODO: Landing page content</h1>
-        <div className="flex items-center gap-3">
-          <Button
-            size="lg"
-            className="rounded-full px-6"
-            nativeButton={false}
-            render={<Link href="/editor" />}
-          >
-            Create a form
+    <div className="container">
+      <Header>
+        <Logo />
+        <LandingSignInButton />
+      </Header>
+
+      <section className="relative pt-20 lg:pt-40">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-0 left-1/2 -z-10 size-[280px] -translate-x-1/2 rounded-full bg-primary/8 blur-3xl md:size-[500px]"
+        />
+
+        <div className="text-center">
+          <h1 className="mb-6 text-3xl font-black tracking-tight sm:text-5xl md:text-6xl">
+            Build Forms <span className="text-primary-text">Effortlessly</span>
+          </h1>
+
+          <p className="mx-auto mb-8 max-w-2xl md:text-lg">
+            Try out this form builder built with React, DnD-Kit, Zod, React-Hook-Form, Zustand and
+            Tailwind CSS.
+          </p>
+
+          <Button size="lg" nativeButton={false} render={<Link href="/editor" />}>
+            Try it out
+            <MoveRight className="ml-3" />
           </Button>
-          <LandingSignInButton />
         </div>
       </section>
-    </>
+    </div>
   );
 }

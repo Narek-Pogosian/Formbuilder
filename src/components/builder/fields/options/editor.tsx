@@ -61,8 +61,7 @@ export default function OptionsFieldEditor({ fieldDefinition }: FieldEditorProps
             <FieldLabel htmlFor="label">Field label</FieldLabel>
 
             <FieldDescription>
-              This is the question or label shown above the field and used for identifying the
-              field.
+              This is the question or label shown above the field.
             </FieldDescription>
 
             <Input
