@@ -5,7 +5,7 @@ import { Mona_Sans } from "next/font/google";
 const fontSans = Mona_Sans({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "900"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {

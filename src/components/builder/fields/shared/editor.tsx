@@ -30,7 +30,7 @@ export default function Editor({ fieldDefinition, form, Icon, children }: Props)
   }
 
   return (
-    <form autoComplete="off" className="grid gap-6" onSubmit={form.handleSubmit(onSubmit)}>
+    <form autoComplete="off" className="grid gap-6 md:px-4" onSubmit={form.handleSubmit(onSubmit)}>
       <div className="mb-2 flex items-center gap-4">
         <div className="grid size-10 shrink-0 place-content-center rounded-lg bg-muted">
           <Icon />

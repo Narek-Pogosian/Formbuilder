@@ -1,8 +1,9 @@
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { BookOpen, EllipsisVertical, Settings } from "lucide-react";
+import { EllipsisVertical, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
 import EditorBackButton from "./editor-back-button";
+import PublishDialog from "@/components/builder/ui/publish-dialog";
 import UserDropdown from "@/app/(dashboard)/_components/user-dropdown";
 import Header from "@/components/ui/header";
 
@@ -15,14 +16,14 @@ export default function EditorHeader() {
       </div>
 
       {/* ACTIONS */}
-      <div className="flex items-center gap-1 max-md:hidden md:gap-3">
+      <div className="flex items-center gap-3 max-md:hidden md:gap-6">
         {/* <HelpDialog /> */}
-        <Button size="sm" variant="ghost">
-          <Settings /> Settings
-        </Button>
-        <Button size="sm">
-          <BookOpen /> Publish
-        </Button>
+        <div className="flex items-center gap-1 md:gap-3">
+          <Button size="sm" variant="ghost">
+            <Settings /> Settings
+          </Button>
+          <PublishDialog />
+        </div>
         <UserDropdown />
       </div>
 
@@ -36,9 +37,7 @@ export default function EditorHeader() {
             <Button size="sm" variant="ghost">
               <Settings /> Settings
             </Button>
-            <Button size="sm">
-              <BookOpen /> Publish
-            </Button>
+            <PublishDialog />
           </PopoverContent>
         </Popover>
 

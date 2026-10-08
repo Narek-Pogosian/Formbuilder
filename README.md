@@ -1,7 +1,5 @@
 ## TODO
 
-- Form publishing
-- Simple dashboard
 - Form sharing
 - Form responding
 - Export responses CSV

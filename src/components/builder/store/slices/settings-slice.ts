@@ -10,6 +10,7 @@ export interface FormSettingsSlice {
   settings: SettingsState;
   setTitle: (title: string) => void;
   setDescription: (description: string) => void;
+  resetSettings: () => void;
 }
 
 export const createSettingsSlice: StateCreator<BuilderStore, [], [], FormSettingsSlice> = (
@@ -26,5 +27,9 @@ export const createSettingsSlice: StateCreator<BuilderStore, [], [], FormSetting
 
   setDescription: (description) => {
     set((state) => ({ settings: { ...state.settings, description } }));
+  },
+
+  resetSettings: () => {
+    set({ settings: { title: "", description: "" } });
   },
 });

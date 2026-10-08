@@ -24,9 +24,9 @@ export default function FormBuilder() {
 
           if (source.data.isPanelItem) {
             const index = isSortable(target) ? target.index : undefined;
-            setTimeout(() => {
-              openCreateFieldDialog(source.data.type, index);
-            }, 0);
+            // setTimeout(() => {
+            openCreateFieldDialog(source.data.type, index);
+            // }, 0);
             return;
           }
 
@@ -76,7 +76,7 @@ function Title() {
     <div className="px-10">
       <Input
         autoComplete="off"
-        className="mb-8 w-full rounded-none border-0 bg-transparent px-0 text-xl font-black shadow-none inset-shadow-none outline-none lg:text-2xl"
+        className="mb-8 w-full rounded-none border-0 bg-transparent px-0 text-xl font-bold shadow-none inset-shadow-none outline-none lg:text-2xl"
         placeholder="Untitled form"
         value={title}
         onChange={(e) => setTitle(e.target.value)}

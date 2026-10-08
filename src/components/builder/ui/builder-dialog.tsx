@@ -17,7 +17,7 @@ export default function BuilderDialog() {
     >
       <DialogContent
         initialFocus={false}
-        className="data-closed:animate-none data-closed:duration-0"
+        className="max-w-3xl data-closed:animate-none data-closed:duration-0"
       >
         {dialogState.mode === "choose-field" && <AddFieldDialog />}
         {dialogState.mode === "edit" && <EditEditor field={dialogState.field} />}

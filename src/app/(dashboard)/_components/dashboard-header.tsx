@@ -38,7 +38,16 @@ export default function DashboardHeader() {
         </div>
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-5">
+        <Button
+          size="sm"
+          className="max-md:hidden"
+          render={<Link href="/editor" />}
+          nativeButton={false}
+        >
+          <Plus />
+          New form
+        </Button>
         <UserDropdown showPending />
       </div>
     </Header>

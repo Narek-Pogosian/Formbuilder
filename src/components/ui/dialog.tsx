@@ -49,12 +49,12 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "fixed top-1/2 left-1/2 z-50 grid max-h-[85dvh] w-[calc(100%-1rem)] max-w-3xl -translate-x-1/2 -translate-y-1/2 grid-rows-[auto_minmax(0,1fr)] gap-4 rounded-lg border-2 bg-card duration-100 outline-none data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95",
+          "@container fixed top-1/2 left-1/2 z-50 grid max-h-[85dvh] w-[calc(100%-1rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 grid-rows-[auto_minmax(0,1fr)] gap-4 rounded-lg border-2 bg-card duration-100 outline-none data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95 data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95",
           className
         )}
         {...props}
       >
-        <div className="scrollable-container pointer-events-auto min-h-0 p-5 md:p-10 md:pb-5 lg:px-16">
+        <div className="scrollable-container pointer-events-auto h-full min-h-0 p-4 pb-1 @lg:px-10 @lg:pt-8 @lg:pb-4">
           {children}
         </div>
 
@@ -93,7 +93,7 @@ function DialogFooter({
   return (
     <div
       data-slot="dialog-footer"
-      className={cn("mt-2 -mb-1 flex flex-col gap-2 sm:flex-row sm:justify-start", className)}
+      className={cn("flex flex-col gap-2 sm:flex-row sm:justify-start", className)}
       {...props}
     >
       {children}
@@ -108,7 +108,7 @@ function DialogTitle({ className, ...props }: DialogPrimitive.Title.Props) {
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("font-heading text-base leading-none font-semibold md:text-xl", className)}
+      className={cn("text-lg font-bold md:text-xl", className)}
       {...props}
     />
   );

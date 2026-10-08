@@ -1,3 +1,3 @@
 export function Logo() {
-  return <span className="text-lg font-black">FormBuilder</span>;
+  return <span className="text-lg font-bold">FormBuilder</span>;
 }

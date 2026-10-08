@@ -11,6 +11,7 @@ export interface FormFieldsSlice {
   setFields: (fields: FormDefinitions) => void;
   deleteField: (id: string) => void;
   reorderField: (sourceIdx: number, destIdx?: number) => void;
+  resetFields: () => void;
 }
 
 export const createFieldsSlice: StateCreator<BuilderStore, [], [], FormFieldsSlice> = (set) => ({
@@ -67,5 +68,9 @@ export const createFieldsSlice: StateCreator<BuilderStore, [], [], FormFieldsSli
 
       return { fields };
     });
+  },
+
+  resetFields: () => {
+    set({ fields: [] });
   },
 });

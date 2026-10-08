@@ -10,9 +10,11 @@ import {
 } from "@/components/ui/dropdown";
 import { LogOut, UserCircle2 } from "lucide-react";
 import { authClient } from "@/server/auth/client";
+import { useRouter } from "next/navigation";
 
 export default function UserDropdown({ showPending = false }: { showPending?: boolean }) {
   const { data, isPending } = authClient.useSession();
+  const router = useRouter();
 
   if (showPending && isPending) {
     return <div className="flex size-8.5 items-center justify-center rounded-full bg-muted" />;
@@ -22,7 +24,8 @@ export default function UserDropdown({ showPending = false }: { showPending?: bo
 
   async function handleSignOut() {
     await authClient.signOut();
-    location.reload();
+    router.replace("/landing");
+    router.refresh();
   }
 
   const displayName = data.user.name || data.user.email || "Account";

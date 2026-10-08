@@ -20,7 +20,7 @@ export default function LandingPage() {
         />
 
         <div className="text-center">
-          <h1 className="mb-6 text-3xl font-black tracking-tight sm:text-5xl md:text-6xl">
+          <h1 className="mb-6 text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl">
             Build Forms <span className="text-primary-text">Effortlessly</span>
           </h1>
 

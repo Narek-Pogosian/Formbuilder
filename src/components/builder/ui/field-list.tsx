@@ -1,12 +1,12 @@
-import { useBuilderStore } from "../store";
-import { useDroppable } from "@dnd-kit/react";
-import { useForm } from "react-hook-form";
-import { Grip, PanelsTopLeft, Plus } from "lucide-react";
 import { createValidationSchema } from "../lib/create-validation";
-import { useMemo } from "react";
+import { useBuilderStore } from "../store";
 import { fieldRegistry } from "../fields/registry";
+import { useDroppable } from "@dnd-kit/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Grip, Plus } from "lucide-react";
 import { FieldItem } from "./field-item";
+import { useForm } from "react-hook-form";
+import { useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import TemplatesDialog from "../templates/templates-dialog";
