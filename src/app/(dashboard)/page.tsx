@@ -3,6 +3,7 @@ import { getUserForms } from "@/server/queries/forms";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import FormCard from "./_components/form-card";
 
 export default async function Home() {
   return (
@@ -30,12 +31,7 @@ async function FormsList() {
           dashboard.
         </p>
 
-        <Button
-          render={<Link href="/editor" />}
-          nativeButton={false}
-          variant="default"
-          className="w-full sm:w-auto"
-        >
+        <Button render={<Link href="/editor" />} nativeButton={false}>
           Create form
         </Button>
       </div>
@@ -45,9 +41,9 @@ async function FormsList() {
   return (
     <ul className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3 xl:gap-8">
       {forms.map((form) => (
-        <div key={form.id}>
-          <h3>{form.title}</h3>
-        </div>
+        <li key={form.id}>
+          <FormCard form={form} />
+        </li>
       ))}
     </ul>
   );
