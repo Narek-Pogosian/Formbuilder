@@ -1,6 +1,5 @@
 ## TODO
 
-- Export responses CSV
 - Try dynamic importing builder
 
 ## Builder improvements
