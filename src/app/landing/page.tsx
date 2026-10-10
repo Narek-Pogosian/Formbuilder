@@ -4,6 +4,7 @@ import Link from "next/link";
 import { MoveRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Logo } from "@/components/logo";
+import BackgroundBlur from "@/components/ui/background-blur";
 
 export default function LandingPage() {
   return (
@@ -14,10 +15,7 @@ export default function LandingPage() {
       </Header>
 
       <section className="relative pt-20 lg:pt-40">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute top-0 left-1/2 -z-10 size-[280px] -translate-x-1/2 rounded-full bg-primary/8 blur-3xl md:size-[500px]"
-        />
+        <BackgroundBlur className="top-10 size-[280px] bg-primary/8 md:size-[500px]" />
 
         <div className="text-center">
           <h1 className="mb-6 text-3xl font-bold tracking-tight sm:text-5xl md:text-6xl">

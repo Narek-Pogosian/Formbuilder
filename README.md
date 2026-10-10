@@ -1,11 +1,6 @@
 ## TODO
 
 - Export responses CSV
-
-- refactor background blur with shared component with size prop
-- validate form definition before publishing, before rendering in repond form and in respond action
-
-- Background in respond page
 - Try dynamic importing builder
 
 ## Builder improvements

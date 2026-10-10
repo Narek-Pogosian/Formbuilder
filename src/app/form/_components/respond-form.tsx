@@ -2,13 +2,13 @@
 
 import { fieldRegistry, type FormDefinitions } from "@/components/builder/fields/registry";
 import { createValidationSchema } from "@/components/builder/lib/create-validation";
+import { respondToFormAction } from "@/server/actions/responses";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useAction } from "next-safe-action/hooks";
+import { useRouter } from "next/navigation";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useAction } from "next-safe-action/hooks";
-import { respondToFormAction } from "@/server/actions/responses";
 
 export default function RespondForm({
   fields,
@@ -25,7 +25,7 @@ export default function RespondForm({
   });
 
   const router = useRouter();
-  const { execute, isPending, result } = useAction(respondToFormAction, {
+  const { execute, isPending } = useAction(respondToFormAction, {
     onSuccess: () => {
       router.replace("/form/success");
     },

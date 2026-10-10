@@ -1,8 +1,12 @@
-import { type FormDefinitions } from "@/components/builder/fields/registry";
+import {
+  validateFormDefinitions,
+  type FormDefinitions,
+} from "@/components/builder/fields/registry";
 import { type Metadata } from "next";
 import { CircleQuestionMark } from "lucide-react";
 import { getFormById } from "@/server/queries/forms";
 import RespondForm from "../_components/respond-form";
+import BackgroundBlur from "@/components/ui/background-blur";
 
 function validateId(id: string) {
   return /^\d+$/.test(id);
@@ -40,17 +44,17 @@ export default async function AnswerFormPage({ params }: PageProps<"/form/[id]">
     return <InvalidPage />;
   }
 
-  // TODO: Validate
-  const fields = form.content as FormDefinitions;
-  // const { data, success } = FormDefinitions.safeParse(form.content);
-  // if (!success) return <InvalidPage />;
+  const fields = form.content;
+  const isValidFields = validateFormDefinitions(fields);
+  if (!isValidFields) return <InvalidPage />;
 
   return (
     <div className="md:px-10 md:py-12">
+      <BackgroundBlur className="top-10 h-[45rem] w-[min(95vw,56rem)] bg-primary/6" />
       <div className="card mx-auto max-w-3xl p-4 max-md:rounded-none md:p-10">
-        <h1 className="mb-4 text-center text-2xl font-bold md:text-3xl">{form.title}</h1>
         <div className="mx-auto max-w-xl">
-          <p className="mb-8 text-center text-muted-foreground">{form.description}</p>
+          <h1 className="mb-4 text-center text-2xl font-bold md:text-3xl">{form.title}</h1>
+          <p className="mb-10 text-center text-pretty text-muted-foreground">{form.description}</p>
           <RespondForm fields={fields} formId={form.id} />
         </div>
       </div>

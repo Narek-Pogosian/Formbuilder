@@ -27,6 +27,23 @@ export type FieldType = keyof typeof FIELDS;
 export type FieldDefinition = z.infer<(typeof FIELDS)[FieldType]["definitionSchema"]>;
 export type FormDefinitions = FieldDefinition[];
 
+function isFieldType(type: unknown): type is FieldType {
+  return typeof type === "string" && FIELDS.hasOwnProperty(type);
+}
+
+export function validateFormDefinitions(fields: unknown): fields is FormDefinitions {
+  if (!Array.isArray(fields)) return false;
+
+  return fields.every((field) => {
+    if (!field || typeof field !== "object") return false;
+
+    const type = field.type;
+    if (!isFieldType(type)) return false;
+
+    return FIELDS[type].definitionSchema.safeParse(field).success;
+  });
+}
+
 export const fieldRegistry = {
   categorizedFields: Object.groupBy(
     Object.entries(FIELDS).map(([type, field]) => ({

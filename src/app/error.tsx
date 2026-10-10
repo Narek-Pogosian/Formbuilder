@@ -2,6 +2,7 @@
 
 import { AlertTriangle, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import BackgroundBlur from "@/components/ui/background-blur";
 
 export default function ErrorPage({
   error,
@@ -12,10 +13,7 @@ export default function ErrorPage({
 }) {
   return (
     <div className="flex min-h-[calc(100vh-8rem)] items-center justify-center px-6">
-      <div
-        aria-hidden="true"
-        className="pointer-events-none fixed top-10 left-1/2 -z-10 h-[40rem] w-[min(95vw,56rem)] -translate-x-1/2 rounded-full bg-primary/3 blur-3xl"
-      />
+      <BackgroundBlur className="top-10 h-[40rem] w-[min(95vw,56rem)] bg-primary/3" />
 
       <div className="max-w-md text-center">
         <div className="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-muted">

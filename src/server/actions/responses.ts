@@ -27,11 +27,6 @@ export const respondToFormAction = actionClient
       throw new ActionError("This form is no longer accepting responses.");
     }
 
-    // const parsedForm = FormDefinitions.safeParse(form.content);
-    // if (!parsedForm.success) {
-    //   throw new ActionError("Form content is invalid.");
-    // }
-
     let answers: unknown;
     try {
       answers = JSON.parse(parsedInput.answers);

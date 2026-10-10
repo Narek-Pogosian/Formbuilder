@@ -20,6 +20,7 @@ import { useAction } from "next-safe-action/hooks";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { validateFormDefinitions } from "../fields/registry";
 
 export default function PublishDialog() {
   const [isOpen, setIsOpen] = useState(false);
@@ -95,6 +96,9 @@ function Content() {
 
   function handlePublish() {
     if (!canPublish || isPending) return;
+
+    const isValid = validateFormDefinitions(fields);
+    if (!isValid) return;
 
     execute({
       title,
